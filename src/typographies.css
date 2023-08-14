@@ -1,0 +1,50 @@
+@font-face {
+	font-family: 'bebas';
+	src: url('/fonts/BebasNeue/BebasNeueRegular.otf');
+}
+@font-face {
+	font-family: 'narrow';
+	src: url('/fonts/ArchivoNarrow/ArchivoNarrow-Bold.otf');
+	font-weight: 800;
+}
+@font-face {
+	font-family: 'narrow';
+	src: url('/fonts/ArchivoNarrow/ArchivoNarrow-BoldItalic.otf');
+	font-weight: 800;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'narrow';
+	src: url('/fonts/ArchivoNarrow/ArchivoNarrow-Italic.otf');
+	font-weight: 400;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'narrow';
+	src: url('/fonts/ArchivoNarrow/ArchivoNarrow-Regular.otf');
+	font-weight: 400;
+}
+@font-face {
+	font-family: 'league';
+	src: url('/fonts/League/LeagueGothic-Condensed.ttf');
+	font-weight: 400;
+	font-stretch: condensed;
+}
+@font-face {
+	font-family: 'league';
+	src: url('/fonts/League/LeagueGothic-CondensedItalic.ttf');
+	font-weight: 400;
+	font-stretch: condensed;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'league';
+	src: url('/fonts/League/LeagueGothic-Italic.ttf');
+	font-weight: 400;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'league';
+	src: url('/fonts/League/LeagueGothic-Regular.ttf');
+	font-weight: 400;
+}
