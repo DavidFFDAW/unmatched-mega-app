@@ -1,11 +1,14 @@
 <script lang="ts">
 	import domtoimage from 'dom-to-image';
-	import EmptyCard from '../../components/cards/empty-card.svelte';
+	import CardBack from '../../components/cards/card-back.svelte';
+	import Dropzone from '../../components/dropzone.svelte';
+	import { dropzoneArray } from '../../shared/dropzone';
 
 	let deckName: string = 'Sample';
 	let borderColor: string = '#FFFFFF';
 	let imageUrl: string = '';
 	let isImageChecked: boolean = false;
+	let dialog = false;
 
 	const downloadImage = (e: Event) => {
 		e.preventDefault();
@@ -31,50 +34,47 @@
 			deckName,
 			borderColor,
 			isImageChecked,
-			imageUrl,
+			imageUrl
 		});
-		
-	}
+	};
 </script>
 
 <div class="flex row start gap astart">
 	<div class="ca" id="downloadable-image">
-		<EmptyCard src={imageUrl}>
+		<CardBack src={imageUrl}>
 			<img src="/noimage.png" class="unmatched-logo" alt="" />
 			<div class="internal-border-line" style={`border-color: ${borderColor}`} />
 			<div class="flex end internal-text league upper" style={`color: ${borderColor}`}>
 				{deckName}
 			</div>
-		</EmptyCard>
+		</CardBack>
 	</div>
 	<div class="w1 box p">
 		<h3 class="title">Generales</h3>
 		<form on:submit={submitForm}>
 			<div>
-				<input type="text" name="deck-name" bind:value={deckName}/>
+				<input type="text" name="deck-name" bind:value={deckName} />
 			</div>
 			<div>
-				<input type="color" name="border-color" bind:value={borderColor}/>
-			</div>
-			<div>
-				<label for="">
-					<input type="radio" name="image" bind:value={isImageChecked}/>
-					Voy a subir una imagen
-				</label>
-				<label for="">
-					<input type="radio" name="image" bind:value={isImageChecked}>
-					La imagen es de Internet
-				</label>
+				<input type="color" name="border-color" bind:value={borderColor} />
 			</div>
 
+			<button type="button" on:click={() => (dialog = !dialog)}> Abrir dialog </button>
+
+			<!-- <dialog open={dialog}>
+				<Dropzone multiple={false} />
+			</dialog> -->
+			<!-- <div>
+				<input type="text" name="image" bind:value={imageUrl} />
+			</div> -->
+
 			<div class="flex end">
-				<input type="submit" class="btn fill" value="Descargar"/>
+				<input type="submit" class="btn fill" value="Descargar" />
 				<!-- <a role="button" class="btn fill" href="/" on:click={downloadImage}>Descargar</a> -->
-			</div>		
+			</div>
 		</form>
 	</div>
 </div>
-
 
 <style>
 	.unmatched-logo {

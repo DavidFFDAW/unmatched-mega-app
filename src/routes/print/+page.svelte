@@ -8,15 +8,6 @@
 
 <h1>Impresion de cartas</h1>
 
-<div class="flex between acenter fixed buttons">
-	<button type="button" class="btn fill button top left" on:click={functions.emptyCards}
-		>Borrar cartas</button
-	>
-	<button type="button" class="btn fill button top right" on:click={functions.createPDF}
-		>Generar PDF</button
-	>
-</div>
-
 <div
 	class="box dropzone flex center acenter"
 	role="presentation"
@@ -33,6 +24,12 @@
 			{/if}
 		</CardContainer>
 	</div>
+</div>
+<div class="flex between acenter fixed buttons">
+	<button type="button" class="btn fill button" on:click={functions.emptyCards}
+		>Borrar cartas</button
+	>
+	<button type="button" class="btn fill button" on:click={functions.createPDF}>Generar PDF</button>
 </div>
 
 <style>

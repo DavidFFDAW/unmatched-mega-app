@@ -310,3 +310,15 @@ a {
 	border-radius: 0;
 	background-color: transparent;
 }
+
+dialog[open] {
+	animation: show 1s ease normal;
+}
+keyframes show {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}

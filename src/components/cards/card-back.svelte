@@ -2,11 +2,8 @@
 	export let src: string = '';
 </script>
 
-<div class="card relative">
+<div class="card relative" style={`background-image: url('${src}')`}>
 	<slot />
-	{#if src}
-		<img {src} draggable="false" alt="unmatched card" />
-	{/if}
 </div>
 
 <style>
@@ -15,9 +12,8 @@
 		height: 88mm;
 		background-color: lightgray;
 		border-radius: 5px;
-	}
-	.card img {
-		width: 100%;
-		height: 100%;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
 	}
 </style>
