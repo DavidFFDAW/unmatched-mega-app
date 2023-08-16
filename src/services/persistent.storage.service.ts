@@ -1,12 +1,12 @@
-const AppStorageKey = 'unmatched.custom';
+const AppStorageKey = '8dce304b6ea88ace628f2f9c7f725c71';
 
-const get = (key: string) => {
+const getFromStorage = (key: string, defaultValue: any = {}) => {
 	const content = localStorage.getItem(AppStorageKey);
-	if (content) {
-		const value: any = content[key as any] || content;
-		return JSON.parse(value);
-	}
-	return {};
+	if (!content) return defaultValue;
+
+	const json = JSON.parse(content);
+	const value: any = json[key as any] || json;
+	return value;
 };
 
 const getStore = () => {
@@ -17,14 +17,14 @@ const getStore = () => {
 	return {};
 };
 
-const store = (data: any) => {
+const persistStorage = (key: string, data: any) => {
 	const previousStored = getStore();
-	const object = { ...previousStored, data };
+	const object = { ...previousStored, [key]: data };
 	return localStorage.setItem(AppStorageKey, JSON.stringify(object));
 };
 
-const remove = () => {
+const removeFromStorage = () => {
 	localStorage.removeItem(AppStorageKey);
 };
 
-export { AppStorageKey, store, get, remove };
+export { AppStorageKey, persistStorage, getFromStorage, removeFromStorage };
