@@ -33,7 +33,7 @@ export const navigation: Navigation[] = [
 		href: '/print'
 	},
 	{
-		shortText: 'Carta atras',
+		shortText: 'Trasera',
 		text: 'Diseñar parte de atras',
 		icon: '',
 		image: '/card-back-icon.webp',
@@ -41,7 +41,7 @@ export const navigation: Navigation[] = [
 		href: '/card-back'
 	},
 	{
-		shortText: 'UNlimited Decks',
+		shortText: 'UNlimited',
 		text: 'UNlimited Decks',
 		icon: '',
 		image: '/unlimited.png',
