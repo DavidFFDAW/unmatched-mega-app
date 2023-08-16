@@ -3,6 +3,7 @@
 	import ShapeDivider from '../components/shape-divider.svelte';
 	import Image from '../components/image.svelte';
 	import Box from '../components/box.svelte';
+	import { navigation } from '../constants';
 </script>
 
 <div class="landing-page">
@@ -13,14 +14,17 @@
 		</div>
 		<div class="flex center acenter linkscontainer">
 			<div class="grid-links gap spdown pad animate__animated animate__fadeInUp animate__fast">
-				<a href="/translate" class="link">
-					<Box>
-						<div class="flex center image-container acenter column">
-							<Image src={'/cards-icon.webp'} className="landing-link-image cards" />
-							<h2 class="down narrow">Traducir cartas</h2>
-						</div>
-					</Box>
-				</a>
+				{#each navigation as link}
+					<a href={link.href} class="link">
+						<Box>
+							<div class="flex center image-container acenter column">
+								<Image src={link.image} className={`landing-link-image ${link.class}`} />
+								<h2 class="down narrow">{link.text}</h2>
+							</div>
+						</Box>
+					</a>
+				{/each}
+				<!-- 
 				<a href="/dials" class="link">
 					<Box>
 						<div class="flex center image-container acenter column">
@@ -51,8 +55,8 @@
 							<Image src={'/unlimited.png'} className="landing-link-image unlimited" />
 							<h2 class="down narrow">UNlimited Decks</h2>
 						</div>
-					</Box>
-				</a>
+					</Box> 
+				</a>-->
 			</div>
 		</div>
 	</ShapeDivider>

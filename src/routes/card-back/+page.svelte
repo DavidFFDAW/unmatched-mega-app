@@ -39,7 +39,7 @@
 	};
 </script>
 
-<div class="flex row start gap astart">
+<div class="flex row start gap astart flex-responsive">
 	<div class="ca" id="downloadable-image">
 		<CardBack src={imageUrl}>
 			<img src="/noimage.png" class="unmatched-logo" alt="" />

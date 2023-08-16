@@ -322,7 +322,6 @@ keyframes show {
 }
 
 @media screen and (max-width: 768px) {
-	.flex,
 	.flex-responsive {
 		flex-wrap: wrap;
 	}
