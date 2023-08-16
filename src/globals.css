@@ -289,26 +289,24 @@ a {
 	width: 75%;
 	height: auto;
 	padding: 5px;
-	border-radius: 50%;
-	background-color: #fff;
 }
 .landing-link-image.dials {
 	width: 190px;
+	border-radius: 50%;
+	background-color: #fff;
 }
 .landing-link-image.cards {
 	width: 225px;
-	border-radius: 0;
-	background-color: transparent;
 }
 .landing-link-image.printer {
 	width: 225px;
-	border-radius: 0;
-	background-color: transparent;
 }
 .landing-link-image.card-back {
 	width: 150px;
-	border-radius: 0;
-	background-color: transparent;
+}
+.landing-link-image.unlimited {
+	width: 203px;
+	border-radius: 10px;
 }
 
 dialog[open] {
@@ -320,5 +318,12 @@ keyframes show {
 	}
 	to {
 		opacity: 1;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.flex,
+	.flex-responsive {
+		flex-wrap: wrap;
 	}
 }

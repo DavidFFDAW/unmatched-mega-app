@@ -1,0 +1,26 @@
+{
+	"short_name": "UNmatched PWA",
+	"name": "unmatched-mega-app-pwa",
+	"start_url": "/",
+	"icons": [
+		{
+			"src": "/icons/icon-512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"background_color": "#FFF",
+	"display": "standalone",
+	"scope": "/",
+	"theme_color": "#FFF",
+	"shortcuts": [
+		{
+			"name": "What do we want to create today?",
+			"short_name": "Today",
+			"description": "Create and design cards, dials and more",
+			"url": "/unmatched?source=pwa",
+			"icons": [{ "src": "/icons/icon-144.png", "sizes": "144x144" }]
+		}
+	],
+	"description": ""
+}
