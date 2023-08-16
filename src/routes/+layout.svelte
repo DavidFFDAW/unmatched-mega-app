@@ -29,6 +29,7 @@
 	.app-header {
 		width: 100%;
 		background: #282a36;
+		gap: 0;
 	}
 	.app-header a.link {
 		display: block;
