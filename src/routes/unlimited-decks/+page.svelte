@@ -2,12 +2,13 @@
 	import type { SearchUserDeck } from './models';
 	import HttpService from '../../services/http.service';
 	import { getFromStorage, persistStorage } from '../../services/persistent.storage.service';
-	
+
 	let response: SearchUserDeck[] = getFromStorage('lastSearch', []);
 	let searchTerms: string = '';
 
 	const search = () => {
 		if (searchTerms.length > 3) {
+			response = [];
 			HttpService.get(`/api/search/${searchTerms}`).then((res: any) => {
 				response = res.content.decks;
 				persistStorage('lastSearch', response);
@@ -29,17 +30,16 @@
 
 <div class="search-results list down">
 	{#each response as item}
-		<div class="search-result-item unmatched-deck deck-{item.id}">
+		<a class="search-result-item unmatched-deck deck-{item.id}" href="/unlimited-decks/{item.id}">
 			<div class="image-card-continer">
 				<!-- <img class="unmatched-card-back" src={item.deck_data.appearance.cardbackUrl} alt="" /> -->
 				<img class="unmatched-card-back" src={item.deck_data.cards[0].imageUrl} alt="" />
 			</div>
-			<div class="bebas upper deck-name">{item.name}</div>
-			<div class="bebas upper author">{item.user}</div>
-			<div class="league upper">
-				<a href={`/unlimited-decks/${item.id}`} class="btn fill button">Jugar</a>
+			<div class="flex between acenter" style="margin-top: 15px">
+				<div class="bebas upper deck-name">{item.name}</div>
+				<div class="league author">{item.user}</div>
 			</div>
-		</div>
+		</a>
 	{/each}
 </div>
 
@@ -49,7 +49,7 @@
 	}
 	.search-results.list {
 		display: grid;
-		grid-template-columns: repeat(1, 1fr);
+		grid-template-columns: repeat(3, 1fr);
 		gap: 8px;
 	}
 	.unmatched-card-back {
@@ -65,7 +65,12 @@
 	.search-result-item.unmatched-deck .author,
 	.search-result-item.unmatched-deck .deck-name {
 		color: #fff;
-		font-size: 20px;
+	}
+	.search-result-item.unmatched-deck .author {
+		font-size: 22px;
+	}
+	.search-result-item.unmatched-deck .deck-name {
+		font-size: 25px;
 	}
 	.search-container {
 		margin-top: 15px;
@@ -91,21 +96,25 @@
 
 	@media only screen and (max-width: 768px) {
 		.search-results.list {
-			gap: 20px;
+			grid-template-columns: repeat(1, 1fr);
 		}
+	}
+	.search-results.list {
+		gap: 20px;
+	}
 
-		.search-result-item.unmatched-deck {
-			display: block;
-			width: 100%;
-		}
-		/* .search-result-item.unmatched-deck .image-card-continer {
+	.search-result-item.unmatched-deck {
+		display: block;
+		width: 100%;
+	}
+	/* .search-result-item.unmatched-deck .image-card-continer {
 			display: flex;
 			justify-content: center;
 			align-items: center;
 		} */
-		.search-result-item.unmatched-deck .image-card-continer img {
-			width: 100%;
-			height: 326px;
-		}
+	.search-result-item.unmatched-deck .image-card-continer img {
+		width: 100%;
+		height: 326px;
 	}
+	/* } */
 </style>
