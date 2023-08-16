@@ -8,7 +8,7 @@
 
 <main>
 	{#if $page.route.id !== '/'}
-		<header class="app-header flex start acenter gap-smaller w1">
+		<header class="app-header flex start gap-smaller w1">
 			<a href="/" class="bebas upper link"> Home </a>
 			{#each navigation as link}
 				<a href={link.href} class:active={$page.route.id === link.href} class="bebas upper link">
@@ -23,9 +23,12 @@
 </main>
 
 <style>
+	.main-app-layout {
+		padding: 15px 16px;
+	}
 	.app-header {
 		width: 100%;
-		background: #333;
+		background: #282a36;
 	}
 	.app-header a.link {
 		display: block;
@@ -33,6 +36,7 @@
 		padding: 10px;
 	}
 	.app-header a.link.active {
-		background-color: #4e4e4e;
+		background-color: #44475a;
+		color: #ffb86c;
 	}
 </style>
