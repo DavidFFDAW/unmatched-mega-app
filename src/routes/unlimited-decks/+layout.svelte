@@ -1,13 +1,14 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import { onDestroy, onMount } from 'svelte';
 	const dark = 'dark-background';
 
 	onMount(() => {
-		document.body.classList.add(dark);
+		if (browser) document.body.classList.add(dark);
 	});
 
 	onDestroy(() => {
-		document.body.classList.remove(dark);
+		if (browser) document.body.classList.remove(dark);
 	});
 </script>
 

@@ -2,7 +2,7 @@
 	import type { SearchUserDeck } from './models';
 	import HttpService from '../../services/http.service';
 	import { getFromStorage, persistStorage } from '../../services/persistent.storage.service';
-
+	
 	let response: SearchUserDeck[] = getFromStorage('lastSearch', []);
 	let searchTerms: string = '';
 
@@ -42,8 +42,6 @@
 		</div>
 	{/each}
 </div>
-
-<!-- <a href={`/unlimited-decks/${item.id}`} /> -->
 
 <style>
 	.custom-flex * {
