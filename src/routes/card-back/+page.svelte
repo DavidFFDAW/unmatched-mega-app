@@ -1,14 +1,11 @@
 <script lang="ts">
 	import domtoimage from 'dom-to-image';
 	import CardBack from '../../components/cards/card-back.svelte';
-	import Dropzone from '../../components/dropzone.svelte';
-	import { dropzoneArray } from '../../shared/dropzone';
 
 	let deckName: string = 'Sample';
 	let borderColor: string = '#FFFFFF';
 	let imageUrl: string = '';
 	let isImageChecked: boolean = false;
-	let dialog = false;
 
 	const downloadImage = (e: Event) => {
 		e.preventDefault();
@@ -26,6 +23,12 @@
 				link.remove();
 			});
 		}
+	};
+
+	const uploadImage = (e: any) => {
+		const { target } = e;
+		console.log(target.files[0]);
+		imageUrl = URL.createObjectURL(target.files[0]);
 	};
 
 	const submitForm = (e: Event) => {
@@ -49,34 +52,54 @@
 			</div>
 		</CardBack>
 	</div>
+
 	<div class="w1 box p">
 		<h3 class="title">Generales</h3>
-		<form on:submit={submitForm}>
-			<div>
+		<form on:submit={submitForm} class="flex center astart column gap">
+			<div class="w1 form-item">
+				<label for="">Nombre del mazo</label>
 				<input type="text" name="deck-name" bind:value={deckName} />
 			</div>
-			<div>
+			<div class="w1 form-item">
+				<label for="">Color del borde de la carta</label>
 				<input type="color" name="border-color" bind:value={borderColor} />
 			</div>
+			<div class="w1 form-item">
+				<label for="">Imagen de Internet (URL)</label>
+				<input type="text" class="input" name="img-url-web" bind:value={imageUrl} />
+			</div>
+			<div class="w1 form-item">
+				<label for="">Subir imagen de forma manual</label>
+				<input type="file" name="file" on:change={uploadImage} />
+			</div>
 
-			<button type="button" on:click={() => (dialog = !dialog)}> Abrir dialog </button>
-
-			<!-- <dialog open={dialog}>
-				<Dropzone multiple={false} />
-			</dialog> -->
-			<!-- <div>
-				<input type="text" name="image" bind:value={imageUrl} />
-			</div> -->
-
-			<div class="flex end">
-				<input type="submit" class="btn fill" value="Descargar" />
-				<!-- <a role="button" class="btn fill" href="/" on:click={downloadImage}>Descargar</a> -->
+			<div class="w1 flex end">
+				<!-- <input type="submit" class="btn fill" value="Descargar" /> -->
+				<a role="button" class="btn fill" href="/" on:click={downloadImage}>Descargar</a>
 			</div>
 		</form>
 	</div>
 </div>
 
 <style>
+	.title {
+		font-size: 25px;
+		font-family: 'bebas', sans-serif;
+	}
+	.form-item label {
+		display: block;
+		font-size: 18px;
+	}
+	.form-item input {
+		display: block;
+		font-size: 15px;
+		border: none;
+		background: #eee;
+		padding: 10px 16px;
+		width: 100%;
+		border-radius: 6px;
+		margin-top: 5px;
+	}
 	.unmatched-logo {
 		position: absolute;
 		top: 0;
