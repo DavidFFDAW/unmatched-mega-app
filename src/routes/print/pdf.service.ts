@@ -55,7 +55,18 @@ export class PdfService {
 		this.y = 15;
 	}
 
-	public generatePDF() {
+	private generateCardBackPage(pageCards: any[], cardBackUrl: string) {
+		this.doc.addPage();
+		this.initializeCoords();
+		const content = [...pageCards.fill({ name: 'card-back', url: cardBackUrl })];
+		const [firstRow, secondRow] = this.getContentRows(content as any);
+
+		this.insertRow(firstRow);
+		this.y = this.CARD_HEIGHT + 1 + 15;
+		this.insertRow(secondRow);
+	}
+
+	public generatePDF(cardBack: string | null) {
 		const numPages: number = this.getPages();
 
 		for (let page = 0; page < numPages; page++) {
@@ -68,6 +79,10 @@ export class PdfService {
 			this.insertRow(firstRow);
 			this.y = this.CARD_HEIGHT + 1 + 15;
 			this.insertRow(secondRow);
+
+			if (cardBack) {
+				this.generateCardBackPage(pageCards, cardBack);
+			}
 		}
 
 		return this.doc.output('blob');
