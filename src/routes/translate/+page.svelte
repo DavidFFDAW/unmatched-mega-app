@@ -1,3 +1,8 @@
+<script>
+	import Alert from '../../components/alert.svelte';
+</script>
+
+<Alert />
 <div id="fullBgGrey" class="full-bg-grey" style="display: none" />
 <div class="flex boxed-content">
 	<div class="w1 flex between total flex-responsive">
