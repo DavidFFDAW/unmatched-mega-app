@@ -1,27 +1,26 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
 	import TypeCard from './type-card.svelte';
+	import type { DeckCards } from '../models';
+	const dispatch = createEventDispatcher();
 
-	export let image: string;
-	export let value: number;
-	export let boost: number;
-	export let quantity: number;
-	export let character: string;
-	export let type: string;
-	export let basic: string | null | undefined;
-	export let after: string | null | undefined;
-	export let during: string | null | undefined;
-	export let immediate: string | null | undefined;
-	export let title: string;
+	export let card: DeckCards;
+
+	const emitClick = () => {
+		dispatch('cardclick', {
+			...card
+		});
+	};
 </script>
 
-<div class="zoom-box" style="width: 63mm; height: 88mm;">
+<div role="presentation" class="zoom-box" style="width: 63mm; height: 88mm;" on:click={emitClick}>
 	<div style="transform: scale(1); transform-origin: left top;">
-		<div data-v-d8d5fac2="" class="unmatched-card float-left shadow {type} editable">
+		<div data-v-d8d5fac2="" class="unmatched-card float-left shadow {card.type} editable">
 			<div data-v-d8d5fac2="" class="main-wrapper">
 				<div
 					data-v-d8d5fac2=""
 					class="inner-top"
-					style="background-image: url('{image}'); background-repeat: no-repeat; background-size: cover; background-position: center center;"
+					style="background-image: url('{card.imageUrl}'); background-repeat: no-repeat; background-size: cover; background-position: center center;"
 				/>
 				<div data-v-d8d5fac2="" class="upper-left">
 					<svg data-v-d8d5fac2="" width="100%" height="100%" viewBox="0 0 10.8 47"
@@ -43,88 +42,12 @@
 				<div data-v-d8d5fac2="" class="upper-left icon">
 					<div data-v-d8d5fac2="" class="icon-wrapper editor">
 						<div data-v-12719f0f="" data-v-d8d5fac2="" class="unmatched-icon">
-							<TypeCard {type} />
+							<TypeCard type={card.type} />
 						</div>
 					</div>
-					{#if type !== 'scheme'}
+					{#if card.type !== 'scheme'}
 						<div data-v-d8d5fac2="" class="value">
-							{value}
-							<div data-v-972d88fa="" data-v-d8d5fac2="" class="up-down-buttons editor">
-								<div data-v-972d88fa="" class="valid">
-									<span data-v-972d88fa="" class="fa-layers fa-fw"
-										><svg
-											data-v-972d88fa=""
-											aria-hidden="true"
-											focusable="false"
-											data-prefix="fas"
-											data-icon="circle"
-											role="img"
-											xmlns="http://www.w3.org/2000/svg"
-											viewBox="0 0 512 512"
-											class="svg-inline--fa fa-circle fa-w-16 fa-inverse"
-											><path
-												data-v-972d88fa=""
-												fill="currentColor"
-												d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"
-												class=""
-											/></svg
-										><svg
-											data-v-972d88fa=""
-											aria-hidden="true"
-											focusable="false"
-											data-prefix="far"
-											data-icon="caret-circle-up"
-											role="img"
-											xmlns="http://www.w3.org/2000/svg"
-											viewBox="0 0 512 512"
-											class="svg-inline--fa fa-caret-circle-up fa-w-16"
-											><path
-												data-v-972d88fa=""
-												fill="currentColor"
-												d="M354.9 296H157.1c-10.7 0-16.1-13-8.5-20.5l98.9-98.3c4.7-4.7 12.2-4.7 16.9 0l98.9 98.3c7.7 7.5 2.3 20.5-8.4 20.5zM8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm48 0c0 110.5 89.5 200 200 200s200-89.5 200-200S366.5 56 256 56 56 145.5 56 256z"
-												class=""
-											/></svg
-										></span
-									>
-								</div>
-								<div data-v-972d88fa="" class="valid">
-									<span data-v-972d88fa="" class="fa-layers fa-fw"
-										><svg
-											data-v-972d88fa=""
-											aria-hidden="true"
-											focusable="false"
-											data-prefix="fas"
-											data-icon="circle"
-											role="img"
-											xmlns="http://www.w3.org/2000/svg"
-											viewBox="0 0 512 512"
-											class="svg-inline--fa fa-circle fa-w-16 fa-inverse"
-											><path
-												data-v-972d88fa=""
-												fill="currentColor"
-												d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"
-												class=""
-											/></svg
-										><svg
-											data-v-972d88fa=""
-											aria-hidden="true"
-											focusable="false"
-											data-prefix="far"
-											data-icon="caret-circle-down"
-											role="img"
-											xmlns="http://www.w3.org/2000/svg"
-											viewBox="0 0 512 512"
-											class="svg-inline--fa fa-caret-circle-down fa-w-16"
-											><path
-												data-v-972d88fa=""
-												fill="currentColor"
-												d="M157.1 216h197.8c10.7 0 16.1 13 8.5 20.5l-98.9 98.3c-4.7 4.7-12.2 4.7-16.9 0l-98.9-98.3c-7.7-7.5-2.3-20.5 8.4-20.5zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-48 0c0-110.5-89.5-200-200-200S56 145.5 56 256s89.5 200 200 200 200-89.5 200-200z"
-												class=""
-											/></svg
-										></span
-									>
-								</div>
-							</div>
+							{card.value}
 						</div>
 					{/if}
 				</div>
@@ -135,21 +58,24 @@
 						class="character-name"
 						style="transform: rotate(-90deg) scaleX(1);"
 					>
-						{character}
+						{card.characterName}
 					</div>
 				</div>
 				<div data-v-d8d5fac2="" class="inner-bottom">
 					<div data-v-d8d5fac2="" class="boost-circle inner-border">
-						<div data-v-d8d5fac2="" class="boost-value">{boost}</div>
+						<div data-v-d8d5fac2="" class="boost-value">{card.boost}</div>
 					</div>
 					<div
 						data-v-d8d5fac2=""
 						contenteditable="true"
 						class="card-title"
-						class:deline={!basic && !after && !during && !immediate}
+						class:deline={!card.basicText &&
+							!card.immediateText &&
+							!card.duringText &&
+							!card.afterText}
 						style="min-height: 1.17em;"
 					>
-						{title}
+						{card.title}
 					</div>
 					<div data-v-d8d5fac2="" class="card-text">
 						<div data-v-d8d5fac2="">
@@ -159,123 +85,47 @@
 								class="empty"
 								style="min-height: 100%; white-space: pre-wrap;"
 							/>
-							{#if type === 'scheme' || Boolean(basic?.trim())}
+							{#if card.type === 'scheme' || Boolean(card.basicText?.trim())}
 								<div
 									data-v-d8d5fac2=""
 									contenteditable="true"
 									style="min-height: 100%; white-space: pre-wrap;"
 								>
-									{basic}
+									{card.basicText}
 								</div>
 							{/if}
-							<div data-v-d8d5fac2="" class:empty={!Boolean(immediate)}>
+							<div data-v-d8d5fac2="" class:empty={!Boolean(card.immediateText)}>
 								<strong data-v-d8d5fac2="">Inmediatamente:</strong><span
 									data-v-d8d5fac2=""
 									contenteditable="true"
-									style="white-space: pre-wrap;">{immediate}</span
+									style="white-space: pre-wrap;">{card.immediateText}</span
 								>
 							</div>
-							<div data-v-d8d5fac2="" class:empty={!Boolean(during)}>
+							<div data-v-d8d5fac2="" class:empty={!Boolean(card.duringText)}>
 								<strong data-v-d8d5fac2="">Durante el combate:</strong><span
 									data-v-d8d5fac2=""
 									contenteditable="true"
-									style="white-space: pre-wrap;">{during}</span
+									style="white-space: pre-wrap;">{card.duringText}</span
 								>
 							</div>
-							<div data-v-d8d5fac2="" class:empty={!Boolean(after)}>
+							<div data-v-d8d5fac2="" class:empty={!Boolean(card.afterText)}>
 								<strong data-v-d8d5fac2="">Después del combate:</strong><span
 									data-v-d8d5fac2=""
 									contenteditable="true"
-									style="white-space: pre-wrap;">{after}</span
+									style="white-space: pre-wrap;">{card.afterText}</span
 								>
 							</div>
 						</div>
 					</div>
 					<div data-v-d8d5fac2="" class="bottom-right">
-						<span data-v-d8d5fac2="" class="deck-name">{character}</span><span
+						<span data-v-d8d5fac2="" class="deck-name">{card.characterName}</span><span
 							data-v-d8d5fac2=""
 							class="card-quantity"
 						>
-							x{quantity}
+							x{card.quantity}
 						</span><span data-v-d8d5fac2="" class="card-quantity-editing um-invisible">
-							x{quantity}
-							<div data-v-972d88fa="" data-v-d8d5fac2="" class="up-down-buttons editor">
-								<div data-v-972d88fa="" class="valid">
-									<span data-v-972d88fa="" class="fa-layers fa-fw"
-										><svg
-											data-v-972d88fa=""
-											aria-hidden="true"
-											focusable="false"
-											data-prefix="fas"
-											data-icon="circle"
-											role="img"
-											xmlns="http://www.w3.org/2000/svg"
-											viewBox="0 0 512 512"
-											class="svg-inline--fa fa-circle fa-w-16 fa-inverse"
-											><path
-												data-v-972d88fa=""
-												fill="currentColor"
-												d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"
-												class=""
-											/></svg
-										><svg
-											data-v-972d88fa=""
-											aria-hidden="true"
-											focusable="false"
-											data-prefix="far"
-											data-icon="caret-circle-up"
-											role="img"
-											xmlns="http://www.w3.org/2000/svg"
-											viewBox="0 0 512 512"
-											class="svg-inline--fa fa-caret-circle-up fa-w-16"
-											><path
-												data-v-972d88fa=""
-												fill="currentColor"
-												d="M354.9 296H157.1c-10.7 0-16.1-13-8.5-20.5l98.9-98.3c4.7-4.7 12.2-4.7 16.9 0l98.9 98.3c7.7 7.5 2.3 20.5-8.4 20.5zM8 256C8 119 119 8 256 8s248 111 248 248-111 248-248 248S8 393 8 256zm48 0c0 110.5 89.5 200 200 200s200-89.5 200-200S366.5 56 256 56 56 145.5 56 256z"
-												class=""
-											/></svg
-										></span
-									>
-								</div>
-								<div data-v-972d88fa="" class="valid">
-									<span data-v-972d88fa="" class="fa-layers fa-fw"
-										><svg
-											data-v-972d88fa=""
-											aria-hidden="true"
-											focusable="false"
-											data-prefix="fas"
-											data-icon="circle"
-											role="img"
-											xmlns="http://www.w3.org/2000/svg"
-											viewBox="0 0 512 512"
-											class="svg-inline--fa fa-circle fa-w-16 fa-inverse"
-											><path
-												data-v-972d88fa=""
-												fill="currentColor"
-												d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"
-												class=""
-											/></svg
-										><svg
-											data-v-972d88fa=""
-											aria-hidden="true"
-											focusable="false"
-											data-prefix="far"
-											data-icon="caret-circle-down"
-											role="img"
-											xmlns="http://www.w3.org/2000/svg"
-											viewBox="0 0 512 512"
-											class="svg-inline--fa fa-caret-circle-down fa-w-16"
-											><path
-												data-v-972d88fa=""
-												fill="currentColor"
-												d="M157.1 216h197.8c10.7 0 16.1 13 8.5 20.5l-98.9 98.3c-4.7 4.7-12.2 4.7-16.9 0l-98.9-98.3c-7.7-7.5-2.3-20.5 8.4-20.5zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-48 0c0-110.5-89.5-200-200-200S56 145.5 56 256s89.5 200 200 200 200-89.5 200-200z"
-												class=""
-											/></svg
-										></span
-									>
-								</div>
-							</div></span
-						>
+							x{card.quantity}
+						</span>
 					</div>
 				</div>
 			</div>

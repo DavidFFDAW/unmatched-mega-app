@@ -2,67 +2,40 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import HttpService from '../../../services/http.service';
-	import type { DeckCards, SearchUserDeck } from '../models';
+	import type { DeckCards } from '../models';
 	import type { ApiResponse } from '../../../models/models';
-	import TypeCard from './type-card.svelte';
 	import UnmatchedRealCard from './unmatched-real-card.svelte';
-
+	import SingleCard from './pages/single-card.svelte';
+	import useDeck from './state/useDeck';
 	const { id } = $page.params;
-	let state: {
-		hand: DeckCards[];
-		discard: DeckCards[];
-		deck: DeckCards[];
-		entireDeck: DeckCards[];
-		response: SearchUserDeck | { name: string };
-	} = {
-		hand: [],
-		discard: [],
-		deck: [],
-		entireDeck: [],
-		response: {
-			name: 'Deck'
-		}
-	};
+
+	const { deck, cardSelected, functions } = useDeck();
 
 	onMount(() => {
 		HttpService.get(`/api/deck/${id}`).then((resp: ApiResponse) => {
-			console.log({
-				content: resp.content
-			});
-
 			const { cards } = resp.content.deck_data;
 			const totalDeck = cards.reduce((acc: DeckCards[], curr: DeckCards) => {
 				return [...acc, ...Array.from({ length: curr.quantity }).fill(curr)];
 			}, []);
 
-			const shuffled = totalDeck.sort(() => 0.5 - Math.random());
-			state.hand = shuffled.slice(0, 5);
-			state.deck = shuffled.slice(5, shuffled.length);
-			state.entireDeck = resp.content.deck_data.cards;
-			state.response = resp.content;
+			functions.shuffleDeck(totalDeck, resp.content);
 		});
 	});
+
+	const selectCard = (card: DeckCards) => {
+		functions.selectCard(card);
+	};
 </script>
 
-{#if state}
-	<h1 class="fff league">Mazo {state.response?.name}</h1>
+{#if $cardSelected}
+	<SingleCard bind:card={$cardSelected} bind:deck={$deck} />
+{:else if $deck}
+	{#if $deck.deckData}<h1 class="fff league">Mazo {$deck.deckData.name}</h1>{/if}
 
 	<div class="flex center acenter mega-container">
 		<div class="cards-container">
-			{#each state.entireDeck as item}
-				<UnmatchedRealCard
-					image={item.imageUrl}
-					basic={item.basicText}
-					value={item.value}
-					character={item.characterName}
-					boost={item.boost}
-					after={item.afterText}
-					during={item.duringText}
-					immediate={item.immediateText}
-					quantity={item.quantity}
-					type={item.type}
-					title={item.title}
-				/>
+			{#each $deck.hand as item}
+				<UnmatchedRealCard card={item} on:cardclick={() => selectCard(item)} />
 			{/each}
 		</div>
 	</div>
