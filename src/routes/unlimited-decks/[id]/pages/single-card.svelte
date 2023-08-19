@@ -6,9 +6,10 @@
 
 	export let card: any = {};
 	export let deck: any = {};
+	export let functions: any = {};
 </script>
 
-<button on:click={() => {}}>Atrás</button>
+<button on:click={() => functions.selectCard(null)}>Atrás</button>
 
 <div class="flex center acenter">
 	<div class="flip-card down" class:flipped>

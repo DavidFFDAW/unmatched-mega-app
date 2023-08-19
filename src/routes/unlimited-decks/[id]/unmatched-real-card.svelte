@@ -1,10 +1,45 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import TypeCard from './type-card.svelte';
 	import type { DeckCards } from '../models';
 	const dispatch = createEventDispatcher();
 
 	export let card: DeckCards;
+	let cantonAdjust = 0;
+
+	const resizeCanton = function () {
+		// text region offset: 17.1mm (not needed?)
+		// triangle height: 3.3mm
+		// name panel full height: 29.1mm
+		// region full height: 47mm
+		const characterName: HTMLElement | null = document.querySelector('.character-name');
+		const width = characterName?.scrollWidth;
+		// Need this to avoid zero width sometimes
+		if (width) {
+			const cantonHeight = document.querySelector('.upper-left')?.scrollHeight || 0;
+
+			const mmToPixels = 47 / cantonHeight;
+			const newAdjust = -22.1 + width * mmToPixels;
+			if (newAdjust <= 0) {
+				characterName.style['transform'] = `rotate(-90deg) scaleX(1)`;
+				cantonAdjust = -22.1 + width * mmToPixels;
+			} else {
+				cantonAdjust = 0;
+				characterName.style['transform'] = `rotate(-90deg) scaleX(${90 / width})`;
+			}
+			console.log({
+				width,
+				cantonHeight,
+				mmToPixels,
+				newAdjust,
+				cantonAdjust
+			});
+		}
+	};
+
+	onMount(() => {
+		resizeCanton();
+	});
 
 	const emitClick = () => {
 		dispatch('cardclick', {
@@ -26,11 +61,15 @@
 					<svg data-v-d8d5fac2="" width="100%" height="100%" viewBox="0 0 10.8 47"
 						><polygon
 							data-v-d8d5fac2=""
-							points="0,0 10.8,0 10.8,30.39595947265625 5,33.69595947265625 0,30.89595947265625"
+							points={`0,0 10.8,0 10.8,${43.7 + cantonAdjust} 5,${47 + cantonAdjust} 0,${
+								44.2 + cantonAdjust
+							}`}
 							class="border"
 						/><polygon
 							data-v-d8d5fac2=""
-							points="0,14.2 10,14.2 10,29.995959472656246 5,32.89595947265625 0,29.995959472656246"
+							points={`0,14.2 10,14.2 10,${43.3 + cantonAdjust} 5,${46.2 + cantonAdjust} 0,${
+								43.3 + cantonAdjust
+							}`}
 							class="name-panel"
 						/><polygon
 							data-v-d8d5fac2=""

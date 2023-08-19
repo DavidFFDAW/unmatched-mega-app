@@ -28,7 +28,7 @@
 </script>
 
 {#if $cardSelected}
-	<SingleCard bind:card={$cardSelected} bind:deck={$deck} />
+	<SingleCard bind:card={$cardSelected} bind:deck={$deck} {functions} />
 {:else if $deck}
 	{#if $deck.deckData}<h1 class="fff league">Mazo {$deck.deckData.name}</h1>{/if}
 
@@ -43,7 +43,6 @@
 
 <style>
 	.cards-container {
-		/* width: 100%; */
 		display: grid;
 		grid-template-columns: repeat(4, 0fr);
 		gap: 25px 15px;
