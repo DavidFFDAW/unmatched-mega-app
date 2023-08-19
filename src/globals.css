@@ -8,6 +8,7 @@
 }
 body {
 	background: #fdfdfd;
+	min-height: 99vh;
 }
 body.dark-background {
 	background: #44475a;
