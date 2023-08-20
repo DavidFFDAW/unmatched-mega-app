@@ -2,9 +2,11 @@
 	import type { SearchUserDeck } from './models';
 	import HttpService from '../../services/http.service';
 	import { getFromStorage, persistStorage } from '../../services/persistent.storage.service';
+	import { initialDeckValue } from './[id]/state/useDeck';
 
 	let response: SearchUserDeck[] = getFromStorage('lastSearch', []);
 	let searchTerms: string = '';
+	let storedGame: any = getFromStorage('game', initialDeckValue);
 
 	const search = () => {
 		if (searchTerms.length > 3) {
@@ -15,7 +17,26 @@
 			});
 		}
 	};
+
+	const deleteStoredGame = () => {
+		persistStorage('game', initialDeckValue);
+		storedGame = false;
+	};
 </script>
+
+{#if storedGame.url && storedGame.deckData}
+	<div class="stored-game-alert alert flex center acenter gap-small" role="alert">
+		<p>
+			Existe una partida en curso con el mazo <strong class="bebas"
+				>{storedGame.deckData.name}</strong
+			>
+		</p>
+		<div class="flex between acenter gap-smaller">
+			<button class="alert-button" on:click={deleteStoredGame}>Borrar</button>
+			<a href={storedGame.url} class="alert-button">Continuar</a>
+		</div>
+	</div>
+{/if}
 
 <div class="search-container">
 	<label for="search-term" class="label league upper">Busca un mazo por nombre o por autor</label>
@@ -29,21 +50,38 @@
 </div>
 
 <div class="search-results list down">
-	{#each response as item}
-		<a class="search-result-item unmatched-deck deck-{item.id}" href="/unlimited-decks/{item.id}">
-			<div class="image-card-continer">
-				<!-- <img class="unmatched-card-back" src={item.deck_data.appearance.cardbackUrl} alt="" /> -->
-				<img class="unmatched-card-back" src={item.deck_data.cards[0].imageUrl} alt="" />
-			</div>
-			<div class="flex between acenter" style="margin-top: 15px">
-				<div class="bebas upper deck-name">{item.name}</div>
-				<div class="league author">{item.user}</div>
-			</div>
-		</a>
-	{/each}
+	{#if response.length > 0}
+		{#each response as item}
+			<a class="search-result-item unmatched-deck deck-{item.id}" href="/unlimited-decks/{item.id}">
+				<div class="image-card-continer">
+					<!-- <img class="unmatched-card-back" src={item.deck_data.appearance.cardbackUrl} alt="" /> -->
+					<img class="unmatched-card-back" src={item.deck_data.cards[0].imageUrl} alt="" />
+				</div>
+				<div class="flex between acenter" style="margin-top: 15px">
+					<div class="bebas upper deck-name">{item.name}</div>
+					<div class="league author">{item.user}</div>
+				</div>
+			</a>
+		{/each}
+	{/if}
 </div>
 
 <style>
+	.stored-game-alert.alert {
+		position: sticky;
+		top: 0;
+		width: 100%;
+		height: 50px;
+		background-color: #ebff55;
+		padding: 15px 10px;
+	}
+	.stored-game-alert.alert .alert-button {
+		background-color: transparent;
+		color: #282a36;
+		font-size: 15px;
+		border: none;
+		padding: 10px 0;
+	}
 	.custom-flex * {
 		color: #fff;
 	}

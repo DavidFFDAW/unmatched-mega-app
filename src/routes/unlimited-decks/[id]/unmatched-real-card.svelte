@@ -5,6 +5,9 @@
 	const dispatch = createEventDispatcher();
 
 	export let card: DeckCards;
+	let component: HTMLElement;
+	export let width: number = 63;
+	export let height: number = 88;
 	let cantonAdjust = 0;
 
 	const resizeCanton = function () {
@@ -12,11 +15,11 @@
 		// triangle height: 3.3mm
 		// name panel full height: 29.1mm
 		// region full height: 47mm
-		const characterName: HTMLElement | null = document.querySelector('.character-name');
+		const characterName: HTMLElement | null = component.querySelector('.character-name');
 		const width = characterName?.scrollWidth;
 		// Need this to avoid zero width sometimes
 		if (width) {
-			const cantonHeight = document.querySelector('.upper-left')?.scrollHeight || 0;
+			const cantonHeight = component.querySelector('.upper-left')?.scrollHeight || 0;
 
 			const mmToPixels = 47 / cantonHeight;
 			const newAdjust = -22.1 + width * mmToPixels;
@@ -27,13 +30,6 @@
 				cantonAdjust = 0;
 				characterName.style['transform'] = `rotate(-90deg) scaleX(${90 / width})`;
 			}
-			console.log({
-				width,
-				cantonHeight,
-				mmToPixels,
-				newAdjust,
-				cantonAdjust
-			});
 		}
 	};
 
@@ -48,9 +44,19 @@
 	};
 </script>
 
-<div role="presentation" class="zoom-box" style="width: 63mm; height: 88mm;" on:click={emitClick}>
+<div
+	bind:this={component}
+	role="presentation"
+	class="zoom-box"
+	style="width: {width}mm; height: {height}mm;"
+	on:click={emitClick}
+>
 	<div style="transform: scale(1); transform-origin: left top;">
-		<div data-v-d8d5fac2="" class="unmatched-card float-left shadow {card.type} editable">
+		<div
+			data-v-d8d5fac2=""
+			style="width: {width}mm; height: {height}mm"
+			class="unmatched-card float-left shadow {card.type} editable"
+		>
 			<div data-v-d8d5fac2="" class="main-wrapper">
 				<div
 					data-v-d8d5fac2=""
