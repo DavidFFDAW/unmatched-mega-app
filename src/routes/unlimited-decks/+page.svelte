@@ -54,8 +54,11 @@
 		{#each response as item}
 			<a class="search-result-item unmatched-deck deck-{item.id}" href="/unlimited-decks/{item.id}">
 				<div class="image-card-continer">
-					<!-- <img class="unmatched-card-back" src={item.deck_data.appearance.cardbackUrl} alt="" /> -->
-					<img class="unmatched-card-back" src={item.deck_data.cards[0].imageUrl} alt="" />
+					{#if item.deck_data.cards[0]}
+						<img class="unmatched-card-back" src={item.deck_data.cards[0].imageUrl} alt="" />
+					{:else}
+						<img class="unmatched-card-back" src={item.deck_data.appearance.cardbackUrl} alt="" />
+					{/if}
 				</div>
 				<div class="flex between acenter" style="margin-top: 15px">
 					<div class="bebas upper deck-name">{item.name}</div>

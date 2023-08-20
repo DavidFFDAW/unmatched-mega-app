@@ -11,8 +11,10 @@
 
 	let currentTab = 'hand';
 	const { deck, cardSelected, functions } = useDeck();
+	console.log('onMount', { $deck });
 
 	onMount(() => {
+		
 		if (!$deck?.deckData && $deck?.hand?.length <= 0 && $deck?.discard?.length <= 0) {
 			HttpService.get(`/api/deck/${id}`).then((resp: ApiResponse) => {
 				const { cards } = resp.content.deck_data;
@@ -35,15 +37,15 @@
 	<div class="unlimited-decks-buttons flex center acenter gap">
 		<button class="unlimited-decks-button hand">
 			<p class="label-text">Mano</p>
-			{$deck.hand.length}
+			{$deck?.hand?.length}
 		</button>
 		<button class="unlimited-decks-button discard">
 			<p class="label-text">Descarte</p>
-			{$deck.discard.length}
+			{$deck?.discard?.length}
 		</button>
 		<button class="unlimited-decks-button deck" on:click={functions.drawCard}>
 			<p class="label-text">Robar</p>
-			{$deck.deck.length}
+			{$deck?.deck?.length}
 		</button>
 	</div>
 
