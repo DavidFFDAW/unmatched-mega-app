@@ -1,11 +1,14 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import Navigation from '../components/navigation.svelte';
 	import ShapeDivider from '../components/shape-divider.svelte';
+	console.log({ ...$page });
 </script>
 
 <div class="container">
 	{#if $page.error}
 		<ShapeDivider>
+			<Navigation />
 			<div class="w1 down flex center">
 				<div class="flex center astart column card-container gap">
 					<h1 class="w1 narrow">
