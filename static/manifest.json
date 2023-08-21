@@ -1,26 +1,37 @@
 {
 	"short_name": "UNmatched PWA",
-	"name": "unmatched-mega-app-pwa",
-	"start_url": "/",
+	"name": "UNmatched App",
+	"start_url": "./",
+	"background_color": "#FFF",
+	"display": "standalone",
+	"scope": "./",
+	"theme_color": "#FFF",
 	"icons": [
 		{
 			"src": "/icons/icon-512.png",
 			"type": "image/png",
-			"sizes": "512x512"
-		}
-	],
-	"background_color": "#FFF",
-	"display": "standalone",
-	"scope": "/",
-	"theme_color": "#FFF",
-	"shortcuts": [
+			"sizes": "512x512",
+			"purpose": "any maskable"
+		},
 		{
-			"name": "What do we want to create today?",
-			"short_name": "Today",
-			"description": "Create and design cards, dials and more",
-			"url": "/unmatched?source=pwa",
-			"icons": [{ "src": "/icons/icon-144.png", "sizes": "144x144" }]
+			"src": "/icons/icon-144.png",
+			"type": "image/png",
+			"sizes": "144x144"
+		},
+		{
+			"src": "/icons/icon-128.png",
+			"type": "image/png",
+			"sizes": "128x128"
+		},
+		{
+			"src": "/icons/icon-96.png",
+			"type": "image/png",
+			"sizes": "96x96"
+		},
+		{
+			"src": "/icons/icon-72.png",
+			"type": "image/png",
+			"sizes": "72x72"
 		}
-	],
-	"description": ""
+	]
 }
