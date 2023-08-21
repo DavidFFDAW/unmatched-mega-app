@@ -1,5 +1,5 @@
 <script lang="ts">
-	const defImage = '/noimage.webp';
+	const defImage = '/images/noimage.webp';
 	export let className: string = 'svelte-image';
 	export let alt: string = 'svelte default generated image';
 	export let src: string = defImage;
