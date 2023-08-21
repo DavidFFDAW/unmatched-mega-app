@@ -12,6 +12,11 @@
 		width: 63,
 		height: 88
 	};
+
+	const discard = (card: any) => {
+		functions.selectCard(null);
+		functions.discardCard(card);
+	};
 </script>
 
 <button class="go-back-button" on:click={() => functions.selectCard(null)}>
@@ -78,7 +83,7 @@
 		</svg>
 	</button>
 
-	<button>
+	<button class="button-discard-card" on:click={() => discard(card)}>
 		<svg
 			version="1.1"
 			width="32"
@@ -88,11 +93,11 @@
 			xmlns:xlink="http://www.w3.org/1999/xlink"
 			viewBox="0 0 32 32"
 			xml:space="preserve"
-			fill="#000000"
+			fill="#fff"
 			><g stroke-width="0" /><g stroke-linecap="round" stroke-linejoin="round" /><g>
 				<style type="text/css">
 					.sketchy_een {
-						fill: #111918;
+						fill: #fff;
 					}
 				</style>
 				<path
@@ -134,7 +139,7 @@
 	}
 
 	.single-card-buttons .button-flip-card {
-		padding: 10px;
+		padding: 5px;
 		fill: #fff;
 		background: transparent;
 		outline: none;
@@ -142,6 +147,19 @@
 		background-color: #14578c;
 		border-radius: 50%;
 		color: #fff;
+	}
+	.single-card-buttons .button-discard-card {
+		padding: 5px;
+		fill: #fff;
+		background: transparent;
+		outline: none;
+		border: none;
+		background-color: #d81010;
+		border-radius: 50%;
+		color: #fff;
+	}
+	.single-card-buttons .button-discard-card svg {
+		fill: #fff;
 	}
 	.flip-card {
 		background-color: transparent;

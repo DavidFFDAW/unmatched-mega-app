@@ -71,6 +71,17 @@ export default function useDeck() {
 		});
 	};
 
+	const discardCard = (card: DeckCards) => { 
+		writableDeck.update((deck) => {
+			deck.discard = [...deck.discard, card];
+			const index = deck.hand.findIndex((c) => c === card);
+			const sliced = deck.hand.slice(index + 1, deck.hand.length);
+
+			deck.hand = deck.hand.slice(0, index).concat(sliced);
+			return deck;
+		});
+	}
+
 	return {
 		deck: writableDeck,
 		cardSelected,
@@ -80,7 +91,8 @@ export default function useDeck() {
 			shuffleDeck,
 			selectCard,
 			deselectCard,
-			drawCard
+			drawCard,
+			discardCard
 		}
 	};
 }
