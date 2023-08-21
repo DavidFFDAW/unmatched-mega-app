@@ -1,6 +1,8 @@
 <script lang="ts">
-	import Alert from '../components/alert.svelte';
 	import './assets/circles.css';
+	import Alert from '../components/alert.svelte';
+	import DialLetters from './dial-letters.svelte';
+    import { dials } from './stores/dials.store';
 </script>
 
 <Alert />
@@ -17,9 +19,9 @@
 							id="maximum_life"
 							type="number"
 							min="0"
-							value="15"
 							inputmode="numeric"
 							class="unmatched custom input"
+                            bind:value={$dials.life}
 						/>
 					</div>
 					<div class="input-container">
@@ -66,7 +68,7 @@
 					</div>
 					<div class="input-container">
 						<label for="" class="unmatched custom label">Tipografía</label>
-						<select class="unmatched custom input" id="typography" type="input">
+						<select class="unmatched custom input" id="typography">
 							<option value="Arial">Arial</option>
 							<option value="Arial Black">Arial Black</option>
 							<option value="Comic Sans MS">Comic Sans MS</option>
@@ -210,11 +212,7 @@
 		<div class="w1 dials">
 			<div class="relative flex column align center dials-box">
 				<div class="w1 flex center align center row gap down">
-					<div class="relative bg circle" id="bg-circle">
-						<div class="circunference center" />
-						<div class="letters-container" id="lettersContainer" />
-						<!-- <div class="cc composition polygon"></div> -->
-					</div>
+					<DialLetters />
 					<p>Dial números</p>
 				</div>
 				<div class="w1 flex center align center row gap down">
