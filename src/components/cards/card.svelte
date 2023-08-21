@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let src: string = '/default-card.jpg';
+	export let src: string = '/images/default-card.jpg';
 </script>
 
 <div class="card">

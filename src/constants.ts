@@ -12,7 +12,7 @@ export const navigation: Navigation[] = [
 		shortText: 'Cartas',
 		text: 'Traducir cartas',
 		icon: '',
-		image: '/cards-icon.webp',
+		image: '/images/cards-icon.webp',
 		class: 'cards',
 		href: '/translate'
 	},
@@ -20,7 +20,7 @@ export const navigation: Navigation[] = [
 		shortText: 'Diales',
 		text: 'Diseñar diales',
 		icon: '',
-		image: '/dial.png',
+		image: '/images/dial.png',
 		class: 'dials',
 		href: '/dials'
 	},
@@ -28,7 +28,7 @@ export const navigation: Navigation[] = [
 		shortText: 'Imprimir',
 		text: 'Imprimir mazos',
 		icon: '',
-		image: '/printer.webp',
+		image: '/images/printer.webp',
 		class: 'printer',
 		href: '/print'
 	},
@@ -36,7 +36,7 @@ export const navigation: Navigation[] = [
 		shortText: 'Trasera',
 		text: 'Diseñar parte de atras',
 		icon: '',
-		image: '/card-back-icon.webp',
+		image: '/images/card-back-icon.webp',
 		class: 'card-back',
 		href: '/card-back'
 	},
@@ -44,7 +44,7 @@ export const navigation: Navigation[] = [
 		shortText: 'UNlimited',
 		text: 'UNlimited Decks',
 		icon: '',
-		image: '/unlimited.png',
+		image: '/images/unlimited.png',
 		class: 'unlimited',
 		href: '/unlimited-decks'
 	}
