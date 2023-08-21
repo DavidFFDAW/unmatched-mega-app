@@ -18,7 +18,8 @@
 		}
 	};
 
-	const deleteStoredGame = () => {
+	const deleteStoredGame = (ev: Event) => {
+		ev.preventDefault();
 		persistStorage('game', initialDeckValue);
 		storedGame = false;
 	};
@@ -32,7 +33,7 @@
 			>
 		</p>
 		<div class="flex between acenter gap-smaller">
-			<button class="alert-button" on:click={deleteStoredGame}>Borrar</button>
+			<a href={storedGame.url} class="alert-button" on:click={deleteStoredGame}>Borrar</a>
 			<a href={storedGame.url} class="alert-button">Continuar</a>
 		</div>
 	</div>
