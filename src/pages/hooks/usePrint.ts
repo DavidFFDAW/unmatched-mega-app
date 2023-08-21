@@ -1,6 +1,6 @@
 import { get, writable } from 'svelte/store';
 import type { CardPrint } from '../../models/models';
-import { PdfService } from './pdf.service';
+import { PdfService } from '../services/pdf.service';
 
 export default function usePrint() {
 	const initialValue: CardPrint[] = [];
