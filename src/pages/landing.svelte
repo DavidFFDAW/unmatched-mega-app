@@ -9,7 +9,7 @@
 <div class="landing-page">
 	<ShapeDivider height={450}>
 		<div class="flex center pdown acenter column animate__animated animate__fadeInDown">
-			<Image src="/unm.logo.webp" width={logo + 5} height={logo} />
+			<Image src="/images/unm.logo.webp" width={logo + 5} height={logo} />
 			<h1 class="bebas upper" style="color: #FFF;">La mega aplicación</h1>
 		</div>
 		<div class="flex center acenter linkscontainer">
@@ -24,39 +24,6 @@
 						</Box>
 					</a>
 				{/each}
-				<!-- 
-				<a href="/dials" class="link">
-					<Box>
-						<div class="flex center image-container acenter column">
-							<Image src={'/dial.png'} className="landing-link-image dials" />
-							<h2 class="down narrow">Crear diales</h2>
-						</div>
-					</Box>
-				</a>
-				<a href="/print" class="link">
-					<Box>
-						<div class="flex center image-container acenter column">
-							<Image src={'/printer.webp'} className="landing-link-image printer" />
-							<h2 class="down narrow">Imprimir mazo</h2>
-						</div>
-					</Box>
-				</a>
-				<a href="/card-back" class="link">
-					<Box>
-						<div class="flex center image-container acenter column">
-							<Image src={'/card-back-icon.webp'} className="landing-link-image card-back" />
-							<h2 class="down narrow">Diseñar parte de atras</h2>
-						</div>
-					</Box>
-				</a>
-				<a href="/unlimited-decks" class="link">
-					<Box>
-						<div class="flex center image-container acenter column">
-							<Image src={'/unlimited.png'} className="landing-link-image unlimited" />
-							<h2 class="down narrow">UNlimited Decks</h2>
-						</div>
-					</Box> 
-				</a>-->
 			</div>
 		</div>
 	</ShapeDivider>
