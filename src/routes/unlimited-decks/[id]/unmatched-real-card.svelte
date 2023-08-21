@@ -218,19 +218,19 @@
 		overflow: hidden;
 	}
 	.upper-left .border {
-		fill: #f7eadb;
+		fill: var(--card-border);
 	}
 	.attack .upper-left .canton {
-		fill: #dc3034;
+		fill: var(--attack);
 	}
 	.scheme .upper-left .canton {
-		fill: #fcbd71;
+		fill: var(--scheme);
 	}
 	.defence .upper-left .canton {
-		fill: #2c76ac;
+		fill: var(--defense);
 	}
 	.versatile .upper-left .canton {
-		fill: #6c4e8d;
+		fill: var(--versatile);
 	}
 	.upper-left .name-panel {
 		fill: #000;

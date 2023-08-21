@@ -1,3 +1,13 @@
+:root {
+	--unlimited-bg: #44475a;
+	--unlimited-alt: #282a36;
+	--card-border: #f7eadb;
+	--attack: #dc3034;
+	--scheme: #fcbd71;
+	--defense: #2c76acf9;
+	--versatile: #6c4e8d;
+}
+
 * {
 	outline: none;
 	margin: 0;
@@ -7,7 +17,7 @@
 		Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 body {
-	background: #fdfdfd;
+	background-color: #ffffff;
 	min-height: 99vh;
 }
 body.dark-background {
