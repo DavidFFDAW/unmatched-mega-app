@@ -33,6 +33,21 @@ export default function usePrint() {
 		}
 	};
 
+	const change = (e: Event) => { 
+		e.preventDefault();
+		const target = e.target as HTMLInputElement;
+
+		if (target && target.files) {
+			[...target.files].forEach((item) => {
+				
+				addCard({
+					name: item.name,
+					url: URL.createObjectURL(item)
+				});
+			});
+		}
+	};
+
 	const createPDF = (cardBack: string | null) => {
 		const pdf = new PdfService({
 			cards: get(cards)
@@ -50,7 +65,8 @@ export default function usePrint() {
 			addCard,
 			emptyCards,
 			drop,
-			createPDF
+			createPDF,
+			change
 		}
 	};
 }

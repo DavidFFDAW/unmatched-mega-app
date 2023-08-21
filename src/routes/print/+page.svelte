@@ -34,6 +34,7 @@
 		>
 			<p class="card-back-text bebas tcenter">Sube la parte de atrás de la carta aquí</p>
 			<input
+				accept="image/*"
 				class="input-card-back"
 				type="file"
 				name="card-back"
@@ -50,7 +51,14 @@
 		on:dragover={functions.dragover}
 		on:drop={functions.drop}
 	>
-		{#if $cards.length <= 0}<p>Arrastra tus cartas aquí</p>{/if}
+		<input 
+			class="input-card-back"
+			type="file"
+			multiple
+			accept="image/*"
+			on:change={functions.change}
+		/>
+		{#if $cards.length <= 0}<p>Selecciona o arrastra tus cartas aquí</p>{/if}
 		<div id="grid">
 			<CardContainer>
 				{#if $cards.length > 0}
