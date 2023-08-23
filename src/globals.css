@@ -47,6 +47,9 @@ a {
 	color: #383838;
 }
 
+.none {
+	display: none;
+}
 .absolute {
 	position: absolute;
 }
