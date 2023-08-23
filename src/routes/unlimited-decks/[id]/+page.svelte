@@ -11,7 +11,6 @@
 
 	let currentTab = 'hand';
 	const { deck, cardSelected, functions } = useDeck();
-	console.log('onMount', { $deck });
 
 	onMount(() => {
 		
@@ -26,20 +25,27 @@
 		}
 	});
 
-	const selectCard = (card: DeckCards) => {
-		functions.selectCard(card);
+	const selectCard = (card: DeckCards, deckType: string) => {
+		const cards = {...card, deckPlace: deckType};
+		functions.selectCard(cards);
 	};
+
+	const tabs: any = {
+		hand: 'MANO',
+		discard: 'DESCARTE',
+		deck: 'ROBAR',
+	}
 </script>
 
 {#if $cardSelected}
 	<SingleCard bind:card={$cardSelected} bind:deck={$deck} {functions} />
 {:else if $deck}
-	<div class="unlimited-decks-buttons flex center acenter gap">
-		<button class="unlimited-decks-button hand">
+<div class="unlimited-decks-buttons flex center acenter gap">
+	<button class="unlimited-decks-button hand" on:click={() => currentTab = 'hand'}>
 			<p class="label-text">Mano</p>
 			{$deck?.hand?.length}
 		</button>
-		<button class="unlimited-decks-button discard">
+		<button class="unlimited-decks-button discard" on:click={() => currentTab = 'discard'}>
 			<p class="label-text">Descarte</p>
 			{$deck?.discard?.length}
 		</button>
@@ -48,9 +54,10 @@
 			{$deck?.deck?.length}
 		</button>
 	</div>
+	
+	<div class="separator {currentTab}">{tabs[currentTab]}</div>
 
-	<div class="separator {currentTab}">MANO</div>
-
+	{#if currentTab === 'hand'}
 	<div class="flex center acenter mega-container">
 		<div class="cards-container slider">
 			{#each $deck.hand as item}
@@ -59,12 +66,29 @@
 						width={63}
 						height={88}
 						card={item}
-						on:cardclick={() => selectCard(item)}
+						on:cardclick={() => selectCard(item, 'hand')}
 					/>
 				</div>
 			{/each}
 		</div>
 	</div>
+
+	{:else if currentTab === 'discard'}
+		<div class="flex center acenter mega-container">
+			<div class="cards-container slider">
+				{#each $deck.discard as item}
+					<div class="slide">
+						<UnmatchedRealCard
+							width={63}
+							height={88}
+							card={item}
+							on:cardclick={() => selectCard(item, 'discard')}
+						/>
+					</div>
+				{/each}
+			</div>
+		</div>
+	{/if}
 {/if}
 
 <style>
@@ -89,6 +113,9 @@
 
 	.separator.hand {
 		background-color: #cddc39;
+	}
+	.separator.discard {
+		background-color: #f3f3f3;
 	}
 
 	.unlimited-decks-buttons {
