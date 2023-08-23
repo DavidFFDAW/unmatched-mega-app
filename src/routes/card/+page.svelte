@@ -1,4 +1,5 @@
 <script lang="ts">
+	import domtoimage from 'dom-to-image';
 	import UnmatchedRealCard from "../unlimited-decks/[id]/unmatched-real-card.svelte";
     let card: any = {
         title: '',
@@ -11,7 +12,28 @@
         characterName: 'CUALQUIERA',
         quantity: 2,
         imageUrl: '',
+        deckName: '',
     }
+
+    
+	const downloadImage = (e: Event) => {
+		e.preventDefault();
+
+		const downloadableImg = document.getElementById('downloabable-image');
+
+		if (domtoimage && downloadableImg) {
+			domtoimage.toPng(downloadableImg).then((dataUrl: string) => {
+				console.log(dataUrl);
+				const link = document.createElement('a');
+				link.download = `${card.deckName}.png`;
+				link.href = dataUrl;
+				document.body.appendChild(link);
+				link.click();
+				link.remove();
+			});
+		}
+	};
+
 
 </script>
 
@@ -26,9 +48,13 @@
         <input type="number" bind:value={card.boost} placeholder="8"/>
         <input type="quantity" bind:value={card.quantity} placeholder="2"/>
         <input type="text" bind:value={card.characterName} placeholder="CUALQUIERA"/>
-        <input type="text" bind:value={card.imageUrl} placeholder="CUALQUIERA"/>
+        <input type="text" bind:value={card.imageUrl} placeholder="Imagen de carta"/>
+        <input type="text" bind:value={card.deckName} placeholder="MAZO"/>
     </div>
-    <div>
+    <div id="downloabable-image">
         <UnmatchedRealCard card={card} />
     </div>
 </div>
+<a class="down button btn fill download" on:click={downloadImage} href="#s">
+    Descargar imagen
+</a>

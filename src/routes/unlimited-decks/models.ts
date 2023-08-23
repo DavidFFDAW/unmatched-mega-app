@@ -10,6 +10,7 @@ export type DeckCards = {
 	title: string;
 	type: string;
 	value: number;
+	deckName: string;
 };
 
 export type DeckHero = {

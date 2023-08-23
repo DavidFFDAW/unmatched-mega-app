@@ -7,6 +7,7 @@
 	const initialCardValues = {
 		title: '',
 		characterName: '',
+		deckName: '',
 		type: 'attack',
 		value: 0,
 		boost: 0,
@@ -178,7 +179,7 @@
 						</div>
 					</div>
 					<div data-v-d8d5fac2="" class="bottom-right">
-						<span data-v-d8d5fac2="" class="deck-name">{card.characterName || initialCardValues.characterName}</span><span
+						<span data-v-d8d5fac2="" class="deck-name">{card.deckName || initialCardValues.deckName}</span><span
 							data-v-d8d5fac2=""
 							class="card-quantity"
 						>

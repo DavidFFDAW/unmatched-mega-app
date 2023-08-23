@@ -17,8 +17,10 @@
 		if (!$deck?.deckData && $deck?.hand?.length <= 0 && $deck?.discard?.length <= 0) {
 			HttpService.get(`/api/deck/${id}`).then((resp: ApiResponse) => {
 				const { cards } = resp.content.deck_data;
+				
 				const totalDeck = cards.reduce((acc: DeckCards[], curr: DeckCards) => {
-					return [...acc, ...Array.from({ length: curr.quantity }).fill(curr)];
+					const current = { ...curr, deckName: resp.content.name };
+					return [...acc, ...Array.from({ length: curr.quantity }).fill(current)];
 				}, []);
 				functions.shuffleDeck(totalDeck, resp.content, $page.url.pathname);
 			});
