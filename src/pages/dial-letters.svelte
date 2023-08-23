@@ -26,7 +26,8 @@
     const createLetters = () => {
         let rotations = 90;
         let angle = 360 / ($dials.life + 1);
-        let radius = browser ? circle.clientWidth / 2 : 0;
+        console.log(circle);        
+        let radius = browser && circle ? circle.clientWidth / 2 : 0;
 
         lifeArray = Array.from({ length: $dials.life + 1 }).map((_,i) => i).map((number, index) => {
             const genR = createNumber(number, angle * index, radius, rotations);
@@ -34,10 +35,11 @@
 
             return genR;
         });
-
-        circle.style.padding = '21px';
-        circle.style['box-sizing'] = 'content-box';
     }
+
+    dials.subscribe((value) => {
+        createLetters();
+    });
 
     onMount(() => {
         createLetters();
@@ -46,7 +48,7 @@
     
 </script>
 
-<div bind:this={circle} class="relative bg circle" id="bg-circle">
+<div bind:this={circle} class="relative bg circle" style="padding: 21px; box-sizing: content-box;">
     <div class="circunference center" />
     <div class="letters-container" id="lettersContainer">
         {#each lifeArray as letter}
