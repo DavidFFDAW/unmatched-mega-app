@@ -1,6 +1,7 @@
 <script lang="ts">
 	import domtoimage from 'dom-to-image';
 	import CardBack from '../../components/cards/card-back.svelte';
+	import UnmatchedSVG from '/images/unmatched.svg';
 
 	let deckName: string = 'Sample';
 	let borderColor: string = '#FFFFFF';
@@ -45,7 +46,8 @@
 <div class="flex row start gap astart flex-responsive">
 	<div class="ca" id="downloadable-image">
 		<CardBack src={imageUrl}>
-			<img src="/noimage.png" class="unmatched-logo" alt="" />
+			<!-- Component with unmatched logo on it svg so it can change its colors -->
+			<img src="/images/unmatched.svg" class="unmatched-logo" alt="" />
 			<div class="internal-border-line" style={`border-color: ${borderColor}`} />
 			<div class="flex end internal-text league upper" style={`color: ${borderColor}`}>
 				{deckName}
