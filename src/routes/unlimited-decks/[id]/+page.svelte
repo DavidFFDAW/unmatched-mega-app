@@ -7,9 +7,11 @@
 	import UnmatchedRealCard from './unmatched-real-card.svelte';
 	import SingleCard from './pages/single-card.svelte';
 	import useDeck from './state/useDeck';
+	import HeroCard from './pages/hero-card.svelte';
 	const { id } = $page.params;
 
 	let currentTab = 'hand';
+	let groupView: boolean = false;
 	const { deck, cardSelected, functions } = useDeck();
 
 	onMount(() => {
@@ -36,6 +38,11 @@
 		hand: 'MANO',
 		discard: 'DESCARTE',
 		deck: 'ROBAR',
+		deckinfo: 'INFORMACIÓN',
+	}
+
+	const setView = () => {
+		groupView = !groupView;
 	}
 </script>
 
@@ -55,12 +62,16 @@
 			<p class="label-text">Robar</p>
 			{$deck?.deck?.length}
 		</button>
+		<button class="unlimited-decks-button info" on:click={() => currentTab = 'deckinfo'}>
+			<p class="label-text">Info</p>
+			<span class="league">i</span>
+		</button>
 	</div>
 	
 	<div class="separator {currentTab}">{tabs[currentTab]}</div>
 
 	{#if currentTab === 'hand'}
-	<div class="flex center acenter mega-container">
+	<div class="flex center acenter mega-container" class:group={groupView}>
 		<div class="cards-container slider">
 			{#each $deck.hand as item}
 				<div class="slide">
@@ -76,7 +87,7 @@
 	</div>
 
 	{:else if currentTab === 'discard'}
-		<div class="flex center acenter mega-container">
+		<div class="flex center acenter mega-container" class:group={groupView}>
 			<div class="cards-container slider">
 				{#each $deck.discard as item}
 					<div class="slide">
@@ -90,118 +101,9 @@
 				{/each}
 			</div>
 		</div>
+	{:else if currentTab === 'deckinfo'}
+		<div class="info">
+			<HeroCard />
+		</div>
 	{/if}
 {/if}
-
-<style>
-	.cards-container {
-		display: grid;
-		grid-template-columns: repeat(4, 0fr);
-		gap: 25px 15px;
-	}
-
-	.mega-container {
-		padding: 10px 0 80px 0;
-	}
-
-	.separator {
-		width: 100%;
-		padding: 5px 20px;
-		text-align: center;
-		font-size: 1.2rem;
-		font-weight: 600;
-		margin: 20px 0;
-	}
-
-	.separator.hand {
-		background-color: #cddc39;
-	}
-	.separator.discard {
-		background-color: #f3f3f3;
-	}
-
-	.unlimited-decks-buttons {
-		margin-top: 10px;
-	}
-	.unlimited-decks-buttons .unlimited-decks-button {
-		width: 15mm;
-		height: 20mm;
-		position: relative;
-		font-size: 18px;
-		border: none;
-		outline: none;
-		cursor: pointer;
-		border-radius: 5px;
-		box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
-	}
-	.unlimited-decks-buttons .unlimited-decks-button .label-text {
-		position: absolute;
-		top: -5px;
-		right: -5px;
-		font-size: 0.8rem;
-		font-weight: 600;
-		padding: 2px 5px;
-		border-radius: 5px;
-	}
-
-	.unlimited-decks-buttons .unlimited-decks-button.hand .label-text {
-		background-color: #7a861f;
-		color: #fff;
-	}
-	.unlimited-decks-buttons .unlimited-decks-button.discard .label-text {
-		background-color: #999898;
-		color: #333;
-	}
-	.unlimited-decks-buttons .unlimited-decks-button.deck .label-text {
-		background-color: #14578c;
-		color: #fff;
-	}
-	.unlimited-decks-buttons .unlimited-decks-button.hand {
-		--button-bg: #cddc39;
-		background-color: var(--button-bg);
-	}
-	.unlimited-decks-buttons .unlimited-decks-button.discard {
-		--button-bg: #f3f3f3;
-		background-color: var(--button-bg);
-	}
-	.unlimited-decks-buttons .unlimited-decks-button.deck {
-		--button-bg: #2194ed;
-		background-color: var(--button-bg);
-		color: #fff;
-	}
-	.unlimited-decks-buttons .unlimited-decks-button::after {
-		background-color: var(--button-bg);
-		content: '';
-		position: absolute;
-		top: -10px;
-		left: -10px;
-		width: 100%;
-		height: 100%;
-		border-radius: inherit;
-		z-index: -1;
-	}
-
-	@media only screen and (max-width: 768px) {
-		.cards-container.slider {
-			display: flex;
-			grid-template-columns: unset;
-			width: 100%;
-			display: flex;
-			overflow-x: auto;
-			overflow-y: hidden;
-			min-height: 350px;
-			scroll-snap-type: x mandatory;
-			scroll-behavior: smooth;
-		}
-
-		.cards-container.slider .slide {
-			scroll-snap-align: start;
-			width: 100%;
-			object-fit: cover;
-		}
-
-		.slider::-webkit-scrollbar {
-			display: none;
-		}
-	}
-</style>
