@@ -15,7 +15,7 @@
 						{$page.status}: {$page.error.message}
 					</h1>
 					<div class="card">
-						<img src="/not-found-card.png" alt="" />
+						<img src="/images/not-found-card.png" alt="" />
 					</div>
 					<div class="w1 flex end">
 						<!-- <button type="button" class="btn fill narrow" on:click={goBack}>Volver</button> -->

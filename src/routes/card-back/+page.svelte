@@ -1,12 +1,12 @@
 <script lang="ts">
 	import domtoimage from 'dom-to-image';
 	import CardBack from '../../components/cards/card-back.svelte';
-	import UnmatchedSVG from '/images/unmatched.svg';
+	import UnmatchedSvg from './unmatched-svg.svelte';
 
 	let deckName: string = 'Sample';
 	let borderColor: string = '#FFFFFF';
 	let imageUrl: string = '';
-	let isImageChecked: boolean = false;
+	// let isImageChecked: boolean = false;
 
 	const downloadImage = (e: Event) => {
 		e.preventDefault();
@@ -34,20 +34,14 @@
 
 	const submitForm = (e: Event) => {
 		e.preventDefault();
-		console.log({
-			deckName,
-			borderColor,
-			isImageChecked,
-			imageUrl
-		});
 	};
 </script>
 
 <div class="flex row start gap astart flex-responsive">
 	<div class="ca" id="downloadable-image">
 		<CardBack src={imageUrl}>
-			<!-- Component with unmatched logo on it svg so it can change its colors -->
-			<img src="/images/unmatched.svg" class="unmatched-logo" alt="" />
+			<UnmatchedSvg />
+			<!-- <img src="/images/noimage.png" class="unmatched-logo" alt="" /> -->
 			<div class="internal-border-line" style={`border-color: ${borderColor}`} />
 			<div class="flex end internal-text league upper" style={`color: ${borderColor}`}>
 				{deckName}
