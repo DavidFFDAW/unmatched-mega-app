@@ -15,12 +15,9 @@
 	let isFooterVisible: boolean = false;
 	const { deck, cardSelected, functions } = useDeck();
 
-	onMount(() => {
-		console.log({
-			url: $page.url.pathname,
-			deckUrl: $deck.url
-		});
+	console.log({ $deck });
 
+	onMount(() => {
 		if (
 			(!$deck?.deckData && $deck?.hand?.length <= 0 && $deck?.discard?.length <= 0) ||
 			$deck.url !== $page.url.pathname
@@ -39,8 +36,6 @@
 
 	const showFooter = (e: Event) => {
 		e.preventDefault();
-		console.log('show Footer');
-
 		isFooterVisible = !isFooterVisible;
 	};
 
@@ -64,6 +59,27 @@
 {#if $cardSelected}
 	<SingleCard bind:card={$cardSelected} bind:deck={$deck} {functions} />
 {:else if $deck}
+	<header class="unlimited-head">
+		<div class="health flex between acenter gap">
+			<div class="health-bar">
+				<div
+					class="health-bar-fill"
+					style="background-color: {$deck.deckData?.deck_data.appearance
+						.highlightColour}; color: {$deck.deckData?.deck_data.appearance.borderColour}"
+				>
+					<span>
+						{$deck.deckData?.deck_data.hero.hp}
+					</span>
+				</div>
+			</div>
+			<div class="health-text">
+				<span>
+					{$deck.deckData?.deck_data.hero.name}
+				</span>
+			</div>
+		</div>
+	</header>
+
 	<div class="unlimited-decks-buttons flex center acenter gap">
 		<button
 			class="unlimited-decks-button hand"
@@ -88,6 +104,8 @@
 	</div>
 
 	<div class="separator {currentTab}">{tabs[currentTab]}</div>
+
+	<button type="button" on:click={setView}>Cambiar vista</button>
 
 	{#if currentTab === 'hand'}
 		<div class="flex center acenter mega-container" class:group={groupView}>
@@ -131,6 +149,28 @@
 </footer>
 
 <style>
+	header.unlimited-head {
+		width: 100%;
+		background-color: #282a36;
+		padding: 20px;
+		margin-bottom: 30px;
+		color: #fff;
+	}
+	header.unlimited-head .health-bar-fill {
+		position: relative;
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		background-color: #ddb364 !important;
+		color: #030303 !important;
+		padding: 20px;
+	}
+	header.unlimited-head .health-bar-fill span {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
 	footer {
 		display: none;
 		position: fixed;
