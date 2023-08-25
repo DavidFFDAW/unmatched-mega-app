@@ -1,8 +1,8 @@
 <script lang="ts">
-	import './assets/circles.css';
-	import Alert from '../components/alert.svelte';
+	import '../assets/circles.css';
+	import Alert from '../../components/alert.svelte';
 	import DialLetters from './dial-letters.svelte';
-    import { dials } from './stores/dials.store';
+	import { dials } from './stores/dials.store';
 </script>
 
 <Alert />
@@ -21,7 +21,7 @@
 							min="0"
 							inputmode="numeric"
 							class="unmatched custom input"
-                            bind:value={$dials.life}
+							bind:value={$dials.life}
 						/>
 					</div>
 					<div class="input-container">

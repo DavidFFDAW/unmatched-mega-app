@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Alert from '../components/alert.svelte';
-    import imageEffect from './assets/effect-inner.png';
+	import Alert from '../../components/alert.svelte';
+	import imageEffect from './assets/effect-inner.png';
 </script>
 
 <Alert />
@@ -182,12 +182,7 @@
 					</div>
 				</div>
 				<div id="unmatchedCardInner" class="inner">
-					<img
-						id="unmatchedCardInnerEffectImage"
-						class="effect-inner"
-						src={imageEffect}
-						alt=""
-					/>
+					<img id="unmatchedCardInnerEffectImage" class="effect-inner" src={imageEffect} alt="" />
 				</div>
 				<div class="inner inner-texts" id="unmatchedCardInnerTexts">
 					<h3 id="unmatchedCardTitle" class="card-title uppercase">Title</h3>
@@ -595,20 +590,20 @@
 		border-radius: 50%;
 	}
 
-    /* Media query for mobiles */
-    @media only screen and (max-width: 768px) {
-        .flex.between.total.flex-responsive {
-            flex-wrap: nowrap;
-            flex-direction: column-reverse;
-            gap: 30px;
-        }
-        .box {
-            width: 100%;
-            height: 100%;
-            min-width: unset;
-            min-height: unset;
-            margin: 0;
-            padding: 0;
-        }
-    }
+	/* Media query for mobiles */
+	@media only screen and (max-width: 768px) {
+		.flex.between.total.flex-responsive {
+			flex-wrap: nowrap;
+			flex-direction: column-reverse;
+			gap: 30px;
+		}
+		.box {
+			width: 100%;
+			height: 100%;
+			min-width: unset;
+			min-height: unset;
+			margin: 0;
+			padding: 0;
+		}
+	}
 </style>

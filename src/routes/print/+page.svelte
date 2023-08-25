@@ -3,7 +3,7 @@
 	let PrintPage: any;
 
 	onMount(async () => {
-		PrintPage = (await import('../../pages/print.svelte')).default;
+		PrintPage = (await import('../../pages/print/print.svelte')).default;
 	});
 </script>
 

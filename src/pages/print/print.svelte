@@ -1,7 +1,7 @@
 <script lang="ts">
-	import CardContainer from '../components/card-container.svelte';
-	import Card from '../components/cards/card.svelte';
-	import usePrint from './hooks/usePrint';
+	import CardContainer from '../../components/card-container.svelte';
+	import Card from '../../components/cards/card.svelte';
+	import usePrint from './usePrint';
 	let cardBack: string | null;
 
 	const dropCardBack = (e: DragEvent) => {
@@ -51,7 +51,7 @@
 		on:dragover={functions.dragover}
 		on:drop={functions.drop}
 	>
-		<input 
+		<input
 			class="input-card-back"
 			type="file"
 			multiple

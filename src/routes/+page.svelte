@@ -3,7 +3,7 @@
 	let Landing: any;
 
 	onMount(async () => {
-		Landing = (await import('../pages/landing.svelte')).default;
+		Landing = (await import('../pages/landing/landing.svelte')).default;
 	});
 </script>
 

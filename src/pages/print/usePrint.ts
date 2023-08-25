@@ -1,6 +1,6 @@
 import { get, writable } from 'svelte/store';
 import type { CardPrint } from '../../models/models';
-import { PdfService } from '../services/pdf.service';
+import { PdfService } from './pdf.service';
 
 export default function usePrint() {
 	const initialValue: CardPrint[] = [];
@@ -33,13 +33,12 @@ export default function usePrint() {
 		}
 	};
 
-	const change = (e: Event) => { 
+	const change = (e: Event) => {
 		e.preventDefault();
 		const target = e.target as HTMLInputElement;
 
 		if (target && target.files) {
 			[...target.files].forEach((item) => {
-				
 				addCard({
 					name: item.name,
 					url: URL.createObjectURL(item)

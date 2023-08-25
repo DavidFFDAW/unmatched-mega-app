@@ -1,9 +1,9 @@
 <script lang="ts">
 	const logo: number = 250;
-	import ShapeDivider from '../components/shape-divider.svelte';
-	import Image from '../components/image.svelte';
-	import Box from '../components/box.svelte';
-	import { navigation } from '../constants';
+	import ShapeDivider from '../../components/shape-divider.svelte';
+	import Image from '../../components/image.svelte';
+	import Box from '../../components/box.svelte';
+	import { navigation } from '../../constants';
 </script>
 
 <div class="landing-page">
