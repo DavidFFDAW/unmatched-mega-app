@@ -25,11 +25,12 @@
      inkscape:document-units="pt"
      showgrid="false" />
   <g
-     transform="matrix(0.1,0,0,-0.1,-7.7173481,260.7795)"
+     transform="matrix(0.09657963,0,0,-0.09324664,-4.677553,243.11689)"
      fill="#000000"
      stroke="none"
      id="g26"
-     style="display:inline">
+     style="display:inline;mix-blend-mode:normal"
+     inkscape:highlight-color="#cc00ff">
     <path
        style="display:inline;fill:#e6e6e6;stroke-width:0;paint-order:stroke fill markers"
        d="M 7.7173487,0.22049567 H 342.07528 V 138.45162 L 122.54839,179.61291 9.9784945,136.26882 Z"

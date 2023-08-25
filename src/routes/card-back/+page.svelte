@@ -1,11 +1,14 @@
 <script lang="ts">
-	import domtoimage from 'dom-to-image';
+	// import domtoimage from 'dom-to-image';
+	import html2canvas from 'html2canvas';
 	import CardBack from '../../components/cards/card-back.svelte';
 	import UnmatchedSvg from './unmatched-svg.svelte';
 
 	let deckName: string = 'Sample';
 	let borderColor: string = '#FFFFFF';
 	let imageUrl: string = '';
+	let lettersColor: string = '#000';
+	let backgroundColor: string = '#eee';
 	// let isImageChecked: boolean = false;
 
 	const downloadImage = (e: Event) => {
@@ -13,12 +16,17 @@
 
 		const downloadableImg = document.getElementById('downloadable-image');
 
-		if (domtoimage && downloadableImg) {
-			domtoimage.toPng(downloadableImg).then((dataUrl: string) => {
+		
+		if (html2canvas && downloadableImg) {
+			html2canvas(downloadableImg, {
+				allowTaint: false,
+				useCORS: true,						
+			}).then(dataUrl => {
+			// domtoimage.toPng(downloadableImg).then((dataUrl: string) => {
 				console.log(dataUrl);
 				const link = document.createElement('a');
 				link.download = `${deckName}.png`;
-				link.href = dataUrl;
+				link.href = dataUrl.toDataURL();
 				document.body.appendChild(link);
 				link.click();
 				link.remove();
@@ -40,7 +48,7 @@
 <div class="flex row start gap astart flex-responsive">
 	<div class="ca" id="downloadable-image">
 		<CardBack src={imageUrl}>
-			<UnmatchedSvg />
+			<UnmatchedSvg bind:lettersColor={lettersColor} bind:backgroundColor={backgroundColor} />
 			<!-- <img src="/images/noimage.png" class="unmatched-logo" alt="" /> -->
 			<div class="internal-border-line" style={`border-color: ${borderColor}`} />
 			<div class="flex end internal-text league upper" style={`color: ${borderColor}`}>
@@ -67,6 +75,15 @@
 			<div class="w1 form-item">
 				<label for="">Subir imagen de forma manual</label>
 				<input type="file" name="file" on:change={uploadImage} />
+			</div>
+			
+			<div class="w1 form-item">
+				<label for="">Unmatched logo color de letras</label>
+				<input type="color" name="letters-color" bind:value={lettersColor} />
+			</div>
+			<div class="w1 form-item">
+				<label for="">Unmatched logo color de fondo</label>
+				<input type="color" name="bg-color" bind:value={backgroundColor} />
 			</div>
 
 			<div class="w1 flex end">
@@ -96,14 +113,18 @@
 		border-radius: 6px;
 		margin-top: 5px;
 	}
-	.unmatched-logo {
-		position: absolute;
-		top: 0;
-		left: 25px;
-		width: 80px;
-		height: auto;
-		z-index: 10;
+	.form-item input[type='color'] {
+		/* padding: 0; */
+		padding: 5px 5px;
 	}
+
+	input[type="color"]::-webkit-color-swatch-wrapper {
+		padding: 0;
+	}
+	input[type="color"]::-webkit-color-swatch {
+		border: none;
+	}
+
 	.internal-border-line {
 		position: absolute;
 		top: 50%;
