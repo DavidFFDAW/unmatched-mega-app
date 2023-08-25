@@ -12,14 +12,22 @@
 
 	let currentTab = 'hand';
 	let groupView: boolean = false;
+	let isFooterVisible: boolean = false;
 	const { deck, cardSelected, functions } = useDeck();
 
 	onMount(() => {
-		
-		if (!$deck?.deckData && $deck?.hand?.length <= 0 && $deck?.discard?.length <= 0) {
+		console.log({
+			url: $page.url.pathname,
+			deckUrl: $deck.url
+		});
+
+		if (
+			(!$deck?.deckData && $deck?.hand?.length <= 0 && $deck?.discard?.length <= 0) ||
+			$deck.url !== $page.url.pathname
+		) {
 			HttpService.get(`/api/deck/${id}`).then((resp: ApiResponse) => {
 				const { cards } = resp.content.deck_data;
-				
+
 				const totalDeck = cards.reduce((acc: DeckCards[], curr: DeckCards) => {
 					const current = { ...curr, deckName: resp.content.name };
 					return [...acc, ...Array.from({ length: curr.quantity }).fill(current)];
@@ -29,8 +37,15 @@
 		}
 	});
 
+	const showFooter = (e: Event) => {
+		e.preventDefault();
+		console.log('show Footer');
+
+		isFooterVisible = !isFooterVisible;
+	};
+
 	const selectCard = (card: DeckCards, deckType: string) => {
-		const cards = {...card, deckPlace: deckType};
+		const cards = { ...card, deckPlace: deckType };
 		functions.selectCard(cards);
 	};
 
@@ -38,23 +53,27 @@
 		hand: 'MANO',
 		discard: 'DESCARTE',
 		deck: 'ROBAR',
-		deckinfo: 'INFORMACIÓN',
-	}
+		deckinfo: 'INFORMACIÓN'
+	};
 
 	const setView = () => {
 		groupView = !groupView;
-	}
+	};
 </script>
 
 {#if $cardSelected}
 	<SingleCard bind:card={$cardSelected} bind:deck={$deck} {functions} />
 {:else if $deck}
-<div class="unlimited-decks-buttons flex center acenter gap">
-	<button class="unlimited-decks-button hand" on:click={() => currentTab = 'hand'}>
+	<div class="unlimited-decks-buttons flex center acenter gap">
+		<button
+			class="unlimited-decks-button hand"
+			on:click={() => (currentTab = 'hand')}
+			on:contextmenu={showFooter}
+		>
 			<p class="label-text">Mano</p>
 			{$deck?.hand?.length}
 		</button>
-		<button class="unlimited-decks-button discard" on:click={() => currentTab = 'discard'}>
+		<button class="unlimited-decks-button discard" on:click={() => (currentTab = 'discard')}>
 			<p class="label-text">Descarte</p>
 			{$deck?.discard?.length}
 		</button>
@@ -62,30 +81,29 @@
 			<p class="label-text">Robar</p>
 			{$deck?.deck?.length}
 		</button>
-		<button class="unlimited-decks-button info" on:click={() => currentTab = 'deckinfo'}>
+		<button class="unlimited-decks-button info" on:click={() => (currentTab = 'deckinfo')}>
 			<p class="label-text">Info</p>
 			<span class="league">i</span>
 		</button>
 	</div>
-	
+
 	<div class="separator {currentTab}">{tabs[currentTab]}</div>
 
 	{#if currentTab === 'hand'}
-	<div class="flex center acenter mega-container" class:group={groupView}>
-		<div class="cards-container slider">
-			{#each $deck.hand as item}
-				<div class="slide">
-					<UnmatchedRealCard
-						width={63}
-						height={88}
-						card={item}
-						on:cardclick={() => selectCard(item, 'hand')}
-					/>
-				</div>
-			{/each}
+		<div class="flex center acenter mega-container" class:group={groupView}>
+			<div class="cards-container slider">
+				{#each $deck.hand as item}
+					<div class="slide">
+						<UnmatchedRealCard
+							width={63}
+							height={88}
+							card={item}
+							on:cardclick={() => selectCard(item, 'hand')}
+						/>
+					</div>
+				{/each}
+			</div>
 		</div>
-	</div>
-
 	{:else if currentTab === 'discard'}
 		<div class="flex center acenter mega-container" class:group={groupView}>
 			<div class="cards-container slider">
@@ -107,3 +125,24 @@
 		</div>
 	{/if}
 {/if}
+
+<footer class="animate__animated animate__fadeInUp" class:block={isFooterVisible}>
+	aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+</footer>
+
+<style>
+	footer {
+		display: none;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 100px;
+		background: #030303;
+		color: #fff;
+		z-index: 100;
+	}
+	footer.block {
+		display: block;
+	}
+</style>
