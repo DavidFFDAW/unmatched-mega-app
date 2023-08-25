@@ -1,37 +1,19 @@
 <script lang="ts">
-	// import domtoimage from 'dom-to-image';
-	import html2canvas from 'html2canvas';
 	import CardBack from '../../components/cards/card-back.svelte';
 	import UnmatchedSvg from './unmatched-svg.svelte';
+	import { downloadPngFromElement } from '../../services/dom.screenshot.service';
 
 	let deckName: string = 'Sample';
 	let borderColor: string = '#FFFFFF';
 	let imageUrl: string = '';
 	let lettersColor: string = '#000';
 	let backgroundColor: string = '#eee';
-	// let isImageChecked: boolean = false;
 
 	const downloadImage = (e: Event) => {
 		e.preventDefault();
 
-		const downloadableImg = document.getElementById('downloadable-image');
-
-		
-		if (html2canvas && downloadableImg) {
-			html2canvas(downloadableImg, {
-				allowTaint: false,
-				useCORS: true,						
-			}).then(dataUrl => {
-			// domtoimage.toPng(downloadableImg).then((dataUrl: string) => {
-				console.log(dataUrl);
-				const link = document.createElement('a');
-				link.download = `${deckName}.png`;
-				link.href = dataUrl.toDataURL();
-				document.body.appendChild(link);
-				link.click();
-				link.remove();
-			});
-		}
+		const downloadableImg: HTMLElement | null = document.getElementById('downloadable-image');
+		downloadPngFromElement(downloadableImg, `${deckName}-CardBack`);
 	};
 
 	const uploadImage = (e: any) => {
@@ -48,7 +30,7 @@
 <div class="flex row start gap astart flex-responsive">
 	<div class="ca" id="downloadable-image">
 		<CardBack src={imageUrl}>
-			<UnmatchedSvg bind:lettersColor={lettersColor} bind:backgroundColor={backgroundColor} />
+			<UnmatchedSvg bind:lettersColor bind:backgroundColor />
 			<!-- <img src="/images/noimage.png" class="unmatched-logo" alt="" /> -->
 			<div class="internal-border-line" style={`border-color: ${borderColor}`} />
 			<div class="flex end internal-text league upper" style={`color: ${borderColor}`}>
@@ -69,14 +51,13 @@
 				<input type="color" name="border-color" bind:value={borderColor} />
 			</div>
 			<div class="w1 form-item">
-				<label for="">Imagen de Internet (URL)</label>
-				<input type="text" class="input" name="img-url-web" bind:value={imageUrl} />
+				<button class="btn button fill input file">
+					Subir imagen de forma manual
+					<input type="file" name="file" on:change={uploadImage} />
+				</button>
+				<!-- <label for="">Subir imagen de forma manual</label> -->
 			</div>
-			<div class="w1 form-item">
-				<label for="">Subir imagen de forma manual</label>
-				<input type="file" name="file" on:change={uploadImage} />
-			</div>
-			
+
 			<div class="w1 form-item">
 				<label for="">Unmatched logo color de letras</label>
 				<input type="color" name="letters-color" bind:value={lettersColor} />
@@ -118,10 +99,10 @@
 		padding: 5px 5px;
 	}
 
-	input[type="color"]::-webkit-color-swatch-wrapper {
+	input[type='color']::-webkit-color-swatch-wrapper {
 		padding: 0;
 	}
-	input[type="color"]::-webkit-color-swatch {
+	input[type='color']::-webkit-color-swatch {
 		border: none;
 	}
 
