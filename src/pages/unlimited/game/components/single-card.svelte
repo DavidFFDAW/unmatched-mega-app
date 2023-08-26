@@ -1,6 +1,6 @@
 <script lang="ts">
 	import CardBack from '../../../../components/cards/card-back.svelte';
-	import UnmatchedRealCard from '../unmatched-real-card.svelte';
+	import UnmatchedRealCard from '../../../../components/unmatched-real-card.svelte';
 
 	let flipped: boolean = false;
 
@@ -89,7 +89,7 @@
 				width={svgSizes}
 				height={svgSizes}
 				viewBox="0 0 30 30"
-				>
+			>
 				<path
 					d="M 15 3 C 12.031398 3 9.3028202 4.0834384 7.2070312 5.875 A 1.0001 1.0001 0 1 0 8.5058594 7.3945312 C 10.25407 5.9000929 12.516602 5 15 5 C 20.19656 5 24.450989 8.9379267 24.951172 14 L 22 14 L 26 20 L 30 14 L 26.949219 14 C 26.437925 7.8516588 21.277839 3 15 3 z M 4 10 L 0 16 L 3.0507812 16 C 3.562075 22.148341 8.7221607 27 15 27 C 17.968602 27 20.69718 25.916562 22.792969 24.125 A 1.0001 1.0001 0 1 0 21.494141 22.605469 C 19.74593 24.099907 17.483398 25 15 25 C 9.80344 25 5.5490109 21.062074 5.0488281 16 L 8 16 L 4 10 z"
 				/>
@@ -131,12 +131,32 @@
 	{#if card.deckPlace === 'discard'}
 		<div class="btn-wrapper flex center acenter column gap-smaller">
 			<button class="card-button button-return-card" on:click={() => returnCardToHand(card)}>
-				<svg width={svgSizes} height={svgSizes} viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-					<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-					<g id="SVGRepo_iconCarrier"> 
-						<path fill="none" d="M12.9998 8L6 14L12.9998 21" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
-						<path fill="none" d="M6 14H28.9938C35.8768 14 41.7221 19.6204 41.9904 26.5C42.2739 33.7696 36.2671 40 28.9938 40H11.9984" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path> 
+				<svg
+					width={svgSizes}
+					height={svgSizes}
+					viewBox="0 0 48 48"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<g id="SVGRepo_bgCarrier" stroke-width="0" />
+					<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+					<g id="SVGRepo_iconCarrier">
+						<path
+							fill="none"
+							d="M12.9998 8L6 14L12.9998 21"
+							stroke="#fff"
+							stroke-width="4"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
+						<path
+							fill="none"
+							d="M6 14H28.9938C35.8768 14 41.7221 19.6204 41.9904 26.5C42.2739 33.7696 36.2671 40 28.9938 40H11.9984"
+							stroke="#fff"
+							stroke-width="4"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
 					</g>
 				</svg>
 			</button>
@@ -147,15 +167,28 @@
 	{#if card.deckPlace === 'discard'}
 		<div class="btn-wrapper flex center acenter column gap-smaller">
 			<button class="card-button button-return-card" on:click={() => putCardInTopHand(card)}>
-				<svg width={svgSizes} height={svgSizes} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-					<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+				<svg
+					width={svgSizes}
+					height={svgSizes}
+					viewBox="0 0 24 24"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<g id="SVGRepo_bgCarrier" stroke-width="0" />
+					<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
 					<g id="SVGRepo_iconCarrier">
-						<path fill-rule="evenodd" clip-rule="evenodd" d="M8.04582 10.8715C8.52718 10.6007 8.6979 9.99103 8.42713 9.50967C8.15637 9.02831 7.54665 8.85759 7.0653 9.12836L3.50974 11.1284C3.18725 11.3098 2.99128 11.6544 3.0003 12.0243C3.00931 12.3942 3.22184 12.7289 3.55279 12.8944L5.63258 13.9343L3.50974 15.1284C3.18725 15.3098 2.99128 15.6544 3.0003 16.0243C3.00931 16.3942 3.22184 16.7289 3.55279 16.8944L11.5528 20.8944C11.8343 21.0351 12.1657 21.0351 12.4472 20.8944L20.4472 16.8944C20.7782 16.7289 20.9907 16.3942 20.9997 16.0243C21.0087 15.6544 20.8128 15.3098 20.4903 15.1284L18.3674 13.9343L20.4472 12.8944C20.7782 12.7289 20.9907 12.3942 20.9997 12.0243C21.0087 11.6544 20.8128 11.3098 20.4903 11.1284L16.9347 9.12836C16.4533 8.85759 15.8436 9.02831 15.5729 9.50967C15.3021 9.99103 15.4728 10.6007 15.9542 10.8715L17.8679 11.948L12 14.8819L6.13213 11.948L8.04582 10.8715ZM16.2077 15.0141L12.4472 16.8944C12.1657 17.0351 11.8343 17.0351 11.5528 16.8944L7.7923 15.0141L6.13213 15.948L12 18.8819L17.8679 15.948L16.2077 15.0141Z" fill="#152C70"></path> 
-						<path d="M12.4472 3.10557C12.1657 2.96481 11.8343 2.96481 11.5528 3.10557L3.55279 7.10557C3.214 7.27496 3 7.62123 3 8C3 8.37877 3.214 8.72504 3.55279 8.89443L11.5528 12.8944C11.8343 13.0352 12.1657 13.0352 12.4472 12.8944L20.4472 8.89443C20.786 8.72504 21 8.37877 21 8C21 7.62123 20.786 7.27496 20.4472 7.10557L12.4472 3.10557Z" fill="#cddc39"></path> 
+						<path
+							fill-rule="evenodd"
+							clip-rule="evenodd"
+							d="M8.04582 10.8715C8.52718 10.6007 8.6979 9.99103 8.42713 9.50967C8.15637 9.02831 7.54665 8.85759 7.0653 9.12836L3.50974 11.1284C3.18725 11.3098 2.99128 11.6544 3.0003 12.0243C3.00931 12.3942 3.22184 12.7289 3.55279 12.8944L5.63258 13.9343L3.50974 15.1284C3.18725 15.3098 2.99128 15.6544 3.0003 16.0243C3.00931 16.3942 3.22184 16.7289 3.55279 16.8944L11.5528 20.8944C11.8343 21.0351 12.1657 21.0351 12.4472 20.8944L20.4472 16.8944C20.7782 16.7289 20.9907 16.3942 20.9997 16.0243C21.0087 15.6544 20.8128 15.3098 20.4903 15.1284L18.3674 13.9343L20.4472 12.8944C20.7782 12.7289 20.9907 12.3942 20.9997 12.0243C21.0087 11.6544 20.8128 11.3098 20.4903 11.1284L16.9347 9.12836C16.4533 8.85759 15.8436 9.02831 15.5729 9.50967C15.3021 9.99103 15.4728 10.6007 15.9542 10.8715L17.8679 11.948L12 14.8819L6.13213 11.948L8.04582 10.8715ZM16.2077 15.0141L12.4472 16.8944C12.1657 17.0351 11.8343 17.0351 11.5528 16.8944L7.7923 15.0141L6.13213 15.948L12 18.8819L17.8679 15.948L16.2077 15.0141Z"
+							fill="#152C70"
+						/>
+						<path
+							d="M12.4472 3.10557C12.1657 2.96481 11.8343 2.96481 11.5528 3.10557L3.55279 7.10557C3.214 7.27496 3 7.62123 3 8C3 8.37877 3.214 8.72504 3.55279 8.89443L11.5528 12.8944C11.8343 13.0352 12.1657 13.0352 12.4472 12.8944L20.4472 8.89443C20.786 8.72504 21 8.37877 21 8C21 7.62123 20.786 7.27496 20.4472 7.10557L12.4472 3.10557Z"
+							fill="#cddc39"
+						/>
 					</g>
 				</svg>
-				
 			</button>
 			<p class="btn-description-text">Al mazo</p>
 		</div>

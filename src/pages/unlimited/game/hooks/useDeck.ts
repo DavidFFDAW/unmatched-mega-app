@@ -1,7 +1,6 @@
 import { writable } from 'svelte/store';
-import type { DeckCards, SearchUserDeck } from '../../models';
 import { getFromStorage, persistStorage } from '../../../../services/persistent.storage.service';
-import { browser } from '$app/environment';
+import type { DeckCards, SearchUserDeck } from '../../models/models';
 
 type UnlimitedDecks = {
 	hand: DeckCards[];
@@ -16,12 +15,14 @@ export const initialDeckValue = {
 	discard: [],
 	deck: [],
 	deckData: null,
-	url: '',
+	url: ''
 };
 
-export default function useDeck() {
+export default function useDeck(url: string) {
 	const storedGame = getFromStorage('game', null) as UnlimitedDecks | null;
-	const initialState: UnlimitedDecks = storedGame ? storedGame : initialDeckValue;
+
+	const initialState: UnlimitedDecks =
+		storedGame && storedGame.url === url ? storedGame : initialDeckValue;
 	const intialSelectedCard: DeckCards | null = null;
 
 	const writableDeck = writable(initialState);
@@ -72,15 +73,16 @@ export default function useDeck() {
 	};
 
 	const cardsAreEqual = (card1: DeckCards, card2: DeckCards) => {
-		return card1.title === card2.title
-			&& card1.type === card2.type
-			&& card1.boost === card2.boost
-			&& card1.value === card2.value
-			&& card1.quantity === card2.quantity
-			&& card1.characterName === card2.characterName
-			&& card1.imageUrl === card2.imageUrl
-		;
-	}
+		return (
+			card1.title === card2.title &&
+			card1.type === card2.type &&
+			card1.boost === card2.boost &&
+			card1.value === card2.value &&
+			card1.quantity === card2.quantity &&
+			card1.characterName === card2.characterName &&
+			card1.imageUrl === card2.imageUrl
+		);
+	};
 
 	const discardCard = (card: any) => {
 		writableDeck.update((deck) => {
@@ -91,9 +93,9 @@ export default function useDeck() {
 			deck.hand = deck.hand.slice(0, index).concat(sliced);
 			return deck;
 		});
-	}
+	};
 
-	const returnCardToHand = (card: any) => { 
+	const returnCardToHand = (card: any) => {
 		writableDeck.update((deck) => {
 			deck.hand = [...deck.hand, card];
 			const index = deck.discard.findIndex((c) => cardsAreEqual(c, card));
@@ -102,18 +104,18 @@ export default function useDeck() {
 			deck.discard = deck.discard.slice(0, index).concat(sliced);
 			return deck;
 		});
-	}
+	};
 
-	const putCardInTopHand = (card: any) => { 
+	const putCardInTopHand = (card: any) => {
 		writableDeck.update((deck) => {
 			deck.deck = [card, ...deck.deck];
 			const index = deck.discard.findIndex((c) => cardsAreEqual(c, card));
 			const sliced = deck.discard.slice(index + 1, deck.discard.length);
-			
+
 			deck.discard = deck.discard.slice(0, index).concat(sliced);
 			return deck;
 		});
-	}
+	};
 
 	return {
 		deck: writableDeck,
@@ -127,7 +129,7 @@ export default function useDeck() {
 			drawCard,
 			discardCard,
 			returnCardToHand,
-			putCardInTopHand,
+			putCardInTopHand
 		}
 	};
 }

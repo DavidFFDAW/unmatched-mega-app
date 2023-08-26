@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher, onMount } from 'svelte';
 	import TypeCard from './type-card.svelte';
-	import type { DeckCards } from '../models';
+	import type { DeckCards } from '../pages/unlimited/models/models';
 	const dispatch = createEventDispatcher();
 
 	const initialCardValues = {
@@ -16,8 +16,8 @@
 		duringText: '',
 		afterText: '',
 		quantity: 1,
-		imageUrl: '',
-	}
+		imageUrl: ''
+	};
 
 	export let editable: boolean = false;
 	export let card: DeckCards = initialCardValues;
@@ -77,7 +77,8 @@
 				<div
 					data-v-d8d5fac2=""
 					class="inner-top"
-					style="background-image: url('{card.imageUrl || initialCardValues.imageUrl}'); background-repeat: no-repeat; background-size: cover; background-position: center center;"
+					style="background-image: url('{card.imageUrl ||
+						initialCardValues.imageUrl}'); background-repeat: no-repeat; background-size: cover; background-position: center center;"
 				/>
 				<div data-v-d8d5fac2="" class="upper-left">
 					<svg data-v-d8d5fac2="" width="100%" height="100%" viewBox="0 0 10.8 47"
@@ -124,7 +125,9 @@
 				</div>
 				<div data-v-d8d5fac2="" class="inner-bottom">
 					<div data-v-d8d5fac2="" class="boost-circle inner-border">
-						<div data-v-d8d5fac2="" class="boost-value">{card.boost || initialCardValues.boost}</div>
+						<div data-v-d8d5fac2="" class="boost-value">
+							{card.boost || initialCardValues.boost}
+						</div>
 					</div>
 					<div
 						data-v-d8d5fac2=""
@@ -179,13 +182,12 @@
 						</div>
 					</div>
 					<div data-v-d8d5fac2="" class="bottom-right">
-						<span data-v-d8d5fac2="" class="deck-name">{card.deckName || initialCardValues.deckName}</span><span
-							data-v-d8d5fac2=""
-							class="card-quantity"
-						>
-							x{card.quantity  || initialCardValues.quantity }
+						<span data-v-d8d5fac2="" class="deck-name"
+							>{card.deckName || initialCardValues.deckName}</span
+						><span data-v-d8d5fac2="" class="card-quantity">
+							x{card.quantity || initialCardValues.quantity}
 						</span><span data-v-d8d5fac2="" class="card-quantity-editing um-invisible">
-							x{card.quantity  || initialCardValues.quantity }
+							x{card.quantity || initialCardValues.quantity}
 						</span>
 					</div>
 				</div>
