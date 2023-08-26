@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Alert from '../../components/alert.svelte';
-	import imageEffect from './assets/effect-inner.png';
+	import imageEffect from '../assets/effect-inner.png';
 </script>
 
 <Alert />
