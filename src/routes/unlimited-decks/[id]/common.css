@@ -23,6 +23,7 @@
 .separator.discard {
 	background-color: #f3f3f3;
 }
+.separator.info,
 .separator.deckinfo {
 	background-color: #ddb364;
 }
