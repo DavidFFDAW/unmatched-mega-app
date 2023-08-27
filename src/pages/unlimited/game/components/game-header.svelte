@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { PAGES } from '../../unlimited.constants';
+	import { PAGES, TABS } from '../../unlimited.constants';
 
 	export let deckData: any = {};
 	export let decks: any = {
@@ -54,6 +54,8 @@
 		<span class="league">i</span>
 	</button>
 </section>
+
+<div class="separator {currentTab}">{TABS[currentTab]}</div>
 
 <style>
 	header.unlimited-head {

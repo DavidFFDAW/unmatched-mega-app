@@ -8,6 +8,12 @@
 	export let deck: any = {};
 	export let functions: any = {};
 
+	console.log({
+		card,
+		deck,
+		functions
+	});
+
 	const svgSizes = 25;
 
 	const cardSizes = {

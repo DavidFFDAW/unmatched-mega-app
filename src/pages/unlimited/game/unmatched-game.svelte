@@ -4,7 +4,6 @@
 	import HttpService from '../../../services/http.service';
 	import type { DeckCards } from '../models/models';
 	import type { ApiResponse } from '../../../models/models';
-	import UnmatchedRealCard from '../../../components/unmatched-real-card.svelte';
 	import SingleCard from './components/single-card.svelte';
 	import useDeck from './hooks/useDeck';
 	import HeroCard from './components/hero-card.svelte';
@@ -17,8 +16,6 @@
 	let groupView: boolean = false;
 	let isFooterVisible: boolean = false;
 	const { deck, cardSelected, functions } = useDeck($page.url.pathname);
-
-	console.log({ $deck });
 
 	onMount(() => {
 		if (
@@ -37,23 +34,6 @@
 		}
 	});
 
-	const showFooter = (e: Event) => {
-		e.preventDefault();
-		isFooterVisible = !isFooterVisible;
-	};
-
-	const selectCard = (card: DeckCards, deckType: string) => {
-		const cards = { ...card, deckPlace: deckType };
-		functions.selectCard(cards);
-	};
-
-	const tabs: any = {
-		hand: 'MANO',
-		discard: 'DESCARTE',
-		deck: 'ROBAR',
-		deckinfo: 'INFORMACIÓN'
-	};
-
 	const setView = () => {
 		groupView = !groupView;
 	};
@@ -68,15 +48,22 @@
 		bind:currentTab
 		bind:drawCard={functions.drawCard}
 	/>
-
-	<div class="separator {currentTab}">{tabs[currentTab]}</div>
-
 	<button type="button" on:click={setView}>Cambiar vista</button>
 
 	{#if currentTab === PAGES.hand}
-		<DeckListPage bind:list={$deck.hand} bind:groupView bind:selectCard={functions.selectCard} />
+		<DeckListPage
+			bind:list={$deck.hand}
+			bind:groupView
+			bind:currentTab
+			bind:selectCard={functions.customSelectCard}
+		/>
 	{:else if currentTab === PAGES.discard}
-		<DeckListPage bind:list={$deck.discard} bind:groupView bind:selectCard={functions.selectCard} />
+		<DeckListPage
+			bind:list={$deck.discard}
+			bind:currentTab
+			bind:groupView
+			bind:selectCard={functions.customSelectCard}
+		/>
 	{:else if currentTab === PAGES.info}
 		<div class="info">
 			<HeroCard />

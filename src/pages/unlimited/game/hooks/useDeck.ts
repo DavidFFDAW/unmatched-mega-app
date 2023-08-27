@@ -57,6 +57,11 @@ export default function useDeck(url: string) {
 		cardSelected.set(card as any);
 	};
 
+	const customSelectCard = (card: DeckCards, deckType: string) => {
+		const cards = { ...card, deckPlace: deckType };
+		selectCard(cards);
+	};
+
 	const deselectCard = () => {
 		cardSelected.set(null);
 	};
@@ -129,7 +134,8 @@ export default function useDeck(url: string) {
 			drawCard,
 			discardCard,
 			returnCardToHand,
-			putCardInTopHand
+			putCardInTopHand,
+			customSelectCard
 		}
 	};
 }
