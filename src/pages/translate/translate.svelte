@@ -1,6 +1,36 @@
 <script lang="ts">
 	import Alert from '../../components/alert.svelte';
+	import { downloadPngFromElement } from '../../services/dom.screenshot.service';
 	import imageEffect from '../assets/effect-inner.png';
+	import nameImage from '../assets/name.png';
+
+	let cardData: any = {
+		name: '',
+		image: '',
+		title: 'Finta',
+		character: 'Cualquiera',
+		line: false,
+	}
+
+	const setCardBackground = (event: Event) => {
+		event.preventDefault();
+
+		const target = event.target as HTMLInputElement;
+		
+		if (target.files) {
+			const file = target.files[0];
+			cardData.image = URL.createObjectURL(file);
+		}
+	}
+
+	const setData = (key: string, value: string) => {
+		cardData[key] = value;
+	}
+
+	const downloadCard = () => {
+		return downloadPngFromElement(document.getElementById('unmatchedCard'), 'unmatched-card');
+	}
+
 </script>
 
 <Alert />
@@ -10,13 +40,13 @@
 		<div class="box">
 			<div class="flex col">
 				<div class="input-file-wrapper">
-					<input accept="images/*" type="file" onchange="selectCardBackground(event, this)" />
+					<input accept="images/*" type="file" on:change={setCardBackground} />
 					<span>Cargar carta</span>
 				</div>
-				<div class="input-file-wrapper">
+				<!-- <div class="input-file-wrapper">
 					<input accept="images/*" type="file" onchange="selectInnerEffectImage(event, this)" />
 					<span>Imagen de efecto</span>
-				</div>
+				</div> -->
 
 				<div class="inputs-group">
 					<div class="form-item">
@@ -25,7 +55,7 @@
 							id="panelDeckName"
 							class="custom uppercase"
 							type="text"
-							oninput="setDeckName(this)"
+							on:input={(e) => setData('name', e?.target?.value)}
 						/>
 					</div>
 					<div class="form-item">
@@ -34,7 +64,7 @@
 							id="panelCardTitle"
 							class="custom uppercase"
 							type="text"
-							oninput="setCardTitle(this)"
+							on:input={(e) => setData('title', e?.target?.value)}
 						/>
 					</div>
 
@@ -54,7 +84,7 @@
 						<span>¿Tiene linea?</span>
 						<!-- Rounded switch -->
 						<label class="switch">
-							<input type="checkbox" onchange="setVisibleLine(this)" checked />
+							<input type="checkbox" on:change={(e) => setData('line', !cardData.line)} checked />
 							<span class="slider round" />
 						</label>
 					</div>
@@ -76,7 +106,7 @@
 							type="text"
 							placeholder="Cualquiera"
 							value="Cualquiera"
-							oninput="setCardCharacterText(this)"
+							on:input={(e) => setData('character', e?.target?.value)}
 						/>
 					</div>
 
@@ -114,7 +144,6 @@
 						<textarea
 							id="inmediatelyTextarea"
 							class="custom"
-							type="text"
 							onchange="setInmediateEffect(this)"
 						/>
 						<input
@@ -170,23 +199,23 @@
 					<button class="" type="button" onclick="setTemplateCard('skirmish')"> Escaramuza </button>
 				</div>
 
-				<button type="button" class="btn" onclick="downloadCard()"> Descargar </button>
+				<button type="button" class="btn" on:click={downloadCard}> Descargar </button>
 			</div>
 		</div>
 		<div class="flex box no-bg">
-			<div id="unmatchedCard" class="unmatched card">
+			<div id="unmatchedCard" class="unmatched card bgimg" style="background-image: url({cardData.image});">
 				<div id="unmatchedCardCharacter" class="character-name">
 					<div class="character-block">
-						<img id="unmatchedCharacterImage" src="./assets/name.png" alt="" />
-						<p id="unmatchedCardCharacterText" class="character-name-text">Cualquiera</p>
+						<img id="unmatchedCharacterImage" src={nameImage} alt="" />
+						<p id="unmatchedCardCharacterText" class="character-name-text">{cardData.character}</p>
 					</div>
 				</div>
 				<div id="unmatchedCardInner" class="inner">
 					<img id="unmatchedCardInnerEffectImage" class="effect-inner" src={imageEffect} alt="" />
 				</div>
 				<div class="inner inner-texts" id="unmatchedCardInnerTexts">
-					<h3 id="unmatchedCardTitle" class="card-title uppercase">Title</h3>
-					<div class="card-title-line" id="unmatchedCardTitleLine" />
+					<h3 id="unmatchedCardTitle" class="card-title uppercase">{cardData.title}</h3>
+					<div class:hidden={cardData.line} class="card-title-line" id="unmatchedCardTitleLine" />
 
 					<section class="card-real-effects" id="unmatchedCardRealEffectsContainer">
 						<div class="real-effect inmediately" id="unmatchedCardInmediately">
@@ -216,7 +245,9 @@
 
 					<footer class="card-deck-footer">
 						<p style="white-space: nowrap; font-size: 9px; letter-spacing: 0;">
-							<span id="unmatchedCardDeckName" style="font-size: 9px; letter-spacing: 0.6px;" />
+							<span id="unmatchedCardDeckName" style="font-size: 9px; letter-spacing: 0.6px;">
+								{cardData.name}
+							</span>
 							| <span id="unmatchedCardQuantity" style="letter-spacing: 1px;" />
 						</p>
 					</footer>
@@ -260,20 +291,6 @@
 		margin: 0 auto;
 		/* padding: 0 10px; */
 		max-width: 1400px;
-	}
-	.title {
-		font-size: 22px;
-	}
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
-		margin: 0;
-	}
-	body {
-		background-color: #ebebeb;
 	}
 	img {
 		max-width: 100%;
@@ -342,7 +359,6 @@
 		padding: 2px 0;
 		color: #fff;
 	}
-	.card-real-effects h4,
 	.card-real-effects p,
 	.card-real-effects p strong {
 		margin: 0;
@@ -375,9 +391,6 @@
 
 	dialog[open] {
 		animation: show 1s ease normal;
-	}
-	#previewModalContent img {
-		margin: 0 10px;
 	}
 	.form-item.column {
 		justify-content: start;

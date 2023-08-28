@@ -52,7 +52,7 @@ body.dark-background {
 a {
 	color: #383838;
 }
-
+.hidden,
 .none {
 	display: none;
 }
@@ -367,6 +367,33 @@ a {
 .landing-link-image.unlimited {
 	width: 203px;
 	border-radius: 10px;
+}
+
+
+.form-item label {
+	display: block;
+	font-size: 18px;
+}
+.form-item input {
+	display: block;
+	font-size: 15px;
+	border: none;
+	background: #eee;
+	padding: 10px 16px;
+	width: 100%;
+	border-radius: 6px;
+	margin-top: 5px;
+}
+.form-item input[type='color'] {
+	/* padding: 0; */
+	padding: 5px 5px;
+}
+
+input[type='color']::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+input[type='color']::-webkit-color-swatch {
+	border: none;
 }
 
 dialog[open] {

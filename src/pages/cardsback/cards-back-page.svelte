@@ -1,5 +1,6 @@
 <script lang="ts">
 	import CardBack from '../../components/cards/card-back.svelte';
+	import ColorPicker from '../../components/colorpicker/color-picker.svelte';
 	import { downloadPngFromElement } from '../../services/dom.screenshot.service';
 	import UnmatchedLogoSvg from './components/unmatched-logo-svg.svelte';
 
@@ -62,6 +63,9 @@
 				<label for="">Unmatched logo color de letras</label>
 				<input type="color" name="letters-color" bind:value={lettersColor} />
 			</div>
+
+			<ColorPicker />
+
 			<div class="w1 form-item">
 				<label for="">Unmatched logo color de fondo</label>
 				<input type="color" name="bg-color" bind:value={backgroundColor} />
@@ -79,31 +83,6 @@
 	.title {
 		font-size: 25px;
 		font-family: 'bebas', sans-serif;
-	}
-	.form-item label {
-		display: block;
-		font-size: 18px;
-	}
-	.form-item input {
-		display: block;
-		font-size: 15px;
-		border: none;
-		background: #eee;
-		padding: 10px 16px;
-		width: 100%;
-		border-radius: 6px;
-		margin-top: 5px;
-	}
-	.form-item input[type='color'] {
-		/* padding: 0; */
-		padding: 5px 5px;
-	}
-
-	input[type='color']::-webkit-color-swatch-wrapper {
-		padding: 0;
-	}
-	input[type='color']::-webkit-color-swatch {
-		border: none;
 	}
 
 	.internal-border-line {
