@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getContext, onMount } from "svelte";
+	import { onMount } from "svelte";
 
     let colorSelected: string = '';
     let showColorModal: boolean = false;
@@ -14,13 +14,12 @@
         image.onload = () => canvasContext.drawImage(image, 0, 0, image.width, image.height); 
         image.src = "/images/picker.png";
 
-        canvasEl.onclick = function(mouseEvent: MouseEvent)
-        {
-        const imgData = canvasContext.getImageData(mouseEvent.offsetX, mouseEvent.offsetY, 1, 1);
-        const rgba = imgData.data;
+        canvasEl.onclick = function(mouseEvent: MouseEvent) {
+            const imgData = canvasContext.getImageData(mouseEvent.offsetX, mouseEvent.offsetY, 1, 1);
+            const rgba = imgData.data;
 
-        console.log({ rgba, mouseCoords: { x: mouseEvent.offsetX, y: mouseEvent.offsetY } });
-        colorSelected = "rgba(" + rgba[0] + ", " + rgba[1] + ", " + rgba[2] + ", " + rgba[3] + ")";
+            console.log({ rgba, mouseCoords: { x: mouseEvent.offsetX, y: mouseEvent.offsetY } });
+            colorSelected = "rgba(" + rgba[0] + ", " + rgba[1] + ", " + rgba[2] + ", " + rgba[3] + ")";
         }
     }
 
@@ -38,9 +37,18 @@
     <input type="text" class="input w1" readonly on:click={setShowColorModal} />
 
     <div class:hidden={!showColorModal} class="relative color-picker-canvas animate__animated animate__fadeIn animate__faster">
-        <div class="user-coords"></div>
-        <canvas id="colorCanvas" class="color-canvas" width="250" height="250">
-        </canvas>
+        <!-- <div class="user-coords"></div> -->
+        <div class="flex start acenter gap-small">
+            <canvas id="colorCanvas" class="color-canvas" width="250" height="250">
+                <!-- Draw a circle inside canvas element -->
+                <circle cx="100" cy="100" r="50" stroke="black" stroke-width="2" fill="red" />
+            </canvas>
+
+            <div class="form-item">
+
+                <input class="w1 input" style="background-color: {colorSelected};"/>
+            </div>
+        </div>
     </div>
 </div>
 

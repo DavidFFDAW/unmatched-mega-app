@@ -24,7 +24,9 @@
 	}
 
 	const setData = (key: string, value: string) => {
-		cardData[key] = value;
+		if (value) {
+			cardData[key] = value;
+		}
 	}
 
 	const downloadCard = () => {
