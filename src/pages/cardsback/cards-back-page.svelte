@@ -1,4 +1,6 @@
 <script lang="ts">
+	import ButtonFile from '../../components/buttons/button-file.svelte';
+	import ButtonFill from '../../components/buttons/button-fill.svelte';
 	import CardBack from '../../components/cards/card-back.svelte';
 	import ColorPicker from '../../components/colorpicker/color-picker.svelte';
 	import { downloadPngFromElement } from '../../services/dom.screenshot.service';
@@ -10,17 +12,9 @@
 	let lettersColor: string = '#000';
 	let backgroundColor: string = '#eee';
 
-	const downloadImage = (e: Event) => {
-		e.preventDefault();
-
+	const downloadImage = () => {
 		const downloadableImg: HTMLElement | null = document.getElementById('downloadable-image');
 		downloadPngFromElement(downloadableImg, `${deckName}-CardBack`);
-	};
-
-	const uploadImage = (e: any) => {
-		const { target } = e;
-		console.log(target.files[0]);
-		imageUrl = URL.createObjectURL(target.files[0]);
 	};
 
 	const submitForm = (e: Event) => {
@@ -29,15 +23,21 @@
 </script>
 
 <div class="flex row start gap astart flex-responsive">
-	<div class="ca" id="downloadable-image">
-		<CardBack src={imageUrl}>
-			<UnmatchedLogoSvg bind:lettersColor bind:backgroundColor />
-			<!-- <img src="/images/noimage.png" class="unmatched-logo" alt="" /> -->
-			<div class="internal-border-line" style={`border-color: ${borderColor}`} />
-			<div class="flex end internal-text league upper" style={`color: ${borderColor}`}>
-				{deckName}
-			</div>
-		</CardBack>
+	<div class="ca">
+		<div class="ca" id="downloadable-image">
+			<CardBack src={imageUrl}>
+				<UnmatchedLogoSvg bind:lettersColor bind:backgroundColor />
+				<!-- <img src="/images/noimage.png" class="unmatched-logo" alt="" /> -->
+				<div class="internal-border-line" style={`border-color: ${borderColor}`} />
+				<div class="flex end internal-text league upper" style={`color: ${borderColor}`}>
+					{deckName}
+				</div>
+			</CardBack>
+		</div>
+		
+		<div class="w1 form-item down">
+			<ButtonFile bind:image={imageUrl} />
+		</div>
 	</div>
 
 	<div class="w1 box p">
@@ -47,16 +47,10 @@
 				<label for="">Nombre del mazo</label>
 				<input type="text" name="deck-name" bind:value={deckName} />
 			</div>
+
 			<div class="w1 form-item">
 				<label for="">Color del borde de la carta</label>
 				<input type="color" name="border-color" bind:value={borderColor} />
-			</div>
-			<div class="w1 form-item">
-				<button class="btn button fill input file">
-					Subir imagen de forma manual
-					<input type="file" name="file" on:change={uploadImage} />
-				</button>
-				<!-- <label for="">Subir imagen de forma manual</label> -->
 			</div>
 
 			<div class="w1 form-item">
@@ -72,8 +66,7 @@
 			</div>
 
 			<div class="w1 flex end">
-				<!-- <input type="submit" class="btn fill" value="Descargar" /> -->
-				<a role="button" class="btn fill" href="/" on:click={downloadImage}>Descargar</a>
+				<ButtonFill label="Descargar" click={downloadImage} />
 			</div>
 		</form>
 	</div>
