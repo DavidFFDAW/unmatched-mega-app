@@ -4,6 +4,7 @@
 	export let groupView: boolean = false;
 	export let selectCard: any;
 	export let currentTab: string;
+	export let footer: any = null;
 </script>
 
 <div class="flex center acenter mega-container" class:group={groupView}>
@@ -20,3 +21,7 @@
 		{/each}
 	</div>
 </div>
+
+{#if footer}
+	<svelte:component this={footer} />
+{/if}

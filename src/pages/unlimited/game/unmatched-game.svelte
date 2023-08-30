@@ -10,6 +10,7 @@
 	import { PAGES } from '../unlimited.constants';
 	import DeckListPage from './components/deck-list-page.svelte';
 	import GameHeader from './components/game-header.svelte';
+	import DiscardFooter from './components/discard-footer.svelte';
 	const { id } = $page.params;
 
 	let currentTab = 'hand';
@@ -63,6 +64,7 @@
 			bind:currentTab
 			bind:groupView
 			bind:selectCard={functions.customSelectCard}
+			footer={DiscardFooter}
 		/>
 	{:else if currentTab === PAGES.info}
 		<div class="info">
@@ -70,24 +72,3 @@
 		</div>
 	{/if}
 {/if}
-
-<footer class="animate__animated animate__fadeInUp" class:block={isFooterVisible}>
-	aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-</footer>
-
-<style>
-	footer {
-		display: none;
-		position: fixed;
-		bottom: 0;
-		left: 0;
-		width: 100%;
-		height: 100px;
-		background: #030303;
-		color: #fff;
-		z-index: 100;
-	}
-	footer.block {
-		display: block;
-	}
-</style>
