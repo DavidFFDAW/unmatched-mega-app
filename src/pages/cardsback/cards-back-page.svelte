@@ -23,11 +23,10 @@
 </script>
 
 <div class="flex row start gap astart flex-responsive">
-	<div class="ca">
-		<div class="ca" id="downloadable-image">
+	<div>
+		<div class="flex center acenter" id="downloadable-image">
 			<CardBack src={imageUrl}>
 				<UnmatchedLogoSvg bind:lettersColor bind:backgroundColor />
-				<!-- <img src="/images/noimage.png" class="unmatched-logo" alt="" /> -->
 				<div class="internal-border-line" style={`border-color: ${borderColor}`} />
 				<div class="flex end internal-text league upper" style={`color: ${borderColor}`}>
 					{deckName}
@@ -41,7 +40,7 @@
 	</div>
 
 	<div class="w1 box p">
-		<h3 class="title">Generales</h3>
+		<h3 class="title">Parte trasera</h3>
 		<form on:submit={submitForm} class="flex center astart column gap">
 			<div class="w1 form-item">
 				<label for="">Nombre del mazo</label>
