@@ -411,6 +411,7 @@ keyframes show {
 
 @media screen and (max-width: 768px) {
 	.flex-responsive {
-		flex-wrap: wrap;
+		flex-direction: column;
+		align-items: center;
 	}
 }
