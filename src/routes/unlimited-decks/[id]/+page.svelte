@@ -8,4 +8,10 @@
 	});
 </script>
 
+
+
+<svelte:head>
+	<title>UNmatched | Game</title>
+</svelte:head>
+
 <svelte:component this={GamePage} />

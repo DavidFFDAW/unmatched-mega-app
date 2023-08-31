@@ -8,4 +8,9 @@
 	});
 </script>
 
+
+<svelte:head>
+	<title>UNmatched | Cardback Designer</title>
+</svelte:head>
+
 <svelte:component this={CardsBackPage} />

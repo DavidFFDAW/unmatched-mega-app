@@ -7,4 +7,9 @@
 	});
 </script>
 
+
+<svelte:head>
+	<title>UNmatched | Print</title>
+</svelte:head>
+
 <svelte:component this={PrintPage} />

@@ -7,4 +7,9 @@
 	});
 </script>
 
+
+<svelte:head>
+	<title>UNmatched | Dials</title>
+</svelte:head>
+
 <svelte:component this={DialsPage} />

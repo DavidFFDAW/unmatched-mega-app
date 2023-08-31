@@ -7,4 +7,9 @@
 	});
 </script>
 
+
+<svelte:head>
+	<title>UNmatched | Translate</title>
+</svelte:head>
+
 <svelte:component this={TranslatePage} />

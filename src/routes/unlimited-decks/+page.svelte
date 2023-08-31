@@ -8,4 +8,9 @@
 	});
 </script>
 
+
+<svelte:head>
+	<title>UNmatched | Unlimited</title>
+</svelte:head>
+
 <svelte:component this={UnlimitedDecksPage} />
