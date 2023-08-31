@@ -4,14 +4,19 @@
 	import SingleCard from './components/single-card.svelte';
 	import useDeck from './hooks/useDeck';
 	import HeroCard from './components/hero-card.svelte';
-	import { PAGES } from '../unlimited.constants';
+	import { FOOTER_TABS, PAGES } from '../unlimited.constants';
 	import DeckListPage from './components/deck-list-page.svelte';
 	import GameHeader from './components/game-header.svelte';
-	import DiscardFooter from './components/discard-footer.svelte';
+	import DiscardFooter from './components/footers/discard-footer.svelte';
 	const { id } = $page.params;
 
 	let currentTab = 'hand';
 	let groupView: boolean = false;
+	let footer: { tab: string; component: any, visible: boolean } = {
+		tab: 'hand',
+		component: DiscardFooter,
+		visible: false
+	};
 	const { deck, cardSelected, functions } = useDeck($page.url.pathname);
 
 	onMount(() => {
@@ -23,6 +28,14 @@
 	const setView = () => {
 		groupView = !groupView;
 	};
+
+	const changeFooter = (ev: CustomEvent) => {
+		const tab = ev.detail.tab;
+		footer.tab = tab;
+		footer.visible = true;
+		const component = FOOTER_TABS[tab] || FOOTER_TABS.default;
+		footer.component = component;
+	}
 </script>
 
 {#if $cardSelected}
@@ -33,6 +46,7 @@
 		bind:deckData={$deck.deckData}
 		bind:currentTab
 		bind:drawCard={functions.drawCard}
+		on:contextmenu={changeFooter}
 	/>
 	<button type="button" on:click={setView}>Cambiar vista</button>
 
@@ -49,11 +63,14 @@
 			bind:currentTab
 			bind:groupView
 			bind:selectCard={functions.customSelectCard}
-			footer={DiscardFooter}
 		/>
 	{:else if currentTab === PAGES.info}
 		<div class="info">
 			<HeroCard />
 		</div>
+	{/if}
+
+	{#if footer.visible}
+		<svelte:component this={footer.component} bind:visible={footer.visible} />
 	{/if}
 {/if}
