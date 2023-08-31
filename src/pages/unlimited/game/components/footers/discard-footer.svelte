@@ -1,30 +1,27 @@
 <script lang="ts">
 	export let visible: boolean = false;
-	import Footer from "./footer.svelte";
+	import FooterItem from './footer-item.svelte';
+	import Footer from './footer.svelte';
+	import { functions } from '../../hooks/useDeck2';
+
+	const setVisible = () => (visible = !visible);
 </script>
 
 <Footer bind:visible>
 	<div class="unlimited-footer-content">
 		<ul>
-			<li>
-				Barajar las cartas
-			</li>
-			<li>
-				Recuperar una carta aleatoria del descarte
-			</li>
+			<!-- <FooterItem
+				title={'Barajar las cartas'}
+				description={'Baraja las cartas del mazo de descartes'}
+				click={}
+				afterClick={setVisible}
+			/> -->
+			<FooterItem
+				title={'Recuperar una carta de los descartes'}
+				description={'Recuperar una carta aleatoria de entre las que se encuentran en el mazo de descarte'}
+				click={functions.retrieveRandomDiscardCard}
+				afterClick={setVisible}
+			/>
 		</ul>
 	</div>
 </Footer>
-
-<style>
-	.unlimited-footer-content {
-		position: relative;
-		padding: 1rem;
-		z-index: 120;
-	}
-	.unlimited-footer-content ul {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-	}
-</style>

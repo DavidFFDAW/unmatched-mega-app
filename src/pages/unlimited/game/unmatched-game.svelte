@@ -2,7 +2,8 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import SingleCard from './components/single-card.svelte';
-	import useDeck from './hooks/useDeck';
+	// import useDeck from './hooks/useDeck';
+	import useDeck from './hooks/useDeck2';
 	import HeroCard from './components/hero-card.svelte';
 	import { FOOTER_TABS, PAGES } from '../unlimited.constants';
 	import DeckListPage from './components/deck-list-page.svelte';
@@ -12,12 +13,13 @@
 
 	let currentTab = 'hand';
 	let groupView: boolean = false;
-	let footer: { tab: string; component: any, visible: boolean } = {
+	let footer: { tab: string; component: any; visible: boolean } = {
 		tab: 'hand',
 		component: DiscardFooter,
 		visible: false
 	};
-	const { deck, cardSelected, functions } = useDeck($page.url.pathname);
+
+	const { deck, cardSelected, functions } = useDeck;
 
 	onMount(() => {
 		if (functions.isDataQueryNeeded($deck, $page.url.pathname)) {
@@ -35,7 +37,7 @@
 		footer.visible = true;
 		const component = FOOTER_TABS[tab] || FOOTER_TABS.default;
 		footer.component = component;
-	}
+	};
 </script>
 
 {#if $cardSelected}
