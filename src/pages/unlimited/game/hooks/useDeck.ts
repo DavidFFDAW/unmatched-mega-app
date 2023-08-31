@@ -1,6 +1,8 @@
 import { writable } from 'svelte/store';
 import { getFromStorage, persistStorage } from '../../../../services/persistent.storage.service';
 import type { DeckCards, SearchUserDeck } from '../../models/models';
+import HttpService from '../../../../services/http.service';
+import type { ApiResponse } from '../../../../models/models';
 
 type UnlimitedDecks = {
 	hand: DeckCards[];
@@ -122,10 +124,30 @@ export default function useDeck(url: string) {
 		});
 	};
 
+	const isDataQueryNeeded = (deck: UnlimitedDecks, url: string) => { 
+		return (!deck?.deckData && deck?.hand?.length <= 0 && deck?.discard?.length <= 0) ||
+			deck.url !== url;
+	}
+
+	const getCards = (id: string, url: string,) => { 
+		HttpService.get(`/api/deck/${id}`).then((resp: ApiResponse) => {
+			const { cards } = resp.content.deck_data;
+
+			const totalDeck = cards.reduce((acc: DeckCards[], curr: DeckCards) => {
+				const current = { ...curr, deckName: resp.content.name };
+				return [...acc, ...Array.from({ length: curr.quantity }).fill(current)];
+			}, []);
+			
+			shuffleDeck(totalDeck, resp.content, url);
+		});
+	};
+
 	return {
 		deck: writableDeck,
 		cardSelected,
 		functions: {
+			isDataQueryNeeded,
+			getCards,
 			resetDeck,
 			setDeck,
 			shuffleDeck,

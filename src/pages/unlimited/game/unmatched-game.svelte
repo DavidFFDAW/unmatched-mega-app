@@ -1,9 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	import HttpService from '../../../services/http.service';
-	import type { DeckCards } from '../models/models';
-	import type { ApiResponse } from '../../../models/models';
 	import SingleCard from './components/single-card.svelte';
 	import useDeck from './hooks/useDeck';
 	import HeroCard from './components/hero-card.svelte';
@@ -15,23 +12,11 @@
 
 	let currentTab = 'hand';
 	let groupView: boolean = false;
-	let isFooterVisible: boolean = false;
 	const { deck, cardSelected, functions } = useDeck($page.url.pathname);
 
 	onMount(() => {
-		if (
-			(!$deck?.deckData && $deck?.hand?.length <= 0 && $deck?.discard?.length <= 0) ||
-			$deck.url !== $page.url.pathname
-		) {
-			HttpService.get(`/api/deck/${id}`).then((resp: ApiResponse) => {
-				const { cards } = resp.content.deck_data;
-
-				const totalDeck = cards.reduce((acc: DeckCards[], curr: DeckCards) => {
-					const current = { ...curr, deckName: resp.content.name };
-					return [...acc, ...Array.from({ length: curr.quantity }).fill(current)];
-				}, []);
-				functions.shuffleDeck(totalDeck, resp.content, $page.url.pathname);
-			});
+		if (functions.isDataQueryNeeded($deck, $page.url.pathname)) {
+			functions.getCards(id, $page.url.pathname);
 		}
 	});
 
