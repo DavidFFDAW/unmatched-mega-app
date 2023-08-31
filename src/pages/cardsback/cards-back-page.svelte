@@ -22,7 +22,7 @@
 	};
 </script>
 
-<div class="flex row start gap astart flex-responsive">
+<div class="flex start gap astart flex-responsive">
 	<div>
 		<div class="flex center acenter" id="downloadable-image">
 			<CardBack src={imageUrl}>
