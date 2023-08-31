@@ -27,13 +27,9 @@
 	let cantonAdjust = 0;
 
 	const resizeCanton = function () {
-		// text region offset: 17.1mm (not needed?)
-		// triangle height: 3.3mm
-		// name panel full height: 29.1mm
-		// region full height: 47mm
 		const characterName: HTMLElement | null = component.querySelector('.character-name');
 		const width = characterName?.scrollWidth;
-		// Need this to avoid zero width sometimes
+
 		if (width) {
 			const cantonHeight = component.querySelector('.upper-left')?.scrollHeight || 0;
 
@@ -50,7 +46,9 @@
 	};
 
 	onMount(() => {
-		resizeCanton();
+		setTimeout(() => {
+			resizeCanton();
+		}, 500);
 	});
 
 	const emitClick = () => {
