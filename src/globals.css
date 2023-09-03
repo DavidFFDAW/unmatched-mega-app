@@ -407,6 +407,10 @@ a {
 	border-radius: 5px;
 	z-index: 5;
 }
+.box .title {
+	font-size: 25px;
+	font-family: 'bebas', sans-serif;
+}
 
 .box.p {
 	padding: 20px;
@@ -454,7 +458,6 @@ a {
 	width: 203px;
 	border-radius: 10px;
 }
-
 
 .form-item label {
 	display: block;

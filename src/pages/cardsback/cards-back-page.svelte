@@ -33,7 +33,7 @@
 				</div>
 			</CardBack>
 		</div>
-		
+
 		<div class="w1 form-item down">
 			<ButtonFile bind:image={imageUrl} />
 		</div>
@@ -72,11 +72,6 @@
 </div>
 
 <style>
-	.title {
-		font-size: 25px;
-		font-family: 'bebas', sans-serif;
-	}
-
 	.internal-border-line {
 		position: absolute;
 		top: 50%;
