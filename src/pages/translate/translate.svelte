@@ -4,7 +4,7 @@
 	import Input from '../../components/forms/input.svelte';
 	import Switch from '../../components/forms/switch.svelte';
 	import TranslateCard from './components/translate-card.svelte';
-	import { cardData, functions } from './services/translate-cards.service';
+	import { cardData, functions } from './hooks/useTranslateCard';
 </script>
 
 <div class="flex center acenter gap flex-responsive-reverse">

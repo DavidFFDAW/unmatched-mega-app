@@ -1,6 +1,6 @@
 import { get, writable } from 'svelte/store';
 import { downloadPngFromElement } from '../../../services/dom.screenshot.service';
-import { initialTranslateCard } from './translate-cards.model';
+import { initialTranslateCard } from '../translate-cards.model';
 
 export const cardData = writable(initialTranslateCard);
 

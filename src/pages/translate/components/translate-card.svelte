@@ -1,7 +1,7 @@
 <script lang="ts">
 	import imageEffect from '../assets/effect-inner.png';
 	import nameImage from '../assets/name.png';
-	import type { TranslateCard } from '../services/translate-cards.model';
+	import type { TranslateCard } from '../translate-cards.model';
 
 	export let cardData: TranslateCard;
 </script>
