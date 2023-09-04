@@ -55,7 +55,7 @@ const downloadCard = () => {
 	const storedCard = get(cardData);
 
 	return downloadPngFromElement(
-		document.getElementById('unmatchedTranslateCard'),
+		document.getElementById('unmatchedCard'),
 		`${storedCard.name}-unmatched-${storedCard.title}`
 	);
 };
