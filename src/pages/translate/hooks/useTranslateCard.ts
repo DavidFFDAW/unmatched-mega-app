@@ -56,43 +56,11 @@ const setCharacterNameHeight = (event: Event) => {
 
 const downloadCard = () => {
 	const storedCard = get(cardData);
-	const imagePromise = getPngFromElement(document.getElementById('unmatchedCard'));
 
-	imagePromise.then((dataUrl: string) => {
-		console.log({ topng: dataUrl });
-
-		fetch('https://bigjpg.com/api/task/', {
-			body: JSON.stringify({
-				style: 'art',
-				noise: '3',
-				x2: '1',
-				input: dataUrl
-			}),
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded',
-				'X-Api-Key': 'ab9c0a5f69f240e790af9aa4f989d1cb'
-			},
-			method: 'POST',
-			mode: 'cors'
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				console.log({ bigjpg: data });
-
-				const downloadUrl = data.task_url;
-				const link = document.createElement('a');
-				link.download = `${storedCard.name}-${storedCard.title.toLowerCase()}.png`;
-				link.href = downloadUrl;
-				document.body.appendChild(link);
-				link.click();
-				link.remove();
-			});
-	});
-
-	// return downloadPngFromElement(
-	// 	document.getElementById('unmatchedCard'),
-	// 	`${storedCard.name}-unmatched-${storedCard.title.toLowerCase()}`
-	// );
+	return downloadPngFromElement(
+		document.getElementById('unmatchedCard'),
+		`${storedCard.name}-unmatched-${storedCard.title.toLowerCase().replace(/ /g, '-')}`
+	);
 };
 
 const setFeintTemplate = () => {
