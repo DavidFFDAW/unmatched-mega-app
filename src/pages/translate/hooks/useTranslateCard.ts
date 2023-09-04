@@ -100,6 +100,20 @@ const setRegroupTemplate = () => {
 		rayito: ''
 	});
 };
+const setMomentousShiftTemplate = () => {
+	cardData.set({
+		...get(cardData),
+		title: 'Giro trascendental',
+		character: 'Cualquiera',
+		line: true,
+		qty: '3',
+		inmediate: '',
+		during:
+			'Si tu luchador ha empezado el turno en una casilla diferente a la actual, el valor de esta carta es 5.',
+		after: '',
+		rayito: ''
+	});
+};
 
 export const functions = {
 	setCardBackground,
@@ -109,5 +123,6 @@ export const functions = {
 	downloadCard,
 	setFeintTemplate,
 	setSkirmishTemplate,
-	setRegroupTemplate
+	setRegroupTemplate,
+	setMomentousShiftTemplate
 };

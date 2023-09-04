@@ -80,6 +80,7 @@
 		<ButtonFill label="Finta" click={functions.setFeintTemplate} />
 		<ButtonFill label="Escaramuza" click={functions.setSkirmishTemplate} />
 		<ButtonFill label="Regroup" click={functions.setRegroupTemplate} />
+		<ButtonFill label="Momentous Shift" click={functions.setMomentousShiftTemplate} />
 	</form>
 </div>
 
