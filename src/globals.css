@@ -359,7 +359,8 @@ a {
 
 .btn {
 	position: relative;
-	display: block;
+	display: inline-grid;
+	place-content: center;
 	padding: 12px 30px;
 	border: 2px solid #333;
 	color: #333;

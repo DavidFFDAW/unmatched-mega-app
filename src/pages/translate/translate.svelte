@@ -76,7 +76,7 @@
 
 <div class="down box p">
 	<h3 class="title">Templates de cartas</h3>
-	<form class="flex start acenter gap-smaller">
+	<form class="template-cards-list flex start acenter gap-smaller flex-responsive">
 		<ButtonFill label="Finta" click={functions.setFeintTemplate} />
 		<ButtonFill label="Escaramuza" click={functions.setSkirmishTemplate} />
 		<ButtonFill label="Regroup" click={functions.setRegroupTemplate} />
@@ -89,6 +89,12 @@
 
 <style>
 	@media only screen and (max-width: 768px) {
+		.template-cards-list {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			place-items: stretch;
+			gap: 10px;
+		}
 		.flex-responsive-reverse {
 			flex-direction: column-reverse;
 		}
