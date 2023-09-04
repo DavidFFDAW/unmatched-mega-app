@@ -56,7 +56,7 @@ const downloadCard = () => {
 
 	return downloadPngFromElement(
 		document.getElementById('unmatchedCard'),
-		`${storedCard.name}-unmatched-${storedCard.title}`
+		`${storedCard.name}-unmatched-${storedCard.title.toLowerCase()}`
 	);
 };
 
