@@ -14,6 +14,6 @@
 
 <style>
 	.main-app-layout {
-		padding: 15px 16px;
+		padding: 15px 16px 60px 16px;
 	}
 </style>
