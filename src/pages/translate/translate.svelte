@@ -29,7 +29,7 @@
 			<TranslateCard bind:cardData={$cardData} />
 		</div>
 		<div class="flex center acenter">
-			<ButtonFill label="Descargar carta" click={functions.downloadCard}/>
+			<ButtonFill label="Descargar carta" click={functions.downloadCard} />
 		</div>
 	</div>
 </div>
@@ -72,6 +72,15 @@
 			/>
 		</form>
 	</div>
+</div>
+
+<div class="down box p">
+	<h3 class="title">Templates de cartas</h3>
+	<form class="flex start acenter gap-smaller">
+		<ButtonFill label="Finta" click={functions.setFeintTemplate} />
+		<ButtonFill label="Escaramuza" click={functions.setSkirmishTemplate} />
+		<ButtonFill label="Regroup" click={functions.setRegroupTemplate} />
+	</form>
 </div>
 
 <style>
