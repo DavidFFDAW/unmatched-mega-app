@@ -2,7 +2,6 @@
 	export let label: string;
 	export let name: string;
 	export let value: boolean;
-	console.log(value);
 
 	const setValue = () => {
 		value = !value;
@@ -12,7 +11,7 @@
 <div class="w1 form-item">
 	<label for={name} style="margin-bottom: 5px">{label}</label>
 	<label class="switch">
-		<input type="checkbox" {name} {value} on:change={setValue} bind:checked={value} />
+		<input type="checkbox" id={name} {name} {value} on:change={setValue} bind:checked={value} />
 		<div class="slider round" />
 	</label>
 </div>

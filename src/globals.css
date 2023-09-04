@@ -408,8 +408,16 @@ a {
 	z-index: 5;
 }
 .box .title {
+	margin-bottom: 10px;
 	font-size: 25px;
 	font-family: 'bebas', sans-serif;
+}
+.box .title::after {
+	content: "";
+	display: block;
+	width: 5%;
+	height: 5px;
+	background: lightgray;
 }
 
 .box.p {
@@ -459,7 +467,8 @@ a {
 	border-radius: 10px;
 }
 
-.form-item label {
+.form-item label,
+.form-item span.label {
 	display: block;
 	font-size: 18px;
 }

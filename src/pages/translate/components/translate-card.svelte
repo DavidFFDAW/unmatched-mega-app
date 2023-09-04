@@ -1,22 +1,12 @@
-<script>
+<script lang="ts">
 	import imageEffect from '../assets/effect-inner.png';
 	import nameImage from '../assets/name.png';
+	import type { TranslateCard } from '../services/translate-cards.model';
 
-	export let cardData = {
-		name: 'Sample',
-		qty: 1,
-		title: 'Sample',
-		character: 'Sample',
-		image: 'https://i.imgur.com/5X9Z3XG.png',
-		inmediate: 'Sample',
-		during: 'Sample',
-		after: 'Sample',
-		rayito: 'Sample',
-		line: true
-	};
+	export let cardData: TranslateCard;
 </script>
 
-<div class="flex box no-bg">
+<div class="flex center acenter box no-bg">
 	<div
 		id="unmatchedCard"
 		class="unmatched card bgimg"
@@ -135,7 +125,7 @@
 	.card-real-effects p span {
 		margin: 0;
 		font-size: 3.3mm;
-		font-family: Archivo Narrow, sans-serif;
+		font-family: narrow, sans-serif;
 	}
 	.real-effect {
 		position: relative;

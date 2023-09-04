@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let visible: boolean = false;
-	import FooterItem from './footer-item.svelte';
 	import Footer from './footer.svelte';
+	import FooterItem from './footer-item.svelte';
 	import { writableDeck as deck, functions } from '../../hooks/useDeck2';
 
 	const handleClick = () => {
@@ -22,7 +22,7 @@
 			<FooterItem
 				title={'Descartar la mano entera'}
 				description={'Descartar toda las cartas de la mano y las añade al mazo de descartes'}
-				click={() => functions.discardHand($deck)}
+				click={() => functions.discardHand()}
 				afterClick={handleClick}
 			/>
 		</ul>
