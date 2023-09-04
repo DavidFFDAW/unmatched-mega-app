@@ -80,7 +80,10 @@
 		<ButtonFill label="Finta" click={functions.setFeintTemplate} />
 		<ButtonFill label="Escaramuza" click={functions.setSkirmishTemplate} />
 		<ButtonFill label="Regroup" click={functions.setRegroupTemplate} />
-		<ButtonFill label="Momentous Shift" click={functions.setMomentousShiftTemplate} />
+		<ButtonFill label="Giro trascendental" click={functions.setMomentousShiftTemplate} />
+		<ButtonFill label="A bocajarro" click={functions.setABocajarroTemplate} />
+		<ButtonFill label="Contrincante hábil" click={functions.setWillyFightingTemplate} />
+		<ButtonFill label="Curtido en la batalla" click={functions.setBattleHardenedTemplate} />
 	</form>
 </div>
 
