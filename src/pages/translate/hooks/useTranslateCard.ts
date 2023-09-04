@@ -1,5 +1,8 @@
 import { get, writable } from 'svelte/store';
-import { downloadPngFromElement } from '../../../services/dom.screenshot.service';
+import {
+	downloadPngFromElement,
+	getPngFromElement
+} from '../../../services/dom.screenshot.service';
 import { initialTranslateCard } from '../translate-cards.model';
 
 export const cardData = writable(initialTranslateCard);
@@ -53,11 +56,43 @@ const setCharacterNameHeight = (event: Event) => {
 
 const downloadCard = () => {
 	const storedCard = get(cardData);
+	const imagePromise = getPngFromElement(document.getElementById('unmatchedCard'));
 
-	return downloadPngFromElement(
-		document.getElementById('unmatchedCard'),
-		`${storedCard.name}-unmatched-${storedCard.title.toLowerCase()}`
-	);
+	imagePromise.then((dataUrl: string) => {
+		console.log({ topng: dataUrl });
+
+		fetch('https://bigjpg.com/api/task/', {
+			body: JSON.stringify({
+				style: 'art',
+				noise: '3',
+				x2: '1',
+				input: dataUrl
+			}),
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+				'X-Api-Key': 'ab9c0a5f69f240e790af9aa4f989d1cb'
+			},
+			method: 'POST',
+			mode: 'cors'
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				console.log({ bigjpg: data });
+
+				const downloadUrl = data.task_url;
+				const link = document.createElement('a');
+				link.download = `${storedCard.name}-${storedCard.title.toLowerCase()}.png`;
+				link.href = downloadUrl;
+				document.body.appendChild(link);
+				link.click();
+				link.remove();
+			});
+	});
+
+	// return downloadPngFromElement(
+	// 	document.getElementById('unmatchedCard'),
+	// 	`${storedCard.name}-unmatched-${storedCard.title.toLowerCase()}`
+	// );
 };
 
 const setFeintTemplate = () => {
