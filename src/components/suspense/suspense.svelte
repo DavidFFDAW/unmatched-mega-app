@@ -1,10 +1,10 @@
 <script lang="ts">
-    import GlobalLoading from '@components/loading/global-loading.svelte';
-    export let component = undefined;
+	import GlobalLoading from '@components/loading/global-loading.svelte';
+	export let component: any = undefined;
 </script>
 
-{#if CardBackPage}
-	<svelte:component this={CardBackPage} />
+{#if component}
+	<svelte:component this={component} />
 {:else}
-	<GlobalLoading/>
+	<GlobalLoading />
 {/if}
