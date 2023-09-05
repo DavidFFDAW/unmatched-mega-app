@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Suspense from '@src/components/suspense/suspense.svelte';
 	import { onMount } from 'svelte';
 	let DialsPage: any;
 
@@ -12,4 +13,4 @@
 	<title>UNmatched | Dials</title>
 </svelte:head>
 
-<svelte:component this={DialsPage} />
+<Suspense component={DialsPage} />

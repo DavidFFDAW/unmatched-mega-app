@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Suspense from '@src/components/suspense/suspense.svelte';
 	import { onMount } from 'svelte';
 	let PrintPage: any;
 
@@ -7,9 +8,8 @@
 	});
 </script>
 
-
 <svelte:head>
 	<title>UNmatched | Print</title>
 </svelte:head>
 
-<svelte:component this={PrintPage} />
+<Suspense component={PrintPage} />

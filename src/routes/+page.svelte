@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Suspense from '@src/components/suspense/suspense.svelte';
 	import { onMount } from 'svelte';
 	let Landing: any;
 
@@ -7,10 +8,9 @@
 	});
 </script>
 
-
 <svelte:head>
 	<title>UNmatched | Landing</title>
 	<meta name="robots" content="noindex nofollow" />
 </svelte:head>
 
-<svelte:component this={Landing} />
+<Suspense component={Landing} />

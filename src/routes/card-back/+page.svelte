@@ -8,10 +8,9 @@
 	});
 </script>
 
-
 <svelte:head>
 	<title>UNmatched | Cardback Designer</title>
 </svelte:head>
 
-<!-- <Suspense component="{CardBackPage}"/> -->
-<svelte:component this={CardBackPage} />
+<Suspense component={CardBackPage} />
+<!-- <svelte:component this={CardBackPage} /> -->

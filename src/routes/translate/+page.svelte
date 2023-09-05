@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Suspense from '@src/components/suspense/suspense.svelte';
 	import { onMount } from 'svelte';
 	let TranslatePage: any;
 
@@ -11,4 +12,4 @@
 	<title>UNmatched | Translate</title>
 </svelte:head>
 
-<svelte:component this={TranslatePage} />
+<Suspense component={TranslatePage} />
