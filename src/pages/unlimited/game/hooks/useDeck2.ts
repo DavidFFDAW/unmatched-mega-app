@@ -1,8 +1,8 @@
 import { writable } from 'svelte/store';
-import { getFromStorage, persistStorage } from '../../../../services/persistent.storage.service';
-import type { DeckCards, SearchUserDeck } from '../../models/models';
-import HttpService from '../../../../services/http.service';
-import type { ApiResponse } from '../../../../models/models';
+import { getFromStorage, persistStorage } from '@services/persistent.storage.service';
+import type { DeckCards, SearchUserDeck } from '@models/deck.model';
+import HttpService from '@services/http.service';
+import type { ApiResponse } from '@models/api.model';
 
 type UnlimitedDecks = {
 	hand: DeckCards[];
