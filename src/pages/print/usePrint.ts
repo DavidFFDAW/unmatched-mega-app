@@ -1,5 +1,5 @@
 import { get, writable } from 'svelte/store';
-import type { CardPrint } from '../../models/models';
+import type { CardPrint } from '@models/card.model';
 import { PdfService } from './pdf.service';
 
 export default function usePrint() {

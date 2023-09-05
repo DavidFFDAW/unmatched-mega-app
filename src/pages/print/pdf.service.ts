@@ -1,5 +1,5 @@
 import jsPDF from 'jspdf';
-import type { CardPrint } from '../../models/models';
+import type { CardPrint } from '@models/card.model';
 
 export class PdfService {
 	private doc: jsPDF;

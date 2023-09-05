@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { initialDeckValue } from './game/hooks/useDeck';
+	import { initialDeckValue } from './game/hooks/useDeck2';
 	import type { SearchUserDeck } from './models/models';
 	import HttpService from '@services/http.service';
 	import { getFromStorage, persistStorage } from '@services/persistent.storage.service';
