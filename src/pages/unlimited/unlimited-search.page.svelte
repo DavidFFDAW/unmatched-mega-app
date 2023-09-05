@@ -1,40 +1,19 @@
 <script lang="ts">
-	import { initialDeckValue } from './game/hooks/useDeck2';
-	import type { SearchUserDeck } from './models/models';
-	import HttpService from '@services/http.service';
-	import { getFromStorage, persistStorage } from '@services/persistent.storage.service';
-
-	let response: SearchUserDeck[] = getFromStorage('lastSearch', []);
-	let searchTerms: string = '';
-	let storedGame: any = getFromStorage('game', initialDeckValue);
-
-	const search = () => {
-		if (searchTerms.length > 3) {
-			response = [];
-			HttpService.get(`/api/search/${searchTerms}`).then((res: any) => {
-				response = res.content.decks;
-				persistStorage('lastSearch', response);
-			});
-		}
-	};
-
-	const deleteStoredGame = (ev: Event) => {
-		ev.preventDefault();
-		persistStorage('game', initialDeckValue);
-		storedGame = false;
-	};
+	import { unlimitedSearch, search, deleteStoredGame } from './useUnlimitedSearch';
 </script>
 
-{#if storedGame.url && storedGame.deckData}
+{#if $unlimitedSearch.storedGame.url && $unlimitedSearch.storedGame.deckData}
 	<div class="stored-game-alert alert flex center acenter gap-small" role="alert">
 		<p>
 			Existe una partida en curso con el mazo <strong class="bebas"
-				>{storedGame.deckData.name}</strong
+				>{$unlimitedSearch.storedGame.deckData.name}</strong
 			>
 		</p>
 		<div class="flex between acenter gap-smaller">
-			<a href={storedGame.url} class="alert-button" on:click={deleteStoredGame}>Borrar</a>
-			<a href={storedGame.url} class="alert-button">Continuar</a>
+			<a href={$unlimitedSearch.storedGame.url} class="alert-button" on:click={deleteStoredGame}
+				>Borrar</a
+			>
+			<a href={$unlimitedSearch.storedGame.url} class="alert-button">Continuar</a>
 		</div>
 	</div>
 {/if}
@@ -42,17 +21,18 @@
 <div class="search-container">
 	<label for="search-term" class="label league upper">Busca un mazo por nombre o por autor</label>
 	<input
+		id="search-term"
 		class="input bebas upper"
 		type="text"
 		placeholder="Michael Myers"
-		bind:value={searchTerms}
+		bind:value={$unlimitedSearch.searchTerms}
 		on:change={search}
 	/>
 </div>
 
 <div class="search-results list down">
-	{#if response.length > 0}
-		{#each response as item}
+	{#if $unlimitedSearch.response.length > 0}
+		{#each $unlimitedSearch.response as item}
 			<a class="search-result-item unmatched-deck deck-{item.id}" href="/unlimited-decks/{item.id}">
 				<div class="image-card-continer">
 					{#if item.deck_data.cards[0]}
