@@ -1,5 +1,5 @@
 <script lang="ts">
-	import UnmatchedRealCard from '../../../../components/unmatched-real-card.svelte';
+	import UnmatchedRealCard from '@components/unmatched-real-card.svelte';
 	export let list: any[] = [];
 	export let groupView: boolean = false;
 	export let selectCard: any;

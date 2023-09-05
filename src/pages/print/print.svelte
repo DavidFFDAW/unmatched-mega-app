@@ -1,6 +1,6 @@
 <script lang="ts">
-	import CardContainer from '../../components/card-container.svelte';
-	import Card from '../../components/cards/card.svelte';
+	import CardContainer from '@components/card-container.svelte';
+	import Card from '@components/cards/card.svelte';
 	import usePrint from './usePrint';
 	let cardBack: string | null;
 

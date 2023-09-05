@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { initialDeckValue } from './game/hooks/useDeck';
 	import type { SearchUserDeck } from './models/models';
-	import HttpService from '../../services/http.service';
-	import { getFromStorage, persistStorage } from '../../services/persistent.storage.service';
+	import HttpService from '@services/http.service';
+	import { getFromStorage, persistStorage } from '@services/persistent.storage.service';
 
 	let response: SearchUserDeck[] = getFromStorage('lastSearch', []);
 	let searchTerms: string = '';

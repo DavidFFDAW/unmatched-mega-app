@@ -4,7 +4,7 @@
 	import SingleCard from './components/single-card.svelte';
 	// import useDeck from './hooks/useDeck';
 	import useDeck from './hooks/useDeck2';
-	import HeroCard from '../../../components/cards/hero-card.svelte';
+	import HeroCard from '@components/cards/hero-card.svelte';
 	import { FOOTER_TABS, PAGES } from '../unlimited.constants';
 	import DeckListPage from './components/deck-list-page.svelte';
 	import GameHeader from './components/game-header.svelte';

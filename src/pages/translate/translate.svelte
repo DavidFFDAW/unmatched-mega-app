@@ -1,8 +1,8 @@
 <script lang="ts">
-	import ButtonFile from '../../components/buttons/button-file.svelte';
-	import ButtonFill from '../../components/buttons/button-fill.svelte';
-	import Input from '../../components/forms/input.svelte';
-	import Switch from '../../components/forms/switch.svelte';
+	import ButtonFile from '@components/buttons/button-file.svelte';
+	import ButtonFill from '@components/buttons/button-fill.svelte';
+	import Input from '@components/forms/input.svelte';
+	import Switch from '@components/forms/switch.svelte';
 	import TranslateCard from './components/translate-card.svelte';
 	import { cardData, functions } from './hooks/useTranslateCard';
 </script>

@@ -1,9 +1,9 @@
 <script lang="ts">
-	import ButtonFile from '../../components/buttons/button-file.svelte';
-	import ButtonFill from '../../components/buttons/button-fill.svelte';
-	import CardBack from '../../components/cards/card-back.svelte';
-	import ColorPicker from '../../components/colorpicker/color-picker.svelte';
-	import { downloadPngFromElement } from '../../services/dom.screenshot.service';
+	import ButtonFile from '@components/buttons/button-file.svelte';
+	import ButtonFill from '@components/buttons/button-fill.svelte';
+	import CardBack from '@components/cards/card-back.svelte';
+	import ColorPicker from '@components/colorpicker/color-picker.svelte';
+	import { downloadPngFromElement } from '@services/dom.screenshot.service';
 	import UnmatchedLogoSvg from './components/unmatched-logo-svg.svelte';
 
 	let deckName: string = 'Sample';

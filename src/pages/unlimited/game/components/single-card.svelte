@@ -1,6 +1,6 @@
 <script lang="ts">
-	import CardBack from '../../../../components/cards/card-back.svelte';
-	import UnmatchedRealCard from '../../../../components/unmatched-real-card.svelte';
+	import CardBack from '@components/cards/card-back.svelte';
+	import UnmatchedRealCard from '@components/unmatched-real-card.svelte';
 
 	let flipped: boolean = false;
 

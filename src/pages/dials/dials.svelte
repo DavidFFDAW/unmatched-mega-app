@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../assets/circles.css';
-	import Alert from '../../components/alert.svelte';
+	import Alert from '@components/alert.svelte';
 	import DialLetters from './dial-letters.svelte';
 	import { dials } from './stores/dials.store';
 </script>
