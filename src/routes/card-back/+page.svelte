@@ -1,10 +1,10 @@
 <script lang="ts">
+	import Suspense from '@components/suspense/suspense.svelte';
 	import { onMount } from 'svelte';
-	import CardsBackPage from '../../pages/cardsback/cards-back-page.svelte';
 	let CardBackPage: any;
 
 	onMount(async () => {
-		CardBackPage = (await import('../../pages/cardsback/cards-back-page.svelte')).default;
+		CardBackPage = (await import('@pages/cardsback/cards-back-page.svelte')).default;
 	});
 </script>
 
@@ -13,4 +13,5 @@
 	<title>UNmatched | Cardback Designer</title>
 </svelte:head>
 
-<svelte:component this={CardsBackPage} />
+<!-- <Suspense component="{CardBackPage}"/> -->
+<svelte:component this={CardBackPage} />

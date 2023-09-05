@@ -1,6 +1,6 @@
 <script lang="ts">
 	import domtoimage from 'dom-to-image';
-	import UnmatchedRealCard from '../../components/unmatched-real-card.svelte';
+	import UnmatchedRealCard from '@components/unmatched-real-card.svelte';
 	let card: any = {
 		title: '',
 		basicText: '',

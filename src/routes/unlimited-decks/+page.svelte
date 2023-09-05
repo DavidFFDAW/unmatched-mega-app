@@ -3,7 +3,7 @@
 	let UnlimitedDecksPage: any;
 
 	onMount(async () => {
-		UnlimitedDecksPage = (await import('../../pages/unlimited/unlimited-search.page.svelte'))
+		UnlimitedDecksPage = (await import('@pages/unlimited/unlimited-search.page.svelte'))
 			.default;
 	});
 </script>

@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import HttpService from '../../../../services/http.service.js';
+import HttpService from '@services/http.service.js';
 
 const url = 'https://unmatched.cards/api/decks/';
 

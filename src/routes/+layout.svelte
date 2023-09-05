@@ -1,8 +1,8 @@
 <script>
-	import '../typographies.css';
+	import '@src/typographies.css';
 	import 'animate.css';
-	import '../globals.css';
-	import Navigation from '../components/navigation.svelte';
+	import '@src/globals.css';
+	import Navigation from '@components/navigation.svelte';
 </script>
 
 <main>

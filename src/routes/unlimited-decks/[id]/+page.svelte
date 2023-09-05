@@ -3,7 +3,7 @@
 	let GamePage: any;
 
 	onMount(async () => {
-		GamePage = (await import('../../../pages/unlimited/game/unmatched-game.svelte')).default;
+		GamePage = (await import('@pages/unlimited/game/unmatched-game.svelte')).default;
 	});
 </script>
 

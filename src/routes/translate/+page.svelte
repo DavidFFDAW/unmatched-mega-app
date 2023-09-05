@@ -3,7 +3,7 @@
 	let TranslatePage: any;
 
 	onMount(async () => {
-		TranslatePage = (await import('../../pages/translate/translate.svelte')).default;
+		TranslatePage = (await import('@pages/translate/translate.svelte')).default;
 	});
 </script>
 

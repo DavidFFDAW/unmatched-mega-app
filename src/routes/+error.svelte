@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import Navigation from '../components/navigation.svelte';
-	import ShapeDivider from '../components/shape-divider.svelte';
+	import Navigation from '@components/navigation.svelte';
+	import ShapeDivider from '@components/shape-divider.svelte';
 	console.log({ ...$page });
 </script>
 

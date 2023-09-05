@@ -3,7 +3,7 @@
 	let DialsPage: any;
 
 	onMount(async () => {
-		DialsPage = (await import('../../pages/dials/dials.svelte')).default;
+		DialsPage = (await import('@pages/dials/dials.svelte')).default;
 	});
 </script>
 
