@@ -1,7 +1,7 @@
 <script>
-    import './common.css';
+	import './common.css';
 </script>
 
 <section class="unlimited-decks-game game">
-    <slot/>
+	<slot />
 </section>

@@ -2,7 +2,7 @@
 	export let visible: boolean = false;
 	import FooterItem from './footer-item.svelte';
 	import Footer from './footer.svelte';
-	import { functions } from '../../hooks/useDeck2';
+	import { deckFunctions } from '../../hooks/useDeck';
 
 	const setVisible = () => (visible = !visible);
 </script>
@@ -19,7 +19,7 @@
 			<FooterItem
 				title={'Recuperar una carta de los descartes'}
 				description={'Recuperar una carta aleatoria de entre las que se encuentran en el mazo de descarte'}
-				click={functions.retrieveRandomDiscardCard}
+				click={deckFunctions.retrieveRandomDiscardCard}
 				afterClick={setVisible}
 			/>
 		</ul>
