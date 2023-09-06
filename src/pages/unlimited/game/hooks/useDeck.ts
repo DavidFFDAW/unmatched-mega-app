@@ -1,8 +1,10 @@
-import { writable } from 'svelte/store';
-import { getFromStorage, persistStorage } from '@services/persistent.storage.service';
-import type { DeckCards, SearchUserDeck } from '@models/deck.model';
+import { page } from '$app/stores';
+import { get, writable } from 'svelte/store';
 import HttpService from '@services/http.service';
 import type { ApiResponse } from '@models/api.model';
+import { getFromStorage, persistStorage } from '@services/persistent.storage.service';
+import type { DeckCards, SearchUserDeck } from '@models/deck.model';
+import { customSelectCard, deselectCard, selectCard, selectedCard } from './useSelectCard';
 
 type UnlimitedDecks = {
 	hand: DeckCards[];
@@ -23,10 +25,8 @@ export const initialDeckValue = {
 const storedGame = getFromStorage('game', null) as UnlimitedDecks | null;
 const initialState: UnlimitedDecks =
 	storedGame ? storedGame : initialDeckValue;
-const intialSelectedCard: DeckCards | null = null;
 
 export const writableDeck = writable(initialState);
-export const cardSelected = writable(intialSelectedCard);
 
 const resetDeck = () => {
 	writableDeck.set(initialState);
@@ -47,19 +47,6 @@ const shuffleDeck = (totalDeck: DeckCards[], deckData: any, pageURL: string) => 
 
 		return deck;
 	});
-};
-
-const selectCard = (card: DeckCards) => {
-	cardSelected.set(card as any);
-};
-
-const customSelectCard = (card: DeckCards, deckType: string) => {
-	const cards = { ...card, deckPlace: deckType };
-	selectCard(cards);
-};
-
-const deselectCard = () => {
-	cardSelected.set(null);
 };
 
 const drawCard = () => {
@@ -119,11 +106,16 @@ const putCardInTopHand = (card: any) => {
 };
 
 const isDataQueryNeeded = (deck: UnlimitedDecks, url: string) => {
+
 	return (!deck?.deckData && deck?.hand?.length <= 0 && deck?.discard?.length <= 0) ||
 		deck.url !== url;
 }
 
-const getCards = (id: string, url: string,) => {
+const getCards = () => {
+	const currentPage = get(page);
+	const id = currentPage.params.id;
+	const url = currentPage.url.pathname;
+
 	HttpService.get(`/api/deck/${id}`).then((resp: ApiResponse) => {
 		const { cards } = resp.content.deck_data;
 
@@ -161,12 +153,11 @@ const retrieveRandomDiscardCard = () => {
 	});
 }
 
-
 writableDeck.subscribe((deck) => {
 	persistStorage('game', deck);
 });
 
-export const functions = {
+export const deckFunctions = {
 	isDataQueryNeeded,
 	getCards,
 	resetDeck,
@@ -182,11 +173,4 @@ export const functions = {
 	selectRandomHandCard,
 	discardHand,
 	retrieveRandomDiscardCard
-};
-
-
-export default {
-	deck: writableDeck,
-	cardSelected,
-	functions
 };

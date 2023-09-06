@@ -1,5 +1,5 @@
 import type { SearchUserDeck } from "@models/deck.model";
-import { initialDeckValue } from "./game/hooks/useDeck2";
+import { initialDeckValue } from "./game/hooks/useDeck";
 import { getFromStorage, persistStorage } from "@services/persistent.storage.service";
 import { get, writable } from "svelte/store";
 import HttpService from "@services/http.service";
