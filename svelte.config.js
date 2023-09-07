@@ -19,7 +19,7 @@ const config = {
 			'@pages': 'src/pages',
 			'@shared': 'src/shared',
 			'@services': 'src/services',
-			'@src': 'src',
+			'@src': 'src'
 		}
 	}
 };
