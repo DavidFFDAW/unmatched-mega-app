@@ -6,8 +6,8 @@ const initialCardBack: CardBack = {
     deck: 'Sample',
     border: '#FFFFFF',
     image: '',
-    letters: '#000',
-    background: '#eee',
+    letters: '#000000',
+    background: '#eeeeee',
 };
 export const downloadID = "card-back-downloadable-image";
 export const cardBackState = writable(initialCardBack);
