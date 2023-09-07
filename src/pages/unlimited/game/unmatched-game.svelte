@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	// import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	import SingleCard from './components/single-card.svelte';
-	import GameHeader from './components/game-header.svelte';
-	import GamePage from './components/game-page.svelte';
+	// import SingleCard from './components/single-card.svelte';
+	// import GameHeader from './components/game-header.svelte';
+	// import GamePage from './components/game-page.svelte';
 	// import {
 	// 	selectedCard,
 	// 	deckFunctions,
@@ -14,8 +14,6 @@
 	// } from './hooks';
 
 	onMount(() => {
-		console.log('pito');
-
 		// if (deckFunctions.isDataQueryNeeded($writableDeck, $page.url.pathname)) {
 		// 	deckFunctions.getCards();
 		// }
