@@ -2,9 +2,10 @@
 	import ButtonFile from '@components/buttons/button-file.svelte';
 	import ButtonFill from '@components/buttons/button-fill.svelte';
 	import CardBack from '@components/cards/card-back.svelte';
-	import ColorPicker from '@components/colorpicker/color-picker.svelte';
+	// import ColorPicker from '@components/colorpicker/color-picker.svelte';
 	import UnmatchedLogoSvg from './components/unmatched-logo-svg.svelte';
 	import { downloadID, downloadImage, cardBackState } from './hooks/useCardBack';
+	import Input from '@components/forms/input.svelte';
 </script>
 
 <div class="flex start gap astart flex-responsive">
@@ -23,34 +24,35 @@
 		</div>
 
 		<div class="w1 form-item down">
-			<ButtonFile bind:image={$cardBackState.image} />
+			<ButtonFile name="card-background-image-file" bind:image={$cardBackState.image} />
 		</div>
 	</div>
 
 	<div class="w1 box p">
 		<h3 class="title">Parte trasera</h3>
 		<form class="flex center astart column gap">
-			<div class="w1 form-item">
-				<label for="">Nombre del mazo</label>
-				<input type="text" name="deck-name" bind:value={$cardBackState.deck} />
-			</div>
+			<Input label="Nombre del mazo" name="deck_name" bind:value={$cardBackState.deck} />
+			<Input
+				type="color"
+				label="Color del borde de la carta"
+				name="card-border-color"
+				bind:value={$cardBackState.border}
+			/>
+			<Input
+				type="color"
+				label="Unmatched logo color de letras"
+				name="card-letters-color"
+				bind:value={$cardBackState.letters}
+			/>
 
-			<div class="w1 form-item">
-				<label for="">Color del borde de la carta</label>
-				<input type="color" name="border-color" bind:value={$cardBackState.border} />
-			</div>
+			<!-- <ColorPicker /> -->
 
-			<div class="w1 form-item">
-				<label for="">Unmatched logo color de letras</label>
-				<input type="color" name="letters-color" bind:value={$cardBackState.letters} />
-			</div>
-
-			<ColorPicker />
-
-			<div class="w1 form-item">
-				<label for="">Unmatched logo color de fondo</label>
-				<input type="color" name="bg-color" bind:value={$cardBackState.background} />
-			</div>
+			<Input
+				type="color"
+				label="Unmatched logo color de letras"
+				name="card-background-color"
+				bind:value={$cardBackState.background}
+			/>
 
 			<div class="w1 flex end">
 				<ButtonFill label="Descargar" click={downloadImage} />
