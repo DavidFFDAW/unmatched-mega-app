@@ -4,7 +4,7 @@ import HttpService from '@services/http.service';
 import type { ApiResponse } from '@models/api.model';
 import { getFromStorage, persistStorage } from '@services/persistent.storage.service';
 import type { DeckCards, SearchUserDeck } from '@models/deck.model';
-import { customSelectCard, deselectCard, selectCard, selectedCard } from './useSelectCard';
+import { customSelectCard, deselectCard, selectCard } from './useSelectCard';
 
 type UnlimitedDecks = {
 	hand: DeckCards[];
