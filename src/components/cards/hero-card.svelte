@@ -1,3 +1,39 @@
+<script lang="ts">
+	interface Sidekick {
+		name: string;
+		attack: string;
+		hp: number;
+		quantity: number;
+	}
+	interface Hero {
+		name: string;
+		attack: string;
+		ability: string;
+		hp: number;
+		move: number;
+	}
+	interface HeroCard {
+		hero: Hero;
+		sidekick: Sidekick;
+	}
+	export let datas: HeroCard = {
+		hero: {
+			name: 'Elektra',
+			attack: 'melee',
+			ability:
+				'Cuando Elektra sea derrotada quita a Elektra y a todos los miembros de la mano del tablero. No ha sido derrotada. Al inicio de tu próximo turno, resucítala. Ignora los efectos de RESUCITADA.',
+			hp: 7,
+			move: 2
+		},
+		sidekick: {
+			quantity: 1,
+			name: 'Daredevil',
+			attack: 'melee',
+			hp: 7
+		}
+	};
+</script>
+
 <div class="zoom-box" style="width: 63mm; height: 88mm;">
 	<div style="transform: scale(1); transform-origin: left top;">
 		<div data-v-507e7f39="" class="unmatched-card float-left shadow editable">
@@ -11,7 +47,7 @@
 								data-v-507e7f39=""
 								contenteditable="true"
 								class="scale-text"
-								style="transform: scaleX(1);">ELEKTRA</span
+								style="transform: scaleX(1);">{datas.hero.name}</span
 							>
 						</div>
 					</div>
@@ -152,9 +188,7 @@
 								contenteditable="true"
 								class="mixed-case"
 								style="white-space: pre-wrap;"
-								>Cuando Elektra sea derrotada quita a Elektra y a todos los miembros de la mano del
-								tablero. No ha sido derrotada. Al inicio de tu próximo turno, resucítala. Ignora los
-								efectos de RESUCITADA.
+								>{datas.hero.ability}
 							</span>
 						</div>
 					</div>
@@ -175,7 +209,7 @@
 							>
 						</div>
 						<div data-v-507e7f39="" class="move-editor">
-							<div data-v-507e7f39="" class="value">2</div>
+							<div data-v-507e7f39="" class="value">{datas.hero.move}</div>
 							<div data-v-972d88fa="" data-v-507e7f39="" class="up-down-buttons editor">
 								<div data-v-972d88fa="" class="valid">
 									<span data-v-972d88fa="" class="fa-layers fa-fw"
@@ -287,7 +321,7 @@
 								data-v-507e7f39=""
 								contenteditable="true"
 								class="scale-text"
-								style="transform: scaleX(1);">LA MANO</span
+								style="transform: scaleX(1);">{datas.sidekick.name}</span
 							>
 						</div>
 					</div>
@@ -312,7 +346,7 @@
 									<!---->
 								</div>
 								<div data-v-507e7f39="" class="circle" style="margin-left: 0mm;">
-									<span data-v-507e7f39=""> X4 </span>
+									<span data-v-507e7f39=""> X{datas.sidekick.quantity} </span>
 								</div>
 								<div data-v-972d88fa="" data-v-507e7f39="" class="up-down-buttons editor">
 									<div data-v-972d88fa="" class="valid">
@@ -399,3 +433,320 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	.unmatched-card {
+		width: 63mm;
+		height: 88mm;
+		line-height: normal;
+		background: #f7eadb;
+		padding: 3mm;
+		border-radius: 2.5mm;
+	}
+	.main-wrapper[data-v-507e7f39] {
+		border-radius: 1.5mm;
+	}
+
+	.editable .value {
+		position: relative;
+	}
+
+	.editable .editor {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+	}
+
+	.unmatched-card,
+	.unmatched-card * {
+		font-weight: 400;
+		font-family: 'bebas', sans-serif;
+		print-color-adjust: exact;
+		/* -webkit-print-color-adjust: exact; */
+		/* color-adjust: exact; */
+	}
+	.panel[data-v-507e7f39] {
+		position: relative;
+		height: 19.6mm;
+		background: #000;
+		color: #fff;
+	}
+	.panel.hero[data-v-507e7f39] {
+		border-radius: 1.5mm 1.5mm 0 0;
+	}
+	.section.name[data-v-507e7f39] {
+		height: 11.5mm;
+		border-bottom: 0.4mm solid var(--inner-border-colour);
+		padding-top: 1.7mm;
+	}
+	.gutter[data-v-507e7f39] {
+		float: left;
+		height: 100%;
+		width: 3.9mm;
+		border-right: 0.2mm solid var(--inner-border-colour);
+		position: relative;
+	}
+	.gutter div[data-v-507e7f39] {
+		color: #fff;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		bottom: 1mm;
+		left: 3.4mm;
+		white-space: nowrap;
+		padding: 0;
+		margin: 0;
+		transform: rotate(-90deg);
+		position: absolute;
+		transform-origin: left bottom;
+		text-align: left;
+		text-transform: uppercase;
+		font-size: 2.5mm;
+	}
+	.panel .content[data-v-507e7f39] {
+		height: 100%;
+		margin-left: 3.9mm;
+		padding-left: 1.7mm;
+		padding-right: 1.7mm;
+	}
+
+	.panel .xl[data-v-507e7f39] {
+		font-size: 9mm;
+		white-space: nowrap;
+	}
+	.editable .content[data-v-507e7f39] {
+		cursor: text;
+	}
+	.panel .content .scale-text[data-v-507e7f39] {
+		display: inline-block;
+	}
+	.section.attack-health[data-v-507e7f39] {
+		height: 8.1mm;
+	}
+	.section.attack-health .section[data-v-507e7f39] {
+		padding-top: 1.3mm;
+	}
+	.attack[data-v-507e7f39] {
+		position: relative;
+		height: 100%;
+		width: 38.6mm;
+		float: left;
+		border-right: 0.4mm solid var(--inner-border-colour);
+	}
+	.attack .icon.melee[data-v-507e7f39] {
+		width: 78%;
+	}
+	.attack .icon[data-v-507e7f39] {
+		margin-left: 1mm;
+		margin-top: -0.8mm;
+	}
+	.editable .attack .editor[data-v-507e7f39] {
+		cursor: pointer;
+	}
+
+	.editable[data-v-507e7f39] .editor {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		z-index: 3;
+	}
+	.section.attack-health .section[data-v-507e7f39] {
+		padding-top: 1.3mm;
+	}
+	.health[data-v-507e7f39] {
+		height: 100%;
+		margin-left: 38.6mm;
+		position: relative;
+	}
+	.health svg[data-v-507e7f39] {
+		position: absolute;
+		bottom: 0;
+	}
+	.hp[data-v-507e7f39] {
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		position: relative;
+		text-align: center;
+		font-size: 3.8mm;
+		margin-top: 0.8mm;
+		margin-right: 0.2mm;
+		color: var(--contrast-colour);
+	}
+	.editable[data-v-507e7f39] .hp .editor {
+		height: 18mm;
+		width: 10mm;
+		top: -6.5mm;
+		left: 12.5mm;
+		visibility: hidden;
+	}
+	.editable[data-v-507e7f39] .editor {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		z-index: 3;
+	}
+
+	.up-down-buttons .fa-inverse[data-v-972d88fa] {
+		color: #fff;
+	}
+	.fa-layers svg.svg-inline--fa {
+		-webkit-transform-origin: center center;
+		transform-origin: center center;
+	}
+	.fa-layers svg.svg-inline--fa {
+		bottom: 0;
+		left: 0;
+		margin: auto;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+	svg:not(:root).svg-inline--fa {
+		overflow: visible;
+	}
+	.svg-inline--fa.fa-w-16 {
+		width: 1em;
+	}
+	@media (prefers-color-scheme: dark) {
+		.fa-inverse {
+			color: #000;
+		}
+	}
+
+	.up-down-buttons[data-v-972d88fa] {
+		color: #000;
+		font-size: 8mm;
+	}
+	.valid span[data-v-972d88fa] {
+		cursor: pointer;
+	}
+	.health svg .home-plate[data-v-507e7f39] {
+		fill: var(--highlight-colour);
+	}
+	.health svg .indicator[data-v-507e7f39] {
+		fill: hsla(0, 0%, 100%, 0.5333333333333333);
+	}
+	.health svg .arc[data-v-507e7f39] {
+		stroke: var(--outer-border-colour);
+	}
+	.fa-layers svg.svg-inline--fa {
+		-webkit-transform-origin: center center;
+		transform-origin: center center;
+	}
+	.fa-layers svg.svg-inline--fa {
+		bottom: 0;
+		left: 0;
+		margin: auto;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+	svg:not(:root).svg-inline--fa {
+		overflow: visible;
+	}
+	.svg-inline--fa.fa-w-16 {
+		width: 1em;
+	}
+	.panel.abilities[data-v-507e7f39] {
+		height: 42.4mm;
+		border-top: 1mm solid var(--inner-border-colour);
+		border-bottom: 1mm solid var(--inner-border-colour);
+		background: var(--highlight-colour);
+		background-image: var(--background-pattern);
+		color: var(--contrast-colour);
+	}
+	.panel[data-v-507e7f39] {
+		position: relative;
+		height: 19.6mm;
+		background: #000;
+		color: #fff;
+	}
+	.panel.sidekick[data-v-507e7f39] {
+		border-radius: 0 0 1.5mm 1.5mm;
+	}
+	.panel[data-v-507e7f39] {
+		position: relative;
+		height: 19.6mm;
+		background: #000;
+		color: #fff;
+	}
+	.panel.abilities .section[data-v-507e7f39] {
+		height: 100%;
+		padding-top: 4.7mm;
+	}
+	.special[data-v-507e7f39] {
+		height: 100%;
+		width: 47.4mm;
+		float: left;
+	}
+	.panel .content[data-v-507e7f39] {
+		height: 100%;
+		margin-left: 3.9mm;
+		padding-left: 1.7mm;
+		padding-right: 1.7mm;
+	}
+	.editable .content[data-v-507e7f39] {
+		cursor: text;
+	}
+	.special .content span[data-v-507e7f39] {
+		display: inline-block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.panel .mixed-case[data-v-507e7f39] {
+		font-family: League Gothic, sans-serif;
+	}
+	.move .arrow[data-v-507e7f39] {
+		position: absolute;
+		height: 100%;
+		left: -0.95mm;
+	}
+	.move .arrow svg[data-v-507e7f39] {
+		height: 100%;
+		transform: scaleY(0.95);
+		fill: var(--contrast-colour);
+	}
+	.move .value[data-v-507e7f39] {
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		position: relative;
+		height: 20mm;
+		text-align: center;
+		font-size: 18mm;
+		transform: scaleX(0.75) scaleY(1.25);
+	}
+	.editable[data-v-507e7f39] .value + .editor {
+		left: 68%;
+		height: 50%;
+		width: auto;
+		visibility: hidden;
+	}
+	.editable[data-v-507e7f39] .editor {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		z-index: 3;
+	}
+	.up-down-buttons[data-v-972d88fa] {
+		color: #000;
+		font-size: 8mm;
+	}
+	.move .title[data-v-507e7f39] {
+		height: 19.2mm;
+		padding-left: 2.5mm;
+	}
+</style>

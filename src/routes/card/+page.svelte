@@ -1,6 +1,7 @@
 <script lang="ts">
 	import domtoimage from 'dom-to-image';
 	import UnmatchedRealCard from '@components/unmatched-real-card.svelte';
+	import HeroCard from '@components/cards/hero-card.svelte';
 	let card: any = {
 		title: '',
 		basicText: '',
@@ -33,6 +34,8 @@
 		}
 	};
 </script>
+
+<HeroCard />
 
 <div class="flex start acenter gap">
 	<div class="flex start acenter column gap-smaller">

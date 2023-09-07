@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher, onMount } from 'svelte';
 	import TypeCard from './type-card.svelte';
-	import type { DeckCards } from '../pages/unlimited/models/models';
+	import type { DeckCards } from '@models/deck.model';
 	const dispatch = createEventDispatcher();
 
 	const initialCardValues = {
