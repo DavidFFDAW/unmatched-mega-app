@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import { PAGES, TABS } from '../../unlimited.constants';
+	import { drawCard } from '../hooks';
 	const dispatcher = createEventDispatcher();
 
 	export let deckData: any = {};
@@ -10,7 +11,6 @@
 		deck: []
 	};
 	export let currentTab: string = PAGES.hand;
-	export let drawCard: any = () => {};
 
 	const setTab = (tab: string) => {
 		currentTab = tab;
@@ -46,15 +46,27 @@
 </header>
 
 <section class="unlimited-decks-buttons flex center acenter gap">
-	<button class="unlimited-decks-button hand" on:click={() => setTab(PAGES.hand)} on:contextmenu={(ev) => triggerContext(ev, PAGES.hand)}>
+	<button
+		class="unlimited-decks-button hand"
+		on:click={() => setTab(PAGES.hand)}
+		on:contextmenu={(ev) => triggerContext(ev, PAGES.hand)}
+	>
 		<p class="label-text">Mano</p>
 		{decks?.hand?.length}
 	</button>
-	<button class="unlimited-decks-button discard" on:click={() => setTab(PAGES.discard)} on:contextmenu={(ev) => triggerContext(ev, PAGES.discard)}>
+	<button
+		class="unlimited-decks-button discard"
+		on:click={() => setTab(PAGES.discard)}
+		on:contextmenu={(ev) => triggerContext(ev, PAGES.discard)}
+	>
 		<p class="label-text">Descarte</p>
 		{decks?.discard?.length}
 	</button>
-	<button class="unlimited-decks-button deck" on:click={drawCard} on:contextmenu={(ev) => triggerContext(ev, PAGES.deck)}>
+	<button
+		class="unlimited-decks-button deck"
+		on:click={drawCard}
+		on:contextmenu={(ev) => triggerContext(ev, PAGES.deck)}
+	>
 		<p class="label-text">Robar</p>
 		{decks?.deck?.length}
 	</button>

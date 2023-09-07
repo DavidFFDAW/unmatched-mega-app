@@ -4,33 +4,29 @@
 	import SingleCard from './components/single-card.svelte';
 	import GameHeader from './components/game-header.svelte';
 	import GamePage from './components/game-page.svelte';
-	// import {
-	// 	selectedCard,
-	// 	deckFunctions,
-	// 	writableDeck,
-	// 	gameState,
-	// 	changeFooter,
-	// 	setView
-	// } from './hooks';
+	import {
+		selectedCard,
+		deckFunctions,
+		writableDeck,
+		gameState,
+		changeFooter,
+		setView
+	} from './hooks';
 
 	onMount(() => {
-		console.log('pito');
-
-		// if (deckFunctions.isDataQueryNeeded($writableDeck, $page.url.pathname)) {
-		// 	deckFunctions.getCards();
-		// }
+		if (deckFunctions.isDataQueryNeeded($writableDeck, $page.url.pathname)) {
+			deckFunctions.getCards();
+		}
 	});
 </script>
 
-<h2>aaa</h2>
-<!-- {#if $selectedCard}
+{#if $selectedCard}
 	<SingleCard bind:card={$selectedCard} bind:deck={$writableDeck} functions={deckFunctions} />
 {:else if $writableDeck}
 	<GameHeader
 		bind:decks={$writableDeck}
 		bind:deckData={$writableDeck.deckData}
 		bind:currentTab={$gameState.currentTab}
-		bind:drawCard={deckFunctions.drawCard}
 		on:contextmenu={changeFooter}
 	/>
 	<button type="button" on:click={setView}>Cambiar vista</button>
@@ -40,4 +36,4 @@
 	{#if $gameState.footer.visible}
 		<svelte:component this={$gameState.footer.component} bind:visible={$gameState.footer.visible} />
 	{/if}
-{/if} -->
+{/if}

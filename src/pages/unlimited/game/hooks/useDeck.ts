@@ -23,20 +23,19 @@ export const initialDeckValue = {
 };
 
 const storedGame = getFromStorage('game', null) as UnlimitedDecks | null;
-const initialState: UnlimitedDecks =
-	storedGame ? storedGame : initialDeckValue;
+const initialState: UnlimitedDecks = storedGame ? storedGame : initialDeckValue;
 
 export const writableDeck = writable(initialState);
 
-const resetDeck = () => {
+export const resetDeck = () => {
 	writableDeck.set(initialState);
 };
 
-const setDeck = (deck: UnlimitedDecks) => {
+export const setDeck = (deck: UnlimitedDecks) => {
 	writableDeck.set(deck);
 };
 
-const shuffleDeck = (totalDeck: DeckCards[], deckData: any, pageURL: string) => {
+export const shuffleDeck = (totalDeck: DeckCards[], deckData: any, pageURL: string) => {
 	const shuffled = totalDeck.sort(() => 0.5 - Math.random());
 
 	writableDeck.update((deck) => {
@@ -49,7 +48,7 @@ const shuffleDeck = (totalDeck: DeckCards[], deckData: any, pageURL: string) => 
 	});
 };
 
-const drawCard = () => {
+export const drawCard = () => {
 	writableDeck.update((deck) => {
 		if (deck.deck.length <= 0) return deck;
 
@@ -60,7 +59,7 @@ const drawCard = () => {
 	});
 };
 
-const cardsAreEqual = (card1: DeckCards, card2: DeckCards) => {
+export const cardsAreEqual = (card1: DeckCards, card2: DeckCards) => {
 	return (
 		card1.title === card2.title &&
 		card1.type === card2.type &&
@@ -72,7 +71,7 @@ const cardsAreEqual = (card1: DeckCards, card2: DeckCards) => {
 	);
 };
 
-const discardCard = (card: any) => {
+export const discardCard = (card: any) => {
 	writableDeck.update((deck) => {
 		deck.discard = [...deck.discard, card];
 		const index = deck.hand.findIndex((c) => cardsAreEqual(c, card));
@@ -83,7 +82,7 @@ const discardCard = (card: any) => {
 	});
 };
 
-const returnCardToHand = (card: any) => {
+export const returnCardToHand = (card: any) => {
 	writableDeck.update((deck) => {
 		deck.hand = [...deck.hand, card];
 		const index = deck.discard.findIndex((c) => cardsAreEqual(c, card));
@@ -94,7 +93,7 @@ const returnCardToHand = (card: any) => {
 	});
 };
 
-const putCardInTopHand = (card: any) => {
+export const putCardInTopHand = (card: any) => {
 	writableDeck.update((deck) => {
 		deck.deck = [card, ...deck.deck];
 		const index = deck.discard.findIndex((c) => cardsAreEqual(c, card));
@@ -105,13 +104,13 @@ const putCardInTopHand = (card: any) => {
 	});
 };
 
-const isDataQueryNeeded = (deck: UnlimitedDecks, url: string) => {
+export const isDataQueryNeeded = (deck: UnlimitedDecks, url: string) => {
+	return (
+		(!deck?.deckData && deck?.hand?.length <= 0 && deck?.discard?.length <= 0) || deck.url !== url
+	);
+};
 
-	return (!deck?.deckData && deck?.hand?.length <= 0 && deck?.discard?.length <= 0) ||
-		deck.url !== url;
-}
-
-const getCards = () => {
+export const getCards = () => {
 	const currentPage = get(page);
 	const id = currentPage.params.id;
 	const url = currentPage.url.pathname;
@@ -128,14 +127,14 @@ const getCards = () => {
 	});
 };
 
-const selectRandomHandCard = (deck: UnlimitedDecks) => {
+export const selectRandomHandCard = (deck: UnlimitedDecks) => {
 	const randomIndex = Math.floor(Math.random() * deck.hand.length);
 	const card = deck.hand[randomIndex];
 	customSelectCard(card, 'hand');
 	return card;
 };
 
-const discardHand = () => {
+export const discardHand = () => {
 	return writableDeck.update((deck) => {
 		deck.discard = [...deck.discard, ...deck.hand];
 		deck.hand = [];
@@ -143,7 +142,7 @@ const discardHand = () => {
 	});
 };
 
-const retrieveRandomDiscardCard = () => {
+export const retrieveRandomDiscardCard = () => {
 	writableDeck.update((deck) => {
 		const randomIndex = Math.floor(Math.random() * deck.discard.length);
 		const card = deck.discard[randomIndex];
@@ -151,7 +150,7 @@ const retrieveRandomDiscardCard = () => {
 		deck.hand = [...deck.hand, card];
 		return deck;
 	});
-}
+};
 
 writableDeck.subscribe((deck) => {
 	persistStorage('game', deck);
