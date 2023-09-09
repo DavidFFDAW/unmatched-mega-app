@@ -2,7 +2,30 @@
 	import DeckListPage from './deck-list-page.svelte';
 	import { writableDeck, gameState } from '../hooks';
 	import { PAGES } from '../../unlimited.constants';
-	import HeroCard from '@components/cards/hero-card.svelte';
+	import HeroCard from '@components/hero-card/hero-card.svelte';
+
+	const characterInfo = {
+		// @ts-ignore
+		hasSidekick: $writableDeck.deckData?.deck_data.sidekick?.quantity > 0,
+		hero: {
+			name: $writableDeck.deckData?.deck_data.hero.name,
+			attack: $writableDeck.deckData?.deck_data.hero.isRanged ? 'ranged' : 'melee',
+			ability: $writableDeck.deckData?.deck_data.hero.specialAbility,
+			hp: $writableDeck.deckData?.deck_data.hero.hp,
+			move: $writableDeck.deckData?.deck_data.hero.move,
+			quote: $writableDeck.deckData?.deck_data.sidekick.quote
+		},
+		sidekick: {
+			quantity: $writableDeck.deckData?.deck_data.sidekick.quantity,
+			name: $writableDeck.deckData?.deck_data.sidekick.name,
+			attack: $writableDeck.deckData?.deck_data.sidekick.isRanged ? 'ranged' : 'melee',
+			hp: $writableDeck.deckData?.deck_data.sidekick.hp
+		}
+	};
+
+	console.log({
+		info: $writableDeck.deckData?.deck_data
+	});
 </script>
 
 {#if $gameState.currentTab === PAGES.hand}
@@ -19,6 +42,9 @@
 	/>
 {:else if $gameState.currentTab === PAGES.info}
 	<div class="info">
-		<HeroCard />
+		<HeroCard
+			datas={characterInfo}
+			highlight={$writableDeck.deckData?.deck_data.appearance.highlightColour}
+		/>
 	</div>
 {/if}
