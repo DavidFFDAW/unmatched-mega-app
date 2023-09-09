@@ -12,7 +12,7 @@ export interface Hero {
 	move: number | undefined;
 	quote?: string | undefined;
 }
-export interface HeroCard {
+export interface HeroCardInterface {
 	hero: Hero;
 	sidekick: Sidekick;
 	hasSidekick?: boolean;

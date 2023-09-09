@@ -1,8 +1,8 @@
 <script lang="ts">
 	import AttackImage from './attack-image.svelte';
-	import type { HeroCard } from './hero.model';
+	import type { HeroCardInterface } from './hero.model';
 
-	export let datas: HeroCard = {
+	export let datas: HeroCardInterface = {
 		hasSidekick: false,
 		hero: {
 			name: 'Elektra',
