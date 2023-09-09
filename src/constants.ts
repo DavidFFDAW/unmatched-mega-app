@@ -1,11 +1,17 @@
-type Navigation = {
+export interface Submenu {
+	text: string;
+	href: string;
+	class: string;
+}
+export interface Navigation {
 	shortText: string;
 	text: string;
 	icon: string;
 	image: string;
 	class: string;
 	href: string;
-};
+	submenu: Submenu[];
+}
 
 export const navigation: Navigation[] = [
 	{
@@ -14,7 +20,24 @@ export const navigation: Navigation[] = [
 		icon: '',
 		image: '/images/cards-icon.webp',
 		class: 'cards',
-		href: '/translate'
+		href: '/cards',
+		submenu: [
+			{
+				text: 'Traducir cartas',
+				class: 'translate',
+				href: '/cards'
+			},
+			{
+				text: 'Cartas de personaje',
+				class: 'hero',
+				href: '/cards/character'
+			},
+			{
+				text: 'Crear carta',
+				class: 'card',
+				href: '/cards/maker'
+			}
+		]
 	},
 	{
 		shortText: 'Diales',
@@ -22,7 +45,8 @@ export const navigation: Navigation[] = [
 		icon: '',
 		image: '/images/dial.png',
 		class: 'dials',
-		href: '/dials'
+		href: '/dials',
+		submenu: []
 	},
 	{
 		shortText: 'Imprimir',
@@ -30,7 +54,8 @@ export const navigation: Navigation[] = [
 		icon: '',
 		image: '/images/printer.webp',
 		class: 'printer',
-		href: '/print'
+		href: '/print',
+		submenu: []
 	},
 	{
 		shortText: 'Trasera',
@@ -38,7 +63,8 @@ export const navigation: Navigation[] = [
 		icon: '',
 		image: '/images/card-back-icon.webp',
 		class: 'card-back',
-		href: '/card-back'
+		href: '/card-back',
+		submenu: []
 	},
 	{
 		shortText: 'UNlimited',
@@ -46,6 +72,7 @@ export const navigation: Navigation[] = [
 		icon: '',
 		image: '/images/unlimited.png',
 		class: 'unlimited',
-		href: '/unlimited-decks'
+		href: '/unlimited-decks',
+		submenu: []
 	}
 ];
