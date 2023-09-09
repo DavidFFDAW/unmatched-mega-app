@@ -1,6 +1,7 @@
-<script>
+<script lang="ts">
 	import { navigation } from '../constants';
 	import { page } from '$app/stores';
+	import Anchor from './navigation/anchor.svelte';
 </script>
 
 <nav>
@@ -8,9 +9,7 @@
 		<header class="app-header flex start gap-smaller w1">
 			<a href="/" class="bebas upper link"> Home </a>
 			{#each navigation as link}
-				<a href={link.href} class:active={$page.route.id === link.href} class="bebas upper link">
-					{link.shortText}
-				</a>
+				<Anchor {link} hasSubmenu={link.submenu?.length > 0} submenu={link.submenu} />
 			{/each}
 		</header>
 	{/if}
@@ -26,9 +25,5 @@
 		display: block;
 		color: #fff;
 		padding: 10px;
-	}
-	.app-header a.link.active {
-		background-color: #44475a;
-		color: #ffb86c;
 	}
 </style>
