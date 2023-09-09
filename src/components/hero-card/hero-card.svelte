@@ -21,13 +21,12 @@
 		}
 	};
 
-	let sidekickQuantityArray = [...Array(datas.sidekick.quantity)];
 	export let highlight: string = 'goldenrod';
 	export let contrast: string = '#000';
 	export let border: string = '#f7eadb';
 	export let outer: string = '#f7eadb';
 
-	let offset;
+	let offset = 0;
 
 	function offsetCircle(index: number) {
 		const circleSize = 5.5;
@@ -196,7 +195,7 @@
 								</div>
 								{#if datas.sidekick.quantity > 1}
 									<div data-v-507e7f39="" class="quantity">
-										{#each sidekickQuantityArray as item, index}
+										{#each [...Array(datas.sidekick.quantity)] as _, index}
 											<div
 												data-v-507e7f39=""
 												class="circle"
