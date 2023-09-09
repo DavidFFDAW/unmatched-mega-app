@@ -1,16 +1,16 @@
 export interface Sidekick {
-	hp: number | undefined;
-	name: string | undefined;
-	attack: string | undefined;
-	quantity: number | undefined;
+	hp: number;
+	name: string;
+	attack: string;
+	quantity: number;
 }
 export interface Hero {
-	name: string | undefined;
-	attack: string | undefined;
-	ability: string | undefined;
-	hp: number | undefined;
-	move: number | undefined;
-	quote?: string | undefined;
+	name: string;
+	attack: string;
+	ability: string;
+	hp: number;
+	move: number;
+	quote?: string | null;
 }
 export interface HeroCardInterface {
 	hero: Hero;

@@ -6,7 +6,7 @@ import { getFromStorage, persistStorage } from '@services/persistent.storage.ser
 import type { DeckCards, SearchUserDeck } from '@models/deck.model';
 import { customSelectCard, deselectCard, selectCard } from './useSelectCard';
 
-type UnlimitedDecks = {
+export type UnlimitedDecks = {
 	hand: DeckCards[];
 	discard: DeckCards[];
 	deck: DeckCards[];
