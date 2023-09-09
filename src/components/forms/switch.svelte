@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let label: string;
 	export let name: string;
-	export let value: boolean;
+	export let value: boolean | undefined = false;
 
 	const setValue = () => {
 		value = !value;

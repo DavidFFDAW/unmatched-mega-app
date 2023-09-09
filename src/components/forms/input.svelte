@@ -2,7 +2,7 @@
 	export let label: string;
 	export let name: string;
 	export let type: string = 'text';
-	export let value: string;
+	export let value: string | number;
 	export let min: number = 0;
 	export let resize: boolean = false;
 	export let onchange: (e: Event) => void = () => {};

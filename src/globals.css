@@ -132,7 +132,10 @@ a {
 .f1 {
 	flex: 1;
 }
-
+.flex-total > * {
+	flex: 1;
+	width: 100%;
+}
 .fauto {
 	flex: auto;
 }
@@ -484,6 +487,26 @@ a {
 	border-radius: 6px;
 	margin-top: 5px;
 }
+.form-item select {
+	display: block;
+	font-size: 15px;
+	border: none;
+	background: #eee;
+	padding: 10px 16px;
+	width: 100%;
+	border-radius: 6px;
+	margin-top: 5px;
+}
+.form-item textarea.input.textarea {
+	display: block;
+	font-size: 15px;
+	border: none;
+	background: #eee;
+	padding: 10px 16px;
+	width: 100%;
+	border-radius: 6px;
+	margin-top: 5px;
+}
 
 .form-item input[type='color'] {
 	/* padding: 0; */
@@ -515,6 +538,10 @@ keyframes show {
 @media screen and (max-width: 768px) {
 	.flex-responsive {
 		flex-direction: column;
+		align-items: center;
+	}
+	.start-to-center {
+		justify-content: start;
 		align-items: center;
 	}
 }
