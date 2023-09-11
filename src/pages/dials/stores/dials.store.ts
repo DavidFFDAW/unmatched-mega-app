@@ -6,9 +6,11 @@ type Dials = {
     letterSize: number;
     letterColor: string;
     dialLetterDistance: number;
-    Tipograph: string;
+    typography: string;
     dialCenterColor: string;
     dialCenterWidth: number;
+    dialFront?: string;
+    dialBack?: string;
 };
 
 
@@ -16,15 +18,23 @@ const initialDialState: Dials = {
     life: 15,
     dialSize: 220,
     letterSize: 16,
-    letterColor: "#FFF",
-    dialLetterDistance: 21,
-    Tipograph: "Segoe UI",
-    dialCenterColor: "#fff",
+    letterColor: "#FFFFFF",
+    dialLetterDistance: 16,
+    typography: "bebas",
+    dialCenterColor: "#ffffff",
     dialCenterWidth: 1,
 }
 
-const dials = writable(initialDialState);
+export const ImageKeys = {
+    front: "dialFront",
+    back: "dialBack",
+}
 
-export {
-    dials
+export const dials = writable(initialDialState);
+export const setImage = (key: string, url: string) => {
+    dials.update((dials: any) => {
+        const newDials = { ...dials };
+        newDials[key] = url;
+        return newDials;
+    });
 }

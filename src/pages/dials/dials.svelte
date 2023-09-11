@@ -1,268 +1,296 @@
 <script lang="ts">
-	import '../assets/circles.css';
-	import Alert from '@components/alert.svelte';
+	import './commons.css';
+	import domtoimage from 'dom-to-image';
+	import JSZip from 'jszip';
 	import DialLetters from './dial-letters.svelte';
-	import { dials } from './stores/dials.store';
+	import { ImageKeys, dials, setImage } from './stores/dials.store';
+	import InputNumberControls from '@components/forms/input-number-controls.svelte';
+	import TypographySelect from './components/typography-select.svelte';
+	import ColorPicker from '@components/colorpicker/color-picker.svelte';
+	import ButtonFill from '@components/buttons/button-fill.svelte';
+
+	const loadUploadedImage = (event: Event, key: string) => {
+		const { files } = event.target as HTMLInputElement;
+		if (!files) return;
+
+		const file = files[0];
+		const url = URL.createObjectURL(file);
+
+		setImage(key, url);
+	};
+
+	const downloadDials = () => {
+		const zip = new JSZip();
+
+		const images = [
+			document.getElementById('dialletters') as HTMLDivElement,
+			document.getElementById('dialBack') as HTMLDivElement,
+			document.getElementById('dialFront') as HTMLDivElement
+		].map((item: HTMLDivElement) => {
+			return domtoimage.toPng(item);
+		});
+
+		Promise.all(images).then((images) => {
+			images.forEach((image, index) => {
+				// zip.file(`${deckName}-${name}.png`, image, { base64: false, binary: true });
+				zip.file(`dial-${index}.png`, image.split('base64,')[1], { base64: true });
+			});
+
+			zip.generateAsync({ type: 'blob' }).then(function (content) {
+				const a = document.createElement('a');
+				a.href = URL.createObjectURL(content);
+				a.download = `unmatched-mega-app-dials.zip`;
+				a.click();
+			});
+		});
+	};
 </script>
 
-<Alert />
+<!-- <Alert /> -->
 <div class="__class __container">
-	<div class="flex row between align start flex-responsive">
-		<div class="w1 panel">
-			<div class="opt-group">
-				<h3 class="title">Generales</h3>
-
-				<div class="flex row start wrap options">
-					<div class="input-container">
-						<label for="" class="unmatched custom label">Vida máxima</label>
-						<input
-							id="maximum_life"
-							type="number"
-							min="0"
-							inputmode="numeric"
-							class="unmatched custom input"
-							bind:value={$dials.life}
-						/>
-					</div>
-					<div class="input-container">
-						<label for="" class="unmatched custom label">Tamaño de círculo</label>
-						<input
-							id="circle_size"
-							type="number"
-							min="0"
-							value="220"
-							inputmode="numeric"
-							class="unmatched custom input"
-						/>
-					</div>
-					<div class="input-container">
-						<label for="" class="unmatched custom label">Tamaño de letra</label>
-						<input
-							id="circle_font_size"
-							type="number"
-							min="0"
-							value="16"
-							inputmode="numeric"
-							class="unmatched custom input"
-						/>
-					</div>
-					<div class="input-container">
-						<label for="" class="unmatched custom label">Color de letra</label>
-						<input
-							id="circle_font_color"
-							type="color"
-							value="#ffffff"
-							class="unmatched custom input"
-						/>
-					</div>
-					<div class="input-container">
-						<label for="" class="unmatched custom label">Distancia de letras al borde</label>
-						<input
-							id="distance_from_border"
-							type="number"
-							value="21"
-							min="0"
-							inputmode="numeric"
-							class="unmatched custom input"
-						/>
-					</div>
-					<div class="input-container">
-						<label for="" class="unmatched custom label">Tipografía</label>
-						<select class="unmatched custom input" id="typography">
-							<option value="Arial">Arial</option>
-							<option value="Arial Black">Arial Black</option>
-							<option value="Comic Sans MS">Comic Sans MS</option>
-							<option value="Courier New">Courier New</option>
-							<option value="Georgia">Georgia</option>
-							<option value="Impact">Impact</option>
-							<option value="Lucida Console">Lucida Console</option>
-							<option value="Lucida Sans Unicode">Lucida Sans Unicode</option>
-							<option value="Palatino Linotype">Palatino Linotype</option>
-							<option value="Tahoma">Tahoma</option>
-							<option value="Times New Roman">Times New Roman</option>
-							<option value="Trebuchet MS">Trebuchet MS</option>
-							<option value="Verdana">Verdana</option>
-							<option value="Segoe UI" selected>Segoe UI</option>
-						</select>
-					</div>
-					<div class="input-container">
-						<label for="" class="unmatched custom label">Color de centro de circunferencia</label>
-						<input
-							id="circunference_center_color"
-							type="color"
-							value="#ffffff"
-							class="unmatched custom input"
-						/>
-					</div>
-					<div class="input-container">
-						<label for="" class="unmatched custom label">Grosor de centro de circunferencia</label>
-						<input
-							id="circunference_center_size"
-							type="number"
-							value="1"
-							min="1"
-							inputmode="numeric"
-							max="5"
-							class="unmatched custom input"
-						/>
-					</div>
+	<div class="flex row between astart gap flex-responsive">
+		<div class="w1 box p">
+			<h3 class="title">Dial principal</h3>
+			<form class="flex center astart column gap-medium margin-sides-auto">
+				<div class="w1 flex start aend gap">
+					<InputNumberControls name="life" label="Vida máxima" min={0} bind:value={$dials.life} />
+					<InputNumberControls
+						name="dialSize"
+						label="Tamaño de círculo"
+						min={0}
+						bind:value={$dials.dialSize}
+					/>
 				</div>
-			</div>
-
-			<div class="opt-group">
-				<h3 class="title">Fondo</h3>
-
-				<div class="flex column start wrap options">
-					<div class="input-container">
-						<input
-							style="width: 5%"
-							type="radio"
-							name="type-color"
-							data-type="SIMPLE"
-							data-panel-id="simpleColor"
-							class="unmatched custom input"
-						/>
-						<label for="" class="unmatched custom label">Color simple</label>
-					</div>
-					<div class="subitem tab" id="simpleColor" style="display: none">
-						<div class="input-container no-gap">
-							<label for="" class="unmatched custom label">Color de fondo</label>
-							<input
-								id="circle_background_simple_color"
-								type="color"
-								value="#000000"
-								class="unmatched custom input"
-							/>
-						</div>
-					</div>
-					<div class="input-container">
-						<input
-							style="width: 5%"
-							type="radio"
-							name="type-color"
-							data-type="RADIAL"
-							data-panel-id="radialGradient"
-							class="unmatched custom input"
-						/>
-						<label for="" class="unmatched custom label">Color con degradado central</label>
-					</div>
-					<div class="subitem tab" id="radialGradient" style="display: none">
-						<div class="input-container no-gap">
-							<div>
-								<label for="" class="unmatched custom label">Eje central</label>
-								<input
-									id="circle_background_gradient_a_color"
-									type="color"
-									value="#ffffff"
-									class="unmatched custom input"
-								/>
-							</div>
-							<div>
-								<label for="" class="unmatched custom label">Periferia</label>
-								<input
-									id="circle_background_gradient_b_color"
-									type="color"
-									value="#ffffff"
-									class="unmatched custom input"
-								/>
-							</div>
-						</div>
-					</div>
-					<div class="input-container">
-						<input
-							style="width: 5%"
-							type="radio"
-							name="type-color"
-							data-type="BACKGROUND"
-							data-panel-id="customBackground"
-							class="unmatched custom input"
-						/>
-						<label for="" class="unmatched custom label">Imagen de fondo</label>
-					</div>
-					<div class="subitem tab" id="customBackground" style="display: none">
-						<div class="input-container no-gap">
-							<div style="position: relative; top: 50%" class="flex center column align dissapear">
-								<button class="btn download file container disappear">
-									<input
-										type="file"
-										class="disappear"
-										onchange="loadUploadedImage(this,'bg-circle')"
-									/>
-									Subir imagen
-								</button>
-							</div>
-						</div>
-					</div>
+				<div class="w1 flex start aend gap">
+					<InputNumberControls
+						name="letterSize"
+						label="Tamaño de letra"
+						min={0}
+						bind:value={$dials.letterSize}
+					/>
+					<InputNumberControls
+						name="dialLetterDistance"
+						label="Distancia de letras al borde"
+						min={0}
+						bind:value={$dials.dialLetterDistance}
+					/>
 				</div>
-			</div>
-
-			<div class="flex between align center">
-				<div class="w1">
-					<span class="block"><strong>Diámetro: </strong></span>
-					<span id="circle_size_cm">5.820833 cm</span>
+				<div class="w1 flex start aend gap">
+					<InputNumberControls
+						name="dialCenterWidth"
+						label="Grosor de centro de circunferencia"
+						min={1}
+						max={5}
+						bind:value={$dials.dialCenterWidth}
+					/>
+					<TypographySelect name="typography" label="Tipografía" bind:value={$dials.typography} />
 				</div>
 
-				<div class="w1 flex end">
-					<input type="text" class="deck-dial-name" id="deckDialName" />
-					<button class="btn download" type="button" onclick="downloadCircles()">Descargar</button>
+				<div class="w1 flex center acenter">
+					<div id="dialletters">
+						<DialLetters />
+					</div>
 				</div>
-			</div>
+
+				<!-- <div class="w1 flex between align center down">
+					<div class="w1">
+						<span class="block"><strong>Diámetro: </strong></span>
+						<span id="circle_size_cm">5.820833 cm</span>
+					</div>
+
+					<div class="w1 flex end">
+						<input type="text" class="deck-dial-name" id="deckDialName" />
+						<button class="btn download" type="button" onclick="downloadCircles()">Descargar</button
+						>
+					</div>
+				</div> -->
+			</form>
 		</div>
 
-		<div class="w1 dials">
-			<div class="relative flex column align center dials-box">
-				<div class="w1 flex center align center row gap down">
-					<DialLetters />
-					<p>Dial números</p>
-				</div>
-				<div class="w1 flex center align center row gap down">
-					<div class="relative bg circle" id="dialBack">
-						<div class="circunference center" />
+		<div class="w1 flex center acenter gap column">
+			<div class="w1 box p">
+				<h3 class="title">Imagenes del resto de diales</h3>
+				<form class="flex center astart flex-responsive gap-medium margin-sides-auto">
+					<div
+						class="relative bg circle background-image"
+						id="dialBack"
+						style="width: {$dials.dialSize}px; height: {$dials.dialSize}px; background-image: url('{$dials.dialBack}');"
+					>
+						<div class="circunference center filled" />
 						<div style="position: relative; top: 50%" class="flex center column align dissapear">
 							<button class="btn download file container disappear">
 								<input
 									type="file"
 									class="disappear"
-									onchange="loadUploadedImage(this,'dialBack')"
+									on:change={(event) => loadUploadedImage(event, ImageKeys.back)}
 								/>
 								Subir imagen
 							</button>
-							<input
-								type="text"
-								class="input"
-								id="dial_back_background_URL"
-								placeholder="PREVIEW (Siempre subir)"
-								onchange="loadDialBackImage(this, 'dialBack')"
-							/>
 						</div>
 					</div>
-					<p>Parte trasera</p>
-				</div>
-				<div class="w1 flex center align center row gap">
-					<div class="relative bg circle frontal-dial" id="dialFront">
-						<div class="circunference center" />
+					<div
+						class="relative bg circle frontal-dial background-image"
+						id="dialFront"
+						style="width: {$dials.dialSize}px; height: {$dials.dialSize}px; background-image: url('{$dials.dialFront}');"
+					>
+						<div class="circunference center filled" />
 						<div style="position: relative; top: 50%" class="flex center column align dissapear">
 							<button class="btn download file container disappear">
 								<input
 									type="file"
 									class="disappear"
-									onchange="loadUploadedImage(this,'dialFront')"
+									on:change={(event) => loadUploadedImage(event, ImageKeys.front)}
 								/>
 								Subir imagen
 							</button>
-							<input
-								type="text"
-								class="input"
-								id="dial_back_background_URL"
-								placeholder="PREVIEW (Siempre subir)"
-								onchange="loadDialBackImage(this, 'dialFront')"
-							/>
 						</div>
 					</div>
-					<p>Parte delantera</p>
-				</div>
-				<!-- <div class="cc foreground" id="fg-circle"></div> -->
+				</form>
+			</div>
+			<div class="w1 box p">
+				<h3 class="title">Colores</h3>
+				<form class="flex center aend row gap-medium margin-sides-auto">
+					<ColorPicker label="Letras" name="lettersColor" bind:value={$dials.letterColor} />
+					<ColorPicker
+						label="Centro de circunferencia"
+						name="dialCenterColor"
+						bind:value={$dials.dialCenterColor}
+					/>
+					<ColorPicker label="Circunferencia" name="dialColor" bind:value={$dials.dialColor} />
+				</form>
 			</div>
 		</div>
 	</div>
+
+	<div class="w1 flex end">
+		<ButtonFill label="Descargar diales" click={downloadDials} />
+	</div>
 </div>
+
+<style>
+	.background-image {
+		background-size: cover;
+		background-position: center center;
+		background-repeat: no-repeat;
+	}
+	.margin-sides-auto {
+		margin: 0 auto;
+	}
+	.btn.download {
+		background-color: #ffffff;
+		color: #707070;
+		border: 1px solid #c9c9c9;
+		padding: 10px 20px;
+		font-size: 1rem;
+		font-weight: 400;
+		border-radius: 0 5px 5px 0;
+		cursor: pointer;
+		transition: all 0.3s ease;
+	}
+
+	.deck-dial-name {
+		background-color: #ffffff;
+		color: #707070;
+		border: 1px solid #c9c9c9;
+		border-right: none;
+		padding: 10px 20px;
+		font-size: 1rem;
+		font-weight: 400;
+		border-radius: 5px 0 0 5px;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		outline: none;
+	}
+
+	.btn.download:hover {
+		border-radius: 0 15px 15px 0;
+	}
+
+	.dials .relative.dials-box {
+		padding: 30px;
+	}
+
+	.relative.circle .dissapear {
+		visibility: hidden;
+	}
+
+	.relative.circle#dialBack .input,
+	.relative.circle#dialFront .input {
+		visibility: hidden;
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		transform: translate(-50%, -40%);
+		width: 85%;
+		padding: 10px 5px;
+		box-sizing: border-box;
+		background: rgb(41, 41, 41);
+		z-index: 3;
+		outline: none;
+		border: 1px solid #fff;
+		color: #fff;
+		margin: 0;
+		transition: all 0.3s ease;
+	}
+
+	.btn.download.file.container {
+		position: relative;
+		top: 50%;
+		left: 50%;
+		width: 100%;
+		height: 50%;
+		background-color: #007bff;
+		transform: translate(-50%, -50%);
+		border-radius: 5px;
+		border: none;
+		color: #fff;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		overflow: hidden;
+		z-index: 3;
+	}
+
+	.btn.download.file.container input[type='file'] {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 6;
+		opacity: 0;
+		cursor: pointer;
+		overflow: hidden;
+	}
+
+	.frontal-dial::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 50%;
+		width: 40px;
+		height: 40px;
+		transform: translate(-50%, 0) rotate(-90deg);
+		background-color: #fff;
+		/* opacity: 0.5; */
+		clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 25% 100%, 0% 50%);
+		z-index: 2;
+	}
+
+	.relative.circle:hover .dissapear {
+		visibility: visible;
+	}
+
+	.relative.circle#dialFront:hover .input,
+	.relative.circle#dialBack:hover .input {
+		visibility: visible;
+	}
+
+	.subitem {
+		padding: 5px 0;
+		padding-left: 80px;
+		padding-bottom: 15px;
+	}
+	.container {
+		height: 100vh;
+	}
+</style>

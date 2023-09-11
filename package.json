@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "git pull && vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -33,6 +33,7 @@
 	"dependencies": {
 		"animate.css": "^4.1.1",
 		"dom-to-image": "^2.6.0",
-		"jspdf": "^2.5.1"
+		"jspdf": "^2.5.1",
+		"jszip": "^3.10.1"
 	}
 }
