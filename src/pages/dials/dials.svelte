@@ -30,7 +30,7 @@
 							id="circle_size"
 							type="number"
 							min="0"
-							value="220"
+							bind:value={$dials.dialSize}
 							inputmode="numeric"
 							class="unmatched custom input"
 						/>
@@ -41,7 +41,7 @@
 							id="circle_font_size"
 							type="number"
 							min="0"
-							value="16"
+							bind:value={$dials.letterSize}
 							inputmode="numeric"
 							class="unmatched custom input"
 						/>
@@ -51,7 +51,7 @@
 						<input
 							id="circle_font_color"
 							type="color"
-							value="#ffffff"
+							bind:value={$dials.letterColor}
 							class="unmatched custom input"
 						/>
 					</div>
@@ -60,7 +60,7 @@
 						<input
 							id="distance_from_border"
 							type="number"
-							value="21"
+							bind:value={$dials.dialLetterDistance}
 							min="0"
 							inputmode="numeric"
 							class="unmatched custom input"
@@ -90,7 +90,7 @@
 						<input
 							id="circunference_center_color"
 							type="color"
-							value="#ffffff"
+							bind:value={$dials.dialCenterColor}
 							class="unmatched custom input"
 						/>
 					</div>
@@ -99,7 +99,7 @@
 						<input
 							id="circunference_center_size"
 							type="number"
-							value="1"
+							bind:value={$dials.dialCenterWidth}
 							min="1"
 							inputmode="numeric"
 							max="5"

@@ -16,15 +16,11 @@ const initialDialState: Dials = {
     life: 15,
     dialSize: 220,
     letterSize: 16,
-    letterColor: "#FFF",
-    dialLetterDistance: 21,
+    letterColor: "#FFFFFF",
+    dialLetterDistance: 16,
     Tipograph: "Segoe UI",
-    dialCenterColor: "#fff",
+    dialCenterColor: "#ffffff",
     dialCenterWidth: 1,
 }
 
-const dials = writable(initialDialState);
-
-export {
-    dials
-}
+export const dials = writable(initialDialState);
