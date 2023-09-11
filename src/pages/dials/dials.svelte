@@ -8,6 +8,7 @@
 	import TypographySelect from './components/typography-select.svelte';
 	import ColorPicker from '@components/colorpicker/color-picker.svelte';
 	import ButtonFill from '@components/buttons/button-fill.svelte';
+	import DialsSvg from './dials-svg.svelte';
 
 	const loadUploadedImage = (event: Event, key: string) => {
 		const { files } = event.target as HTMLInputElement;
@@ -92,18 +93,17 @@
 					</div>
 				</div>
 
-				<!-- <div class="w1 flex between align center down">
+				<div class="w1 flex between align center down">
 					<div class="w1">
 						<span class="block"><strong>Diámetro: </strong></span>
-						<span id="circle_size_cm">5.820833 cm</span>
+						<!-- <span id="circle_size_cm">5.820833 cm</span> -->
 					</div>
 
 					<div class="w1 flex end">
 						<input type="text" class="deck-dial-name" id="deckDialName" />
-						<button class="btn download" type="button" onclick="downloadCircles()">Descargar</button
-						>
+						<button class="btn download" type="button" on:click={downloadDials}>Descargar</button>
 					</div>
-				</div> -->
+				</div>
 			</form>
 		</div>
 
@@ -128,11 +128,13 @@
 							</button>
 						</div>
 					</div>
-					<div
+					<!-- <div
 						class="relative bg circle frontal-dial background-image"
 						id="dialFront"
 						style="width: {$dials.dialSize}px; height: {$dials.dialSize}px; background-image: url('{$dials.dialFront}');"
-					>
+						> -->
+					<div class="relative" style="width: {$dials.dialSize}px; height: {$dials.dialSize}px">
+						<DialsSvg bind:size={$dials.dialSize} bind:imageSrc={$dials.dialBack} />
 						<div class="circunference center filled" />
 						<div style="position: relative; top: 50%" class="flex center column align dissapear">
 							<button class="btn download file container disappear">
@@ -156,7 +158,7 @@
 						name="dialCenterColor"
 						bind:value={$dials.dialCenterColor}
 					/>
-					<ColorPicker label="Circunferencia" name="dialColor" bind:value={$dials.dialColor} />
+					<!-- <ColorPicker label="Circunferencia" name="dialColor" bind:value={$dials.dialColor} /> -->
 				</form>
 			</div>
 		</div>
