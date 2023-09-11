@@ -5,29 +5,58 @@
 
 	import { onMount } from 'svelte';
 
+	let canvas: any = null;
 	let colorSelected: string = value;
 	let showColorModal: boolean = false;
 	let userCoords: { x: number; y: number } = { x: 0, y: 0 };
 
+	const rgbaToHex = (color: string): string => {
+		if (/^rgb/.test(color)) {
+			const rgba = color.replace(/^rgba?\(|\s+|\)$/g, '').split(',');
+
+			// rgb to hex
+			// eslint-disable-next-line no-bitwise
+			let hex = `#${(
+				(1 << 24) +
+				(parseInt(rgba[0], 10) << 16) +
+				(parseInt(rgba[1], 10) << 8) +
+				parseInt(rgba[2], 10)
+			)
+				.toString(16)
+				.slice(1)}`;
+
+			// added alpha param if exists
+			if (rgba[4]) {
+				const alpha = Math.round(0o1 * 255);
+				const hexAlpha = (alpha + 0x10000).toString(16).substr(-2).toUpperCase();
+				hex += hexAlpha;
+			}
+
+			return hex;
+		}
+		return color;
+	};
+
 	function initColorPicker() {
-		const canvasEl: any = document.getElementById('colorCanvas');
-		const canvasContext = canvasEl.getContext('2d');
+		if (!canvas) return;
+		const canvasContext = canvas.getContext('2d');
 
 		const image = new Image(250, 250);
 		image.onload = () => canvasContext.drawImage(image, 0, 0, image.width, image.height);
 		image.src = '/images/picker.png';
 
-		canvasEl.onclick = function (mouseEvent: MouseEvent) {
+		canvas.onclick = function (mouseEvent: MouseEvent) {
 			const imgData = canvasContext.getImageData(mouseEvent.offsetX, mouseEvent.offsetY, 1, 1);
 			const rgba = imgData.data;
-
-			console.log({ rgba, mouseCoords: { x: mouseEvent.offsetX, y: mouseEvent.offsetY } });
 			colorSelected = 'rgba(' + rgba[0] + ', ' + rgba[1] + ', ' + rgba[2] + ', ' + rgba[3] + ')';
+			value = rgbaToHex(colorSelected);
 		};
 	}
 
 	onMount(() => {
-		initColorPicker();
+		setTimeout(() => {
+			initColorPicker();
+		}, 1000);
 	});
 
 	const setShowColorModal = () => {
@@ -49,18 +78,16 @@
 
 	<div
 		class:hidden={!showColorModal}
-		class="relative color-picker-canvas animate__animated animate__fadeIn animate__faster"
+		class="w1 relative color-picker-canvas animate__animated animate__fadeIn animate__faster"
 	>
 		<!-- <div class="user-coords"></div> -->
-		<div class="flex start acenter gap-small">
-			<canvas id="colorCanvas" class="color-canvas" width="250" height="250">
+		<div class="w1 flex start acenter gap-small column">
+			<canvas bind:this={canvas} class="w1 color-canvas" width="250" height="250">
 				<!-- Draw a circle inside canvas element -->
 				<circle cx="100" cy="100" r="50" stroke="black" stroke-width="2" fill="red" />
 			</canvas>
 
-			<div class="form-item">
-				<input class="w1 input" style="background-color: {colorSelected};" />
-			</div>
+			<button class="btn" on:click={setShowColorModal}> Aceptar</button>
 		</div>
 	</div>
 </div>

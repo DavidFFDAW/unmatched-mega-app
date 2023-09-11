@@ -1,5 +1,7 @@
 <script lang="ts">
 	import './commons.css';
+	import domtoimage from 'dom-to-image';
+	import JSZip from 'jszip';
 	import DialLetters from './dial-letters.svelte';
 	import { ImageKeys, dials, setImage } from './stores/dials.store';
 	import InputNumberControls from '@components/forms/input-number-controls.svelte';
@@ -17,7 +19,31 @@
 		setImage(key, url);
 	};
 
-	const downloadDials = () => {};
+	const downloadDials = () => {
+		const zip = new JSZip();
+
+		const images = [
+			document.getElementById('dialletters') as HTMLDivElement,
+			document.getElementById('dialBack') as HTMLDivElement,
+			document.getElementById('dialFront') as HTMLDivElement
+		].map((item: HTMLDivElement) => {
+			return domtoimage.toPng(item);
+		});
+
+		Promise.all(images).then((images) => {
+			images.forEach((image, index) => {
+				// zip.file(`${deckName}-${name}.png`, image, { base64: false, binary: true });
+				zip.file(`dial-${index}.png`, image.split('base64,')[1], { base64: true });
+			});
+
+			zip.generateAsync({ type: 'blob' }).then(function (content) {
+				const a = document.createElement('a');
+				a.href = URL.createObjectURL(content);
+				a.download = `unmatched-mega-app-dials.zip`;
+				a.click();
+			});
+		});
+	};
 </script>
 
 <!-- <Alert /> -->
@@ -61,7 +87,9 @@
 				</div>
 
 				<div class="w1 flex center acenter">
-					<DialLetters />
+					<div id="dialletters">
+						<DialLetters />
+					</div>
 				</div>
 
 				<!-- <div class="w1 flex between align center down">
