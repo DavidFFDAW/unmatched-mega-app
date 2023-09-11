@@ -23,7 +23,7 @@
 				y
 			)}px); left: calc(47% + ${Math.round(x)}px); transform: rotate(${rotation}deg); font-size: ${
 				$dials.letterSize
-			}px; font-weight: bold; color: ${$dials.letterColor};`
+			}px; font-weight: bold; color: ${$dials.letterColor}; font-family: ${$dials.typography};`
 		};
 	};
 
@@ -70,3 +70,17 @@
 		{/each}
 	</div>
 </div>
+
+<style>
+	.bg.circle .letters-container {
+		width: 100%;
+		height: 100%;
+		padding: 5px;
+		background: inherit;
+		border-radius: 50%;
+		position: absolute;
+		top: 50%;
+		left: 0;
+		transform: translateY(-50%);
+	}
+</style>

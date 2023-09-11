@@ -132,10 +132,12 @@ a {
 .f1 {
 	flex: 1;
 }
-.flex-total > * {
+
+.flex-total>* {
 	flex: 1;
 	width: 100%;
 }
+
 .fauto {
 	flex: auto;
 }
@@ -254,6 +256,10 @@ a {
 
 .gap {
 	gap: 35px;
+}
+
+.gap-medium {
+	gap: 20px;
 }
 
 .gap-small {
@@ -411,11 +417,13 @@ a {
 	border-radius: 5px;
 	z-index: 5;
 }
+
 .box .title {
 	margin-bottom: 10px;
 	font-size: 25px;
 	font-family: 'bebas', sans-serif;
 }
+
 .box .title::after {
 	content: '';
 	display: block;
@@ -487,6 +495,7 @@ a {
 	border-radius: 6px;
 	margin-top: 5px;
 }
+
 .form-item select {
 	display: block;
 	font-size: 15px;
@@ -497,6 +506,7 @@ a {
 	border-radius: 6px;
 	margin-top: 5px;
 }
+
 .form-item textarea.input.textarea {
 	display: block;
 	font-size: 15px;
@@ -540,6 +550,7 @@ keyframes show {
 		flex-direction: column;
 		align-items: center;
 	}
+
 	.start-to-center {
 		justify-content: start;
 		align-items: center;

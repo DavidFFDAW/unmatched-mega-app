@@ -3,14 +3,21 @@
 	export let name: string;
 	export let value: string | number;
 	export let min: number = 0;
+	export let max: number | null = null;
 
 	const setValue = (e: Event) => {
-		value = (e.target as HTMLInputElement).value;
+		const target = e.target as HTMLInputElement;
+		return (value = target.value);
 	};
 
-	const triggerOperation = (operation: string) => {
-		const finalValue = operation === 'add' ? Number(value) + 1 : Number(value) - 1;
+	const substract = () => {
+		const finalValue = Number(value) - 1;
 		value = finalValue < min ? min : finalValue;
+	};
+
+	const add = () => {
+		const finalValue = Number(value) + 1;
+		value = max && finalValue > max ? max : finalValue;
 	};
 </script>
 
@@ -21,25 +28,33 @@
 			type="button"
 			title="button substract {name}"
 			class="btn-key key-substract"
-			on:click={() => triggerOperation('substract')}
+			on:click={substract}
 		>
 			-
 		</button>
-		<input
-			type="number"
-			{name}
-			{value}
-			{min}
-			id={name}
-			on:input={setValue}
-			class="input non-rounded"
-		/>
-		<button
-			type="button"
-			title="button substract {name}"
-			class="btn-key key-add"
-			on:click={() => triggerOperation('add')}
-		>
+		{#if max}
+			<input
+				type="number"
+				{name}
+				{value}
+				{min}
+				{max}
+				id={name}
+				on:input={setValue}
+				class="input non-rounded"
+			/>
+		{:else}
+			<input
+				type="number"
+				{name}
+				{value}
+				{min}
+				id={name}
+				on:input={setValue}
+				class="input non-rounded"
+			/>
+		{/if}
+		<button type="button" title="button substract {name}" class="btn-key key-add" on:click={add}>
 			+
 		</button>
 	</div>
