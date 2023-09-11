@@ -23,13 +23,8 @@
 		document-units="mm"
 		showgrid="false"
 	/>
-	<pattern id="img1" patternUnits="userSpaceOnUse" width={size} height={size}>
-		<image
-			style="width: 100% !important; height: 100% !important;"
-			xlink:href={imageSrc}
-			width="220"
-			height="100%"
-		/>
+	<pattern id="img1" patternUnits="objectBoundingBox" width={size} height={size}>
+		<image xlink:href={imageSrc} width="100%" height="100%" />
 	</pattern>
 	<!-- <clipPath id="circleImageClip">
 		<circle cx="40.848923" cy="40.56649" r="40.848923" />
