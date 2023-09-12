@@ -9,6 +9,7 @@
 	import ColorPicker from '@components/colorpicker/color-picker.svelte';
 	import ButtonFill from '@components/buttons/button-fill.svelte';
 	import DialsSvg from './dials-svg.svelte';
+	import Modal from '@components/modals/modal.svelte';
 
 	const loadUploadedImage = (event: Event, key: string) => {
 		const { files } = event.target as HTMLInputElement;
@@ -128,27 +129,30 @@
 							</button>
 						</div>
 					</div>
-					<!-- <div
+					<div
 						class="relative bg circle frontal-dial background-image"
 						id="dialFront"
 						style="width: {$dials.dialSize}px; height: {$dials.dialSize}px; background-image: url('{$dials.dialFront}');"
-						> -->
-					<div class="relative" style="width: {$dials.dialSize}px; height: {$dials.dialSize}px">
-						<DialsSvg bind:size={$dials.dialSize} bind:imageSrc={$dials.dialBack} />
-						<div class="circunference center filled" />
-						<div style="position: relative; top: 50%" class="flex center column align dissapear">
-							<button class="btn download file container disappear">
-								<input
-									type="file"
-									class="disappear"
-									on:change={(event) => loadUploadedImage(event, ImageKeys.front)}
-								/>
-								Subir imagen
-							</button>
+					>
+						<div class="relative" style="width: {$dials.dialSize}px; height: {$dials.dialSize}px">
+							<div class="circunference center filled" />
+							<div style="position: relative; top: 50%" class="flex center column align dissapear">
+								<button class="btn download file container disappear">
+									<input
+										type="file"
+										class="disappear"
+										on:change={(event) => loadUploadedImage(event, ImageKeys.front)}
+									/>
+									Subir imagen
+								</button>
+							</div>
 						</div>
 					</div>
 				</form>
 			</div>
+			<!-- <Modal visible={true} title="Modal" description="Modal description">
+				<p slot="modal-content">Modal content</p>
+			</Modal> -->
 			<div class="w1 box p">
 				<h3 class="title">Colores</h3>
 				<form class="flex center aend row gap-medium margin-sides-auto">
@@ -264,7 +268,11 @@
 		overflow: hidden;
 	}
 
-	.frontal-dial::after {
+	.frontal-dial {
+		clip: url('/images/front.dial.svg#recorte');
+		z-index: 2;
+	}
+	/* .frontal-dial::after {
 		content: '';
 		position: absolute;
 		top: 0;
@@ -273,10 +281,10 @@
 		height: 40px;
 		transform: translate(-50%, 0) rotate(-90deg);
 		background-color: #fff;
-		/* opacity: 0.5; */
+		opacity: 0.5;
 		clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 25% 100%, 0% 50%);
 		z-index: 2;
-	}
+	} */
 
 	.relative.circle:hover .dissapear {
 		visibility: visible;
