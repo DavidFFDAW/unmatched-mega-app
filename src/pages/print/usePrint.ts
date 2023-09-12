@@ -57,6 +57,12 @@ export default function usePrint() {
 		window.open(URL.createObjectURL(output));
 	};
 
+	const removeCardByIndex = (index: number) => {
+		cards.update((items) => {
+			return [...items.slice(0, index), ...items.slice(index + 1)];
+		});
+	};
+
 	return {
 		cards,
 		functions: {
@@ -65,6 +71,7 @@ export default function usePrint() {
 			emptyCards,
 			drop,
 			createPDF,
+			removeCardByIndex,
 			change
 		}
 	};

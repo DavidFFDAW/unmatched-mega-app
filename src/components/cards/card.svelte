@@ -8,7 +8,7 @@
 
 <style>
 	.card {
-		width: 63.5mm;
+		width: 63mm;
 		height: 88mm;
 	}
 	.card img {

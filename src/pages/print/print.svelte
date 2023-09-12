@@ -45,8 +45,18 @@
 		</div>
 
 		{#if $cards.length > 0}
-			{#each $cards as card}
-				<div class="card">
+			{#each $cards as card, index}
+				<div class="card custom-printable-card" data-index={index}>
+					<div class="overlay">
+						<button
+							data-index={index}
+							type="button"
+							class="btn button"
+							on:click={() => functions.removeCardByIndex(index)}
+						>
+							&times;
+						</button>
+					</div>
 					<Card src={card.url} />
 				</div>
 			{/each}
@@ -111,6 +121,35 @@
 		color: #fff;
 		z-index: 5;
 	}
+
+	.custom-printable-card {
+		position: relative;
+	}
+	.custom-printable-card .overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		display: none;
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+	.custom-printable-card .overlay .button {
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding: 5px 15px;
+		border-radius: 0;
+		border: none;
+		outline: none;
+		background-color: #030303;
+		color: #fff;
+		z-index: 10;
+	}
+	.custom-printable-card:hover .overlay {
+		display: block;
+	}
+
 	.unmatched-card.card-add-card .file {
 		position: absolute;
 		top: 0;
