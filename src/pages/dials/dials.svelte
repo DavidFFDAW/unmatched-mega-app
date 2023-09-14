@@ -10,6 +10,7 @@
 	import ButtonFill from '@components/buttons/button-fill.svelte';
 	import DialsSvg from './dials-svg.svelte';
 	import Modal from '@components/modals/modal.svelte';
+	let buttonLoading: boolean = false;
 
 	const loadUploadedImage = (event: Event, key: string) => {
 		const { files } = event.target as HTMLInputElement;
@@ -22,6 +23,7 @@
 	};
 
 	const downloadDials = () => {
+		buttonLoading = true;
 		const zip = new JSZip();
 
 		const images = [
@@ -39,6 +41,7 @@
 			});
 
 			zip.generateAsync({ type: 'blob' }).then(function (content) {
+				buttonLoading = false;
 				const a = document.createElement('a');
 				a.href = URL.createObjectURL(content);
 				a.download = `unmatched-mega-app-dials.zip`;
@@ -169,11 +172,15 @@
 	</div>
 
 	<div class="w1 flex end">
-		<ButtonFill label="Descargar diales" click={downloadDials} />
+		<ButtonFill bind:loading={buttonLoading} label="Descargar diales" click={downloadDials} />
 	</div>
 </div>
 
 <style>
+	:root {
+		--clip-path: 'm 40.775805,0 a 40.898144,41.39996 0 0 0 -6.371188,0.54467 l -5.16e-4,0.0155 a 40.848923,40.56649 0 0 1 6.444567,-0.52038 40.848923,40.56649 0 0 1 6.815605,0.58963 V 0.60152 A 40.898144,41.39996 0 0 0 40.775805,10e-6 Z m 6.888468,0.62942 -0.05891,12.43386 -6.989754,3.12023 -6.523633,-3.7636 -0.06046,-0.45682 0.372587,-11.40292 A 40.848923,40.56649 0 0 0 9.9999999e-7,40.6063 40.848923,40.56649 0 0 0 40.84867,81.17282 40.848923,40.56649 0 0 0 81.697852,40.6063 40.848923,40.56649 0 0 0 47.664275,0.62942 Z';
+		--clip-path: 'm 82.458533,102.74722 a 40.898144,41.39996 0 0 0 -6.371188,0.54467 l -5.16e-4,0.0155 a 40.848923,40.56649 0 0 1 6.444567,-0.52038 40.848923,40.56649 0 0 1 6.815605,0.58963 v -0.0279 a 40.898144,41.39996 0 0 0 -6.888468,-0.60151 z m 6.888468,0.62942 -0.05891,12.43386 -6.989754,3.12023 -6.523633,-3.7636 -0.06046,-0.45682 0.372587,-11.40292 a 40.848923,40.56649 0 0 0 -34.404102,40.04613 40.848923,40.56649 0 0 0 40.848669,40.56652 40.848923,40.56649 0 0 0 40.849182,-40.56652 40.848923,40.56649 0 0 0 -34.033577,-39.97688 z';
+	}
 	.background-image {
 		background-size: cover;
 		background-position: center center;
@@ -269,7 +276,9 @@
 	}
 
 	.frontal-dial {
-		clip: url('/images/front.dial.svg#recorte');
+		/* clip: url('/images/front.dial.svg#recorte'); */
+		clip-path: url('/images/front.dial.svg#recorte');
+		clip-path: path(var(--clip-path));
 		z-index: 2;
 	}
 	/* .frontal-dial::after {
