@@ -498,6 +498,26 @@ a {
 	border-radius: 6px;
 	margin-top: 5px;
 }
+.form-item select {
+	display: block;
+	font-size: 15px;
+	border: none;
+	background: #eee;
+	padding: 10px 16px;
+	width: 100%;
+	border-radius: 6px;
+	margin-top: 5px;
+}
+.form-item textarea.input.textarea {
+	display: block;
+	font-size: 15px;
+	border: none;
+	background: #eee;
+	padding: 10px 16px;
+	width: 100%;
+	border-radius: 6px;
+	margin-top: 5px;
+}
 
 .form-item input[type='color'] {
 	/* padding: 0; */

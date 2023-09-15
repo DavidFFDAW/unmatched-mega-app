@@ -411,7 +411,7 @@
 	}
 
 	.panel .mixed-case[data-v-507e7f39] {
-		font-family: League Gothic, sans-serif;
+		font-family: 'league', sans-serif;
 	}
 
 	.panel.hero[data-v-507e7f39] {
