@@ -59,7 +59,11 @@
 	});
 </script>
 
-<div bind:this={circle} class="relative bg circle" style="box-sizing: content-box;">
+<div
+	bind:this={circle}
+	class="relative bg circle"
+	style="background: {$dials.dialBackground}; box-sizing: border-box;"
+>
 	<div
 		class="circunference center"
 		style="border-width: {$dials.dialCenterWidth}px; border-color: {$dials.dialCenterColor}"

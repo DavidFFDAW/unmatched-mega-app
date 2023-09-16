@@ -97,17 +97,17 @@
 					</div>
 				</div>
 
-				<div class="w1 flex between align center down">
+				<!-- <div class="w1 flex between align center down">
 					<div class="w1">
 						<span class="block"><strong>Diámetro: </strong></span>
-						<!-- <span id="circle_size_cm">5.820833 cm</span> -->
+						<span id="circle_size_cm">5.820833 cm</span>
 					</div>
 
 					<div class="w1 flex end">
 						<input type="text" class="deck-dial-name" id="deckDialName" />
 						<button class="btn download" type="button" on:click={downloadDials}>Descargar</button>
 					</div>
-				</div>
+				</div> -->
 			</form>
 		</div>
 
@@ -157,14 +157,22 @@
 
 			<div class="w1 box p">
 				<h3 class="title">Colores</h3>
-				<form class="flex center aend row gap-medium margin-sides-auto">
-					<ColorPicker label="Letras" name="lettersColor" bind:value={$dials.letterColor} />
-					<ColorPicker
-						label="Centro de circunferencia"
-						name="dialCenterColor"
-						bind:value={$dials.dialCenterColor}
-					/>
-					<!-- <ColorPicker label="Circunferencia" name="dialColor" bind:value={$dials.dialColor} /> -->
+				<form class="w1 flex center aend column gap-medium margin-sides-auto">
+					<div class="w1 flex center aend gap-small">
+						<ColorPicker label="Letras" name="lettersColor" bind:value={$dials.letterColor} />
+						<ColorPicker
+							label="Centro de circunferencia"
+							name="dialCenterColor"
+							bind:value={$dials.dialCenterColor}
+						/>
+					</div>
+					<div class="w1 flex center aend gap-small">
+						<ColorPicker
+							label="Fondo de circunferencia"
+							name="dialBackground"
+							bind:value={$dials.dialBackground}
+						/>
+					</div>
 				</form>
 			</div>
 			<div class="w1 flex between acenter">
@@ -284,7 +292,7 @@
 		/* clip-path: path(var(--clip-path)); */
 		z-index: 2;
 	}
-	/* .frontal-dial::after {
+	.frontal-dial::after {
 		content: '';
 		position: absolute;
 		top: 0;
@@ -293,10 +301,10 @@
 		height: 40px;
 		transform: translate(-50%, 0) rotate(-90deg);
 		background-color: #fff;
-		opacity: 0.5;
+		opacity: 1;
 		clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 25% 100%, 0% 50%);
 		z-index: 2;
-	} */
+	}
 
 	.relative.circle:hover .dissapear {
 		visibility: visible;

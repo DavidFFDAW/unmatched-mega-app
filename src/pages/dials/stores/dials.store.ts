@@ -9,6 +9,7 @@ type Dials = {
 	typography: string;
 	dialCenterColor: string;
 	dialCenterWidth: number;
+	dialBackground: string;
 	dialFront?: string;
 	dialBack?: string;
 };
@@ -21,6 +22,7 @@ const initialDialState: Dials = {
 	dialLetterDistance: 20,
 	typography: 'bebas',
 	dialCenterColor: '#ffffff',
+	dialBackground: 'rgb(41, 41, 41)',
 	dialCenterWidth: 1
 };
 
