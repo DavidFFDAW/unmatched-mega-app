@@ -2,14 +2,23 @@
 	export let id: string;
 	export let size: number = 220;
 	export let imageSrc: string = '';
+	export let rotation: number = 0;
+	export let preview: boolean = false;
 	let viewBox = {
 		width: 81.697861,
 		height: 81.172821
 	};
 </script>
 
-<div {id}>
+<div
+	{id}
+	{...$$restProps}
+	class="svg-container"
+	class:preview
+	style="width: {size}px; height: {size}px"
+>
 	<svg
+		style="transform: rotate({rotation}deg);"
 		preserveAspectRatio="none"
 		width="{size}px"
 		height="{size}px"
@@ -30,13 +39,13 @@
 			document-units="mm"
 			showgrid="false"
 		/>
-		<pattern id="img1" patternUnits="userSpaceOnUse" width={'100%'} height={'100%'}>
+		<pattern id="img1" patternUnits="" width={'100%'} height={'100%'}>
 			<image
 				xlink:href={imageSrc}
 				x="0"
 				y="0"
-				width="220"
-				height="220"
+				width="100%"
+				height="100%"
 				cx="40.848923"
 				cy="40.56649"
 				r="40.848923"
@@ -63,3 +72,11 @@
 		{/if}
 	</svg>
 </div>
+
+<style>
+	.svg-container.preview {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+</style>

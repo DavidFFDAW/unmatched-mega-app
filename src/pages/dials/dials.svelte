@@ -8,9 +8,9 @@
 	import TypographySelect from './components/typography-select.svelte';
 	import ColorPicker from '@components/colorpicker/color-picker.svelte';
 	import ButtonFill from '@components/buttons/button-fill.svelte';
-	import DialsSvg from './dials-svg.svelte';
-	import Modal from '@components/modals/modal.svelte';
+	import Preview from './preview.svelte';
 	let buttonLoading: boolean = false;
+	let showModal = false;
 
 	const loadUploadedImage = (event: Event, key: string) => {
 		const { files } = event.target as HTMLInputElement;
@@ -137,6 +137,7 @@
 						id="dialFront"
 						style="width: {$dials.dialSize}px; height: {$dials.dialSize}px; background-image: url('{$dials.dialFront}');"
 					>
+						<!-- <DialsSvg id="unmatchedCosa" imageSrc={$dials.dialFront} /> -->
 						<div class="relative" style="width: {$dials.dialSize}px; height: {$dials.dialSize}px">
 							<div class="circunference center filled" />
 							<div style="position: relative; top: 50%" class="flex center column align dissapear">
@@ -153,9 +154,7 @@
 					</div>
 				</form>
 			</div>
-			<!-- <Modal visible={true} title="Modal" description="Modal description">
-				<p slot="modal-content">Modal content</p>
-			</Modal> -->
+
 			<div class="w1 box p">
 				<h3 class="title">Colores</h3>
 				<form class="flex center aend row gap-medium margin-sides-auto">
@@ -168,12 +167,16 @@
 					<!-- <ColorPicker label="Circunferencia" name="dialColor" bind:value={$dials.dialColor} /> -->
 				</form>
 			</div>
+			<div class="w1 flex between acenter">
+				<ButtonFill label="Probar diales" click={() => (showModal = true)} />
+				<ButtonFill bind:loading={buttonLoading} label="Descargar diales" click={downloadDials} />
+			</div>
 		</div>
 	</div>
 
-	<div class="w1 flex end">
-		<ButtonFill bind:loading={buttonLoading} label="Descargar diales" click={downloadDials} />
-	</div>
+	{#if showModal}
+		<Preview bind:visible={showModal} />
+	{/if}
 </div>
 
 <style>
@@ -277,8 +280,8 @@
 
 	.frontal-dial {
 		/* clip: url('/images/front.dial.svg#recorte'); */
-		clip-path: url('/images/front.dial.svg#recorte');
-		clip-path: path(var(--clip-path));
+		/* clip-path: url('/images/front.dial.svg#recorte'); */
+		/* clip-path: path(var(--clip-path)); */
 		z-index: 2;
 	}
 	/* .frontal-dial::after {
