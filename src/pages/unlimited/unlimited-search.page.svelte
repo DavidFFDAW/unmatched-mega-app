@@ -28,11 +28,19 @@
 		bind:value={$unlimitedSearch.searchTerms}
 		on:change={search}
 	/>
+	
 </div>
 
 <div class="search-results list down">
-	{#if $unlimitedSearch.response.length > 0}
-		{#each $unlimitedSearch.response as item}
+
+	{#if $unlimitedSearch.response.error}
+		<div>
+			<p>{$unlimitedSearch.response.error}</p>
+		</div>
+	{/if}
+
+	{#if $unlimitedSearch.response.data.length > 0}
+		{#each $unlimitedSearch.response.data as item}
 			<a class="search-result-item unmatched-deck deck-{item.id}" href="/unlimited-decks/{item.id}">
 				<div class="image-card-continer">
 					{#if item.deck_data.cards[0]}
@@ -47,6 +55,10 @@
 				</div>
 			</a>
 		{/each}
+	{:else}
+		<div>
+			<p>No se han encontrado resultados</p>
+		</div>
 	{/if}
 </div>
 

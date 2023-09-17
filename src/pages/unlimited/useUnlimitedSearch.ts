@@ -1,19 +1,25 @@
-import type { SearchUserDeck } from "@models/deck.model";
-import { initialDeckValue } from "./game/hooks/useDeck";
-import { getFromStorage, persistStorage } from "@services/persistent.storage.service";
-import { get, writable } from "svelte/store";
-import HttpService from "@services/http.service";
-import type { ApiResponse } from "@models/api.model";
+import type { SearchUserDeck } from '@models/deck.model';
+import { initialDeckValue } from './game/hooks/useDeck';
+import { getFromStorage, persistStorage } from '@services/persistent.storage.service';
+import { get, writable } from 'svelte/store';
+import HttpService from '@services/http.service';
+import type { ApiResponse } from '@models/api.model';
 
+interface Response {
+    error: boolean;
+    loading: boolean;
+    data: SearchUserDeck[];
+    message?: string;
+}
 interface UnlimitedSearch {
-    response: SearchUserDeck[];
+    response: Response;
     searchTerms: string;
     storedGame: any;
 }
 const initialValue: UnlimitedSearch = {
-    response: getFromStorage('lastSearch', []),
+    response: getFromStorage('lastSearch', { error: false, loading: false, data: [] }),
     searchTerms: '',
-    storedGame: getFromStorage('game', initialDeckValue)
+    storedGame: getFromStorage('game', initialDeckValue),
 };
 
 export const unlimitedSearch = writable(initialValue);
@@ -21,28 +27,56 @@ export const unlimitedSearch = writable(initialValue);
 export const search = () => {
     const stored = get(unlimitedSearch);
     if (stored.searchTerms.length > 3) {
-        unlimitedSearch.set({
-            ...stored,
-            response: []
+        unlimitedSearch.update(previous => {
+            return {
+                ...previous,
+                response: {
+                    error: false,
+                    data: [],
+                    loading: true,
+                },
+            };
         });
-        HttpService.get(`/api/search/${stored.searchTerms}`).then((res: ApiResponse) => {
-            const response = res.content.decks;
-            unlimitedSearch.set({
-                ...stored,
-                response
+        HttpService.get(`/api/search/${stored.searchTerms}`)
+            .then((res: ApiResponse) => {
+                const responseObtained = res.content.decks;
+                const response = {
+                    error: false,
+                    data: responseObtained,
+                    loading: false,
+                };
+                unlimitedSearch.update(previous => {
+                    return {
+                        ...previous,
+                        response: response,
+                    };
+                });
+                persistStorage('lastSearch', response);
+            })
+            .catch(err => {
+                console.error(err);
+                unlimitedSearch.update(search => {
+                    return {
+                        ...search,
+                        response: {
+                            error: true,
+                            message: err,
+                            data: [],
+                            loading: false,
+                        },
+                    };
+                });
             });
-            persistStorage('lastSearch', response);
-        });
     }
 };
 
 export const deleteStoredGame = (ev: Event) => {
     ev.preventDefault();
     persistStorage('game', initialDeckValue);
-    unlimitedSearch.update((search) => {
+    unlimitedSearch.update(search => {
         return {
             ...search,
-            storedGame: false
+            storedGame: false,
         };
     });
 };
