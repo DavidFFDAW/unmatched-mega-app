@@ -56,6 +56,9 @@ a {
 	color: #383838;
 }
 
+.d-5 {
+	margin-top: 5px;
+}
 .hidden,
 .none {
 	display: none;

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SimpleSpinner from '@components/simple-spinner.svelte';
+	import SimpleSpinner from '@components/spinner/simple-spinner.svelte';
 
 	export let label: string = 'Button';
 	export let click: (e: Event) => void = () => {};

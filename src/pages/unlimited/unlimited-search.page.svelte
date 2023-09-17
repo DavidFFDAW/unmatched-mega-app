@@ -1,154 +1,65 @@
 <script lang="ts">
-	import { unlimitedSearch, search, deleteStoredGame } from './useUnlimitedSearch';
+	import './game.search.css';
+	import ResultList from './components/result-list.svelte';
+	import StoredGame from './components/stored-game.svelte';
+	import { unlimitedSearch, search } from './useUnlimitedSearch';
+	import LoadingOrError from './components/loading-or-error.svelte';
+
+	$: isNotLoadingOrError = !$unlimitedSearch.response.loading && !$unlimitedSearch.response.error;
+	const handleSubmit = (event: Event) => {
+		event.preventDefault();
+		search();
+	};
 </script>
 
-{#if $unlimitedSearch.storedGame.url && $unlimitedSearch.storedGame.deckData}
-	<div class="stored-game-alert alert flex center acenter gap-small" role="alert">
-		<p>
-			Existe una partida en curso con el mazo <strong class="bebas"
-				>{$unlimitedSearch.storedGame.deckData.name}</strong
-			>
-		</p>
-		<div class="flex between acenter gap-smaller">
-			<a href={$unlimitedSearch.storedGame.url} class="alert-button" on:click={deleteStoredGame}
-				>Borrar</a
-			>
-			<a href={$unlimitedSearch.storedGame.url} class="alert-button">Continuar</a>
-		</div>
-	</div>
-{/if}
+<StoredGame />
 
-<div class="search-container">
+<form class="search-container" on:submit={handleSubmit}>
 	<label for="search-term" class="label league upper">Busca un mazo por nombre o por autor</label>
-	<input
-		id="search-term"
-		class="input bebas upper"
-		type="text"
-		placeholder="Michael Myers"
-		bind:value={$unlimitedSearch.searchTerms}
-		on:change={search}
-	/>
-	
-</div>
+	<div class="flex start acenter d-5">
+		<input
+			id="search-term"
+			class="input bebas upper"
+			type="text"
+			placeholder="Michael Myers"
+			bind:value={$unlimitedSearch.searchTerms}
+			list="search-terms-datalist"
+		/>
+		<datalist id="search-terms-datalist">
+			<option value="kcn27">KCN27</option>
+			<option value="Mr.Dangus">MrDangus</option>
+			<option value="davis">Davis</option>
+			<option value="asaanchez99">Asaanchez</option>
+		</datalist>
+		<button type="submit" class="unlimited-search-btn">
+			<svg
+				height="100%"
+				width="100%"
+				version="1.1"
+				id="Layer_1"
+				xmlns="http://www.w3.org/2000/svg"
+				xmlns:xlink="http://www.w3.org/1999/xlink"
+				viewBox="0 0 50 50"
+				enable-background="new 0 0 50 50"
+				xml:space="preserve"
+				fill="#000000"
+				><g id="SVGRepo_bgCarrier" stroke-width="0" /><g
+					id="SVGRepo_tracerCarrier"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				/><g id="SVGRepo_iconCarrier">
+					<path
+						fill="#231F20"
+						d="M20.921,31.898c2.758,0,5.367-0.956,7.458-2.704l1.077,1.077l-0.358,0.358 c-0.188,0.188-0.293,0.442-0.293,0.707s0.105,0.52,0.293,0.707l8.257,8.256c0.195,0.195,0.451,0.293,0.707,0.293 s0.512-0.098,0.707-0.293l2.208-2.208c0.188-0.188,0.293-0.442,0.293-0.707s-0.105-0.52-0.293-0.707l-8.257-8.256 c-0.391-0.391-1.023-0.391-1.414,0l-0.436,0.436l-1.073-1.073c1.793-2.104,2.777-4.743,2.777-7.537c0-3.112-1.212-6.038-3.413-8.239 s-5.127-3.413-8.239-3.413s-6.038,1.212-8.238,3.413c-2.201,2.201-3.413,5.126-3.413,8.239c0,3.112,1.212,6.038,3.413,8.238 C14.883,30.687,17.809,31.898,20.921,31.898z M38.855,37.385l-0.794,0.793l-6.843-6.842l0.794-0.793L38.855,37.385z M14.097,13.423 c1.823-1.823,4.246-2.827,6.824-2.827s5.002,1.004,6.825,2.827c1.823,1.823,2.827,4.247,2.827,6.825 c0,2.578-1.004,5.001-2.827,6.824c-1.823,1.823-4.247,2.827-6.825,2.827s-5.001-1.004-6.824-2.827 c-1.823-1.823-2.827-4.247-2.827-6.824C11.27,17.669,12.273,15.246,14.097,13.423z"
+					/>
+				</g></svg
+			>
+		</button>
+	</div>
+</form>
 
-<div class="search-results list down">
-
-	{#if $unlimitedSearch.response.error}
-		<div>
-			<p>{$unlimitedSearch.response.error}</p>
-		</div>
-	{/if}
-
-	{#if $unlimitedSearch.response.data.length > 0}
-		{#each $unlimitedSearch.response.data as item}
-			<a class="search-result-item unmatched-deck deck-{item.id}" href="/unlimited-decks/{item.id}">
-				<div class="image-card-continer">
-					{#if item.deck_data.cards[0]}
-						<img class="unmatched-card-back" src={item.deck_data.cards[0].imageUrl} alt="" />
-					{:else}
-						<img class="unmatched-card-back" src={item.deck_data.appearance.cardbackUrl} alt="" />
-					{/if}
-				</div>
-				<div class="flex between acenter" style="margin-top: 15px">
-					<div class="bebas upper deck-name">{item.name}</div>
-					<div class="league author">{item.user}</div>
-				</div>
-			</a>
-		{/each}
-	{:else}
-		<div>
-			<p>No se han encontrado resultados</p>
-		</div>
-	{/if}
-</div>
-
-<style>
-	.stored-game-alert.alert {
-		position: sticky;
-		top: 0;
-		width: 100%;
-		height: 50px;
-		background-color: #ebff55;
-		padding: 15px 10px;
-	}
-	.stored-game-alert.alert .alert-button {
-		background-color: transparent;
-		color: #282a36;
-		font-size: 15px;
-		border: none;
-		padding: 10px 0;
-	}
-	.custom-flex * {
-		color: #fff;
-	}
-	.search-results.list {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 8px;
-	}
-	.unmatched-card-back {
-		width: 50mm;
-		height: 100px;
-	}
-	.search-result-item.unmatched-deck {
-		display: flex;
-		place-items: center;
-		padding: 10px;
-		background-color: #282a36;
-	}
-	.search-result-item.unmatched-deck .author,
-	.search-result-item.unmatched-deck .deck-name {
-		color: #fff;
-	}
-	.search-result-item.unmatched-deck .author {
-		font-size: 22px;
-	}
-	.search-result-item.unmatched-deck .deck-name {
-		font-size: 25px;
-	}
-	.search-container {
-		margin-top: 15px;
-	}
-	.search-container label,
-	.search-container input {
-		display: block;
-	}
-	.search-container label {
-		color: #fff;
-		font-size: 20px;
-	}
-	.search-container input.input {
-		width: 100%;
-		margin-top: 5px;
-		border: none;
-		outline: none;
-		padding: 12px 15px;
-		background-color: #282a36;
-		color: #fff;
-		border-radius: 5px;
-	}
-
-	@media only screen and (max-width: 768px) {
-		.search-results.list {
-			grid-template-columns: repeat(1, 1fr);
-		}
-	}
-	.search-results.list {
-		gap: 20px;
-	}
-
-	.search-result-item.unmatched-deck {
-		display: block;
-		width: 100%;
-	}
-	/* .search-result-item.unmatched-deck .image-card-continer {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		} */
-	.search-result-item.unmatched-deck .image-card-continer img {
-		width: 100%;
-		height: 326px;
-	}
-	/* } */
-</style>
+{#if isNotLoadingOrError}
+	<ResultList />
+{:else}
+	<LoadingOrError />
+{/if}
