@@ -13,6 +13,7 @@
 	<div class="unlimited-footer-content">
 		<ul>
 			<FooterItem
+				icon={'/icons/unlimited/random-card.svg'}
 				title={'Seleccionar una carta aleatoria'}
 				description={'Seleccionar una carta aleatoria de entre las de tu mano ya sea para descartarla o por otro motivo'}
 				click={() => deckFunctions.selectRandomHandCard($deck)}
@@ -20,6 +21,7 @@
 			/>
 
 			<FooterItem
+				icon={'/icons/unlimited/discard-all.svg'}
 				title={'Descartar la mano entera'}
 				description={'Descartar toda las cartas de la mano y las añade al mazo de descartes'}
 				click={() => deckFunctions.discardHand()}

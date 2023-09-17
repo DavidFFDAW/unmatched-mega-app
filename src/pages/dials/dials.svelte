@@ -10,7 +10,7 @@
 	import ButtonFill from '@components/buttons/button-fill.svelte';
 	import Preview from './preview.svelte';
 	let buttonLoading: boolean = false;
-	let showModal = false;
+	let showModal: boolean = false;
 
 	const loadUploadedImage = (event: Event, key: string) => {
 		const { files } = event.target as HTMLInputElement;

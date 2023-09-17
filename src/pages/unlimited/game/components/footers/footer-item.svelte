@@ -3,6 +3,7 @@
 	export let description: string = '';
 	export let click: any = () => {};
 	export let afterClick: any = () => {};
+	export let icon: string = '';
 
 	const handleClick = (e: Event) => {
 		e.preventDefault();
@@ -13,7 +14,11 @@
 
 <li>
 	<div role="presentation" class="w1 flex start astart gap pointer" on:click={handleClick}>
-		<div class="svg-logo" />
+		<div class="flex acenter { !icon ? 'border' : '' } svg-logo" >
+			{#if icon}
+				<img src="{icon}" style="max-width: 100%" alt="{title}" />
+			{/if}
+		</div>
 
 		<div class="text-block">
 			<h4 class="title">{title}</h4>
@@ -22,4 +27,8 @@
 	</div>
 </li>
 
-<style></style>
+<style>
+	.border {
+		border: 1px solid #cddc39;
+	}
+</style>
