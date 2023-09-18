@@ -59,6 +59,7 @@ a {
 .d-5 {
 	margin-top: 5px;
 }
+
 .hidden,
 .none {
 	display: none;
@@ -136,14 +137,16 @@ a {
 	flex: 1;
 }
 
-.flex-total > * {
+.flex-total>* {
 	flex: 1;
 	width: 100%;
 }
-.flex-total > * {
+
+.flex-total>* {
 	flex: 1;
 	width: 100%;
 }
+
 .fauto {
 	flex: auto;
 }
@@ -462,6 +465,11 @@ a {
 	padding: 5px;
 }
 
+.landing-link-image.settings {
+	width: 65%;
+	height: auto;
+}
+
 .landing-link-image.dials {
 	width: 190px;
 	border-radius: 50%;
@@ -501,6 +509,7 @@ a {
 	border-radius: 6px;
 	margin-top: 5px;
 }
+
 .form-item select {
 	display: block;
 	font-size: 15px;
@@ -511,6 +520,7 @@ a {
 	border-radius: 6px;
 	margin-top: 5px;
 }
+
 .form-item textarea.input.textarea {
 	display: block;
 	font-size: 15px;

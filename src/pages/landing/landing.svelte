@@ -24,6 +24,14 @@
 						</Box>
 					</a>
 				{/each}
+				<a href={'/settings'} class="link">
+					<Box>
+						<div class="flex center image-container acenter column">
+							<Image src={'/images/settings.svg'} className="landing-link-image settings" />
+							<h2 class="down narrow">Ajustes</h2>
+						</div>
+					</Box>
+				</a>
 			</div>
 		</div>
 	</ShapeDivider>
