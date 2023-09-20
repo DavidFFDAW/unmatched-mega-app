@@ -7,7 +7,7 @@
 
 	const setValue = (e: Event) => {
 		const target = e.target as HTMLInputElement;
-		return (value = target.value);
+		return (value = Number(target.value));
 	};
 
 	const substract = () => {
