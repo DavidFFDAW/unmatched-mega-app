@@ -64,13 +64,7 @@
 	};
 </script>
 
-<div
-	bind:this={component}
-	role="presentation"
-	class="zoom-box"
-	style="width: {width}mm; height: {height}mm;"
-	on:click={emitClick}
->
+<div bind:this={component} role="presentation" class="zoom-box" on:click={emitClick}>
 	<div style="transform: scale(1); transform-origin: left top;">
 		<div
 			data-v-d8d5fac2=""
