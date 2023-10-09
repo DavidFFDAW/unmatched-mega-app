@@ -79,4 +79,8 @@
 	.slider {
 		overflow-x: hidden;
 	}
+	.slider.swippable .swiper-wrapper {
+		min-height: 375px;
+		overflow: hidden;
+	}
 </style>
