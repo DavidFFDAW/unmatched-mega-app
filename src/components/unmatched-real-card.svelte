@@ -54,7 +54,7 @@
 				return;
 			}
 			resizeCanton();
-		}, 100);
+		}, 500);
 	});
 
 	const emitClick = () => {

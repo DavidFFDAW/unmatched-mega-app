@@ -549,6 +549,23 @@ dialog[open] {
 	animation: show 1s ease normal;
 }
 
+.mobile-only {
+	display: none;
+}
+
+.desktop-only {
+	display: block;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+	color: var(--scheme)
+}
+
+.swiper-pagination-bullet-active {
+	background: var(--scheme) !important;
+}
+
 keyframes show {
 	from {
 		opacity: 0;
@@ -560,6 +577,14 @@ keyframes show {
 }
 
 @media screen and (max-width: 768px) {
+	.desktop-only {
+		display: none;
+	}
+
+	.mobile-only {
+		display: block;
+	}
+
 	.flex-responsive {
 		flex-direction: column;
 		align-items: center;

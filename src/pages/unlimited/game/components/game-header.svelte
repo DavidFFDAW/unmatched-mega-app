@@ -38,7 +38,7 @@
 			</div>
 		</div>
 		<div class="health-text">
-			<span>
+			<span class="upper">
 				{deckData?.deck_data.hero.name}
 			</span>
 		</div>

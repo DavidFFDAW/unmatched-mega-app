@@ -14,12 +14,14 @@
 </main>
 {#if $page.route.id !== '/'}
 	<footer class="app-main-footer flex center acenter gap-medium">
-		<div>
+		<div class="desktop-only">
 			@Copyright 2023 <a target="_blank" href="https://github.com/DavidFFDAW"
 				>David Fernández Flores</a
 			>
 		</div>
-		<div>Powered by <a target="_blank" href="https://svelte.dev">Svelte</a></div>
+		<div class="desktop-only">
+			Powered by <a target="_blank" href="https://svelte.dev">Svelte</a>
+		</div>
 		<div><a href="/privacy">Política de privacidad</a></div>
 		<div><a href="/terms">Términos y condiciones</a></div>
 	</footer>
@@ -33,7 +35,7 @@
 		padding: 15px 16px 60px 16px;
 	}
 	.app-main-footer {
-		position: fixed;
+		position: relative;
 		bottom: 0;
 		left: 0;
 		width: 100%;
