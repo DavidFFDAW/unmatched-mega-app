@@ -8,7 +8,7 @@
 	import { customSelectCard } from '../hooks';
 	import { onDestroy, onMount } from 'svelte';
 	import Swiper from 'swiper';
-	import { Navigation, Pagination } from 'swiper/modules';
+	import { Navigation, Pagination, EffectCards } from 'swiper/modules';
 	import 'swiper/css/bundle';
 	import 'swiper/css/pagination';
 	import 'swiper/css/navigation';
@@ -32,7 +32,7 @@
 			},
 			observer: true,
 			observeParents: true,
-			modules: [Navigation, Pagination]
+			modules: [Navigation, Pagination, EffectCards]
 		});
 	};
 
@@ -78,12 +78,5 @@
 <style>
 	.slider {
 		overflow-x: hidden;
-	}
-	.slider {
-		width: 100%;
-	}
-
-	.swiper-slide {
-		width: fit-content;
 	}
 </style>
