@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import SingleCard from './components/single-card.svelte';
 	import GameHeader from './components/game-header.svelte';
 	import GamePage from './components/game-page.svelte';
@@ -12,11 +12,17 @@
 		changeFooter,
 		setView
 	} from './hooks';
+	import { deleteStoredGame } from '../useUnlimitedSearch';
 
 	onMount(() => {
 		if (deckFunctions.isDataQueryNeeded($writableDeck, $page.url.pathname)) {
 			deckFunctions.getCards();
 		}
+	});
+
+	onDestroy(() => {
+		selectedCard.set(null);
+		deleteStoredGame(new Event('click'));
 	});
 </script>
 
@@ -29,7 +35,7 @@
 		bind:currentTab={$gameState.currentTab}
 		on:contextmenu={changeFooter}
 	/>
-	<button type="button" on:click={setView}>Cambiar vista</button>
+	<!-- <button type="button" on:click={setView}>Cambiar vista</button> -->
 
 	<GamePage />
 

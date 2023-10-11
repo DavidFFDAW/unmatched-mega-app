@@ -27,6 +27,11 @@ const initialState: UnlimitedDecks = storedGame ? storedGame : initialDeckValue;
 
 export const writableDeck = writable(initialState);
 
+console.log({
+	writableDeck
+});
+
+
 export const resetDeck = () => {
 	writableDeck.set(initialState);
 };
@@ -36,7 +41,12 @@ export const setDeck = (deck: UnlimitedDecks) => {
 };
 
 export const shuffleDeck = (totalDeck: DeckCards[], deckData: any, pageURL: string) => {
-	const shuffled = totalDeck.sort(() => 0.5 - Math.random());
+	const shuffled = totalDeck.sort(() => 0.5 - Math.random()).map((card) => {
+		return {
+			...card,
+			cardback: deckData.deck_data.appearance.cardbackUrl
+		};
+	});
 
 	writableDeck.update((deck) => {
 		deck.hand = shuffled.slice(0, 5);

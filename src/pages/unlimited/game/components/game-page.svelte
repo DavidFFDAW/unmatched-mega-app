@@ -4,6 +4,7 @@
 	import { PAGES } from '../../unlimited.constants';
 	import HeroCard from '@components/hero-card/hero-card.svelte';
 	import { getData } from './game-page.service';
+	import DeckListPageSelectCards from './deck-list-page-select-cards.svelte';
 
 	const characterInfo = getData($writableDeck);
 </script>
@@ -20,6 +21,8 @@
 		bind:currentTab={$gameState.currentTab}
 		bind:groupView={$gameState.groupView}
 	/>
+{:else if $gameState.currentTab === PAGES.blindSelect}
+	<DeckListPageSelectCards bind:list={$writableDeck.hand} />
 {:else if $gameState.currentTab === PAGES.info}
 	<div class="info">
 		<HeroCard

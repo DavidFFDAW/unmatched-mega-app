@@ -1,3 +1,4 @@
+import { browser } from '$app/environment';
 import type { SearchUserDeck } from '@models/deck.model';
 import { initialDeckValue } from './game/hooks/useDeck';
 import { getFromStorage, persistStorage } from '@services/persistent.storage.service';

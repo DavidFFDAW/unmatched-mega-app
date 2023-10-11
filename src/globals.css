@@ -566,6 +566,15 @@ dialog[open] {
 	background: var(--scheme) !important;
 }
 
+.card-backs-selection .card img {
+	position: relative;
+}
+
+.card-backs-selection .card img.selected {
+	top: 70px;
+}
+
+
 keyframes show {
 	from {
 		opacity: 0;

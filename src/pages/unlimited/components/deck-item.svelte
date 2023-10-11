@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Image from '@components/image.svelte';
+	import { deleteStoredGame } from '../useUnlimitedSearch';
 
 	export let id: string;
 	export let name: string;

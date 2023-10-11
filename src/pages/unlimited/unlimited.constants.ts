@@ -6,14 +6,16 @@ export const PAGES: any = {
 	hand: 'hand',
 	discard: 'discard',
 	deck: 'deck',
-	info: 'info'
+	info: 'info',
+	blindSelect: 'select-cards-blind',
 };
 
 export const TABS: any = {
 	hand: 'MANO',
 	discard: 'DESCARTE',
 	deck: 'ROBAR',
-	info: 'INFORMACIÓN'
+	info: 'INFORMACIÓN',
+	"select-cards-blind": 'SELECCIONAR CARTAS A CIEGAS',
 };
 
 export const FOOTER_TABS = {

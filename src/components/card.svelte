@@ -1,10 +1,18 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+
 	export let src: string = '/default-card.jpg';
 	export let rotate: number = 0;
+	const dispatch = createEventDispatcher();
+
+	const emitImageClick = (event: Event) => {
+		console.log('emitImageClick');
+		dispatch('imageclick', event);
+	};
 </script>
 
 <div class="card" style={`transform: rotate(${rotate}deg)`}>
-	<img {src} draggable="false" alt="unmatched card" />
+	<img {src} draggable="false" alt="unmatched card" on:click={emitImageClick} role="presentation" />
 </div>
 
 <style>
