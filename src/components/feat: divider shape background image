@@ -27,6 +27,13 @@
 		position: absolute;
 		height: 480px;
 		background-color: #3e3e3e;
+background-image: url(https://styles.redditmedia.com/t5_zgi3t/styles/bannerBackgroundImage_qf8gr7pm6hkb1.png?width=4000&s=bc239a1…);
+    background-size: cover;
+    background-clip: border-box;
+    background-origin: border-box;
+    background-position: center;
+    background-repeat: no-repeat;
+    backface-visibility: visible;
 		z-index: 0;
 	}
 	.custom-shape-divider-bottom-1691841981 {
