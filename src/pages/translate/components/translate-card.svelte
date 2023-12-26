@@ -152,7 +152,7 @@
 		position: absolute;
 		bottom: 6px;
 		left: 12px;
-		width: 90%;
+		width: 91%;
 		height: 113px;
 	}
 	.unmatched.card .inner .effect-inner {
