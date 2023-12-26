@@ -1,6 +1,7 @@
 export interface TranslateCard {
     name: string;
     image: string;
+    backgroundIcon: string;
     title: string;
     character: string;
     line: boolean;
@@ -17,6 +18,7 @@ export interface TranslateCard {
 export const initialTranslateCard: TranslateCard = {
     name: 'Dracula',
     image: '',
+    backgroundIcon: '',
     title: 'Finta',
     character: 'Cualquiera',
     line: true,

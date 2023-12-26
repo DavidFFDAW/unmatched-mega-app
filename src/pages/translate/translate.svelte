@@ -18,8 +18,9 @@
 
 			<div class="w1 form-item">
 				<span class="label">Imagen</span>
-				<div style="margin-top: 5px;">
-					<ButtonFile bind:image={$cardData.image} />
+				<div class="flex between acenter" style="margin-top: 5px;">
+					<ButtonFile bind:image={$cardData.image} label="Subir carta" />
+					<ButtonFile bind:image={$cardData.backgroundIcon} label="Icono de fondo de texto" />
 				</div>
 			</div>
 		</form>
