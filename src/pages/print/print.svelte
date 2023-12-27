@@ -26,7 +26,7 @@
 <h1>Impresion de mazos</h1>
 
 <div>
-	<label for="" class="tcenter">Indica tu carta de atras aqui</label>
+	<p>Total de cartas <span>{$cards.length}</span></p>
 	<div class="w1 down flex start astart gap-smaller flex-responsive wrap cards-container">
 		<div
 			class="background card"
