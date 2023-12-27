@@ -24,6 +24,15 @@
 						</Box>
 					</a>
 				{/each}
+				<a href={'/downloads'} class="link">
+					<Box>
+						<div class="flex center image-container acenter column">
+							<Image src={'/images/downloads.icon.webp'} className="landing-link-image downloads" />
+							<h2 class="down narrow">Descargas</h2>
+						</div>
+					</Box>
+				</a>
+
 				<a href={'/settings'} class="link">
 					<Box>
 						<div class="flex center image-container acenter column">
