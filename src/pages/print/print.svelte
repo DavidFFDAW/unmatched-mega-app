@@ -19,8 +19,6 @@
 	};
 
 	const { cards, functions } = usePrint();
-
-	$: console.log({ cards: $cards });
 </script>
 
 <h1>Impresion de mazos</h1>
