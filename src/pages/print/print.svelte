@@ -1,5 +1,4 @@
 <script lang="ts">
-	import CardContainer from '@components/card-container.svelte';
 	import Card from '@components/cards/card.svelte';
 	import usePrint from './usePrint';
 	let cardBack: string | null;
@@ -20,6 +19,8 @@
 	};
 
 	const { cards, functions } = usePrint();
+
+	$: console.log({ cards: $cards });
 </script>
 
 <h1>Impresion de mazos</h1>
@@ -46,18 +47,30 @@
 
 		{#if $cards.length > 0}
 			{#each $cards as card, index}
-				<div class="card custom-printable-card" data-index={index}>
-					<div class="overlay">
-						<button
-							data-index={index}
-							type="button"
-							class="btn button"
-							on:click={() => functions.removeCardByIndex(index)}
-						>
-							&times;
-						</button>
+				<div class="flex column acenter">
+					<div class="card custom-printable-card relative" data-index={index}>
+						<div class="overlay">
+							<div class="flex column aend">
+								<button
+									data-index={index}
+									type="button"
+									class="btn button"
+									on:click={() => functions.removeCardByIndex(index)}
+								>
+									&times;
+								</button>
+								<button
+									class="btn button"
+									type="button"
+									on:click={() => functions.addCardEqualToCard(card, index)}
+								>
+									+
+								</button>
+							</div>
+						</div>
+
+						<Card src={card.url} />
 					</div>
-					<Card src={card.url} />
 				</div>
 			{/each}
 		{/if}
@@ -135,9 +148,9 @@
 		background-color: rgba(0, 0, 0, 0.5);
 	}
 	.custom-printable-card .overlay .button {
-		position: absolute;
+		/* position: absolute;
 		top: 0;
-		right: 0;
+		right: 0; */
 		padding: 5px 15px;
 		border-radius: 0;
 		border: none;

@@ -72,7 +72,12 @@ export default function usePrint() {
 			drop,
 			createPDF,
 			removeCardByIndex,
-			change
+			change,
+			addCardEqualToCard: (card: CardPrint, index: number) => {
+				cards.update((items) => {
+					return [...items.slice(0, index), card, ...items.slice(index)];
+				});
+			},
 		}
 	};
 }
