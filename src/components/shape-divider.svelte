@@ -26,14 +26,16 @@
 		width: 100%;
 		position: absolute;
 		height: 480px;
-		background-color: #3e3e3e;
-background-image: url(https://styles.redditmedia.com/t5_zgi3t/styles/bannerBackgroundImage_qf8gr7pm6hkb1.png?width=4000&s=bc239a166278312505a0fed50ac3beaa3b44b50f);
-    background-size: cover;
-    background-clip: border-box;
-    background-origin: border-box;
-    background-position: center;
-    background-repeat: no-repeat;
-    backface-visibility: visible;
+		/* background-color: #3e3e3e; */
+		background-clip: border-box;
+		background-attachment: fixed;
+		background-image: url(https://styles.redditmedia.com/t5_zgi3t/styles/bannerBackgroundImage_41k3obvd6a3c1.png?width=4000&s=ee83bd34d498ac6084a50d10e152047b80d50894);
+		background-blend-mode: overlay;
+		background-origin: center;
+		background-position: center;
+		background-size: cover;
+		background-repeat: no-repeat;
+		backdrop-filter: blur(1);
 		z-index: 0;
 	}
 	.custom-shape-divider-bottom-1691841981 {
