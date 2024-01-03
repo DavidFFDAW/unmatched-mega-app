@@ -26,7 +26,7 @@
 		width: 100%;
 		position: absolute;
 		height: 480px;
-		/* background-color: #3e3e3e; */
+		background-color: rgba(0, 0, 0, .6)
 		background-clip: border-box;
 		background-attachment: fixed;
 		background-image: url(https://styles.redditmedia.com/t5_zgi3t/styles/bannerBackgroundImage_41k3obvd6a3c1.png?width=4000&s=ee83bd34d498ac6084a50d10e152047b80d50894);
