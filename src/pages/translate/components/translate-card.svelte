@@ -13,7 +13,7 @@
 		style="background-image: url({cardData.image});"
 	>
 		<div id="unmatchedCardCharacter" class="character-name">
-			<div class="character-block">
+			<div class="character-block" style="left: {cardData.horizontalLeftCharacter}px">
 				<svg
 					width="100%"
 					height="100%"
@@ -47,7 +47,7 @@
 				<p id="unmatchedCardCharacterText" class="character-name-text">{cardData.character}</p>
 			</div>
 		</div>
-		<div id="unmatchedCardInner" class="inner">
+		<div id="unmatchedCardInner" class="inner" style="width: {cardData.effectSpaceWidth}%;">
 			<svg
 				id="unmatchedCardInnerEffectImage"
 				class="effect-inner"

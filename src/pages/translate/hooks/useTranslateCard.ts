@@ -168,5 +168,23 @@ export const functions = {
 	setMomentousShiftTemplate,
 	setABocajarroTemplate,
 	setWillyFightingTemplate,
-	setBattleHardenedTemplate
+	setBattleHardenedTemplate,
+	setHorizontalLeftCharacter: (event: Event) => { 
+		const target = event.target as HTMLInputElement;
+		const value = target.value;
+		
+		cardData.update((data) => {
+			data.horizontalLeftCharacter = Number(value);
+			return data;
+		});
+	},
+	setEffectSpaceWidth: (event: Event) => { 
+		const target = event.target as HTMLInputElement;
+		const value = target.value;
+		
+		cardData.update((data) => {
+			data.effectSpaceWidth = Number(value);
+			return data;
+		});
+	}
 };

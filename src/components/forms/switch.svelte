@@ -1,4 +1,5 @@
 <script lang="ts">
+	export let total: boolean = true;
 	export let label: string;
 	export let name: string;
 	export let value: boolean | undefined = false;
@@ -8,7 +9,7 @@
 	};
 </script>
 
-<div class="w1 form-item">
+<div class:w1={total} class="form-item">
 	<label for={name} style="margin-bottom: 5px">{label}</label>
 	<label class="switch">
 		<input type="checkbox" id={name} {name} {value} on:change={setValue} bind:checked={value} />

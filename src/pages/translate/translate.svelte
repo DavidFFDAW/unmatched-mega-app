@@ -47,30 +47,56 @@
 	</div>
 	<div class="w1 box p">
 		<h3 class="title">Posicionamiento</h3>
-		<form class="flex center astart column gap-smaller">
-			<Switch label="Línea" name="line" bind:value={$cardData.line} />
-			<Input
-				type="number"
-				label="Posición"
-				name="position"
-				bind:value={$cardData.characterHeight}
-				onchange={functions.setCharacterHeight}
-			/>
-			<Input
-				type="number"
-				label="Posición de nombre de personaje"
-				name="character_inner_height"
-				bind:value={$cardData.characterNameHeight}
-				onchange={functions.setCharacterNameHeight}
-			/>
-			<Input
-				type="number"
-				label="Altura de efectos"
-				name="effects_height"
-				min={113}
-				bind:value={$cardData.effectsHeight}
-				onchange={functions.setEffectHeight}
-			/>
+		<form class="flex center astart column gap-small">
+			<div class="w1 flex between aend gap">
+				<Input
+					type="number"
+					label="Altura de nombre de personaje"
+					name="position"
+					bind:value={$cardData.characterHeight}
+					onchange={functions.setCharacterHeight}
+				/>
+
+				<Input
+					type="number"
+					label="Posición vertical de nombre de personaje"
+					name="character_inner_height"
+					bind:value={$cardData.characterNameHeight}
+					onchange={functions.setCharacterNameHeight}
+				/>
+			</div>
+
+			<div class="w1 flex start aend gap">
+				<Switch total={false} label="Línea" name="line" bind:value={$cardData.line} />
+
+				<Input
+					type="number"
+					label="Altura de efectos"
+					name="effects_height"
+					min={113}
+					bind:value={$cardData.effectsHeight}
+					onchange={functions.setEffectHeight}
+				/>
+			</div>
+			
+			<div class="w1 flex between aend gap">
+				<Input
+					type="number"
+					label="Posicion horizontal de barra de personaje"
+					name="horizontal_left_character"
+					min={0}
+					bind:value={$cardData.horizontalLeftCharacter}
+					onchange={functions.setHorizontalLeftCharacter}
+				/>
+
+				<Input
+					type="number"
+					label="Anchura horizontal de espacio para efectos de carta"
+					name="effect_space_width"
+					bind:value={$cardData.effectSpaceWidth}
+					onchange={functions.setEffectSpaceWidth}
+				/>
+			</div>
 		</form>
 	</div>
 </div>
