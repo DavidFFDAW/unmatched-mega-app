@@ -32,6 +32,6 @@ export const initialTranslateCard: TranslateCard = {
     during: '',
     after: '',
     rayito: '',
-    horizontalLeftCharacter: 0,
+    horizontalLeftCharacter: 10,
     effectSpaceWidth: 90,
 };
