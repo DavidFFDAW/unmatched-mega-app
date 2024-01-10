@@ -2,16 +2,16 @@
 	import ButtonFile from '@components/buttons/button-file.svelte';
 	import ButtonFill from '@components/buttons/button-fill.svelte';
 	import CardBack from '@components/cards/card-back.svelte';
-	// import ColorPicker from '@components/colorpicker/color-picker.svelte';
 	import UnmatchedLogoSvg from './components/unmatched-logo-svg.svelte';
 	import { downloadID, downloadImage, cardBackState } from './hooks/useCardBack';
 	import Input from '@components/forms/input.svelte';
+	import Select from '@components/forms/select.svelte';
 </script>
 
 <div class="flex start gap astart flex-responsive">
 	<div>
 		<div class="flex center acenter" id={downloadID}>
-			<CardBack src={$cardBackState.image}>
+			<CardBack src={$cardBackState.image} bgPosition={$cardBackState.backgroundPosition}>
 				<UnmatchedLogoSvg
 					bind:lettersColor={$cardBackState.letters}
 					bind:backgroundColor={$cardBackState.background}
@@ -49,10 +49,22 @@
 
 			<Input
 				type="color"
-				label="Unmatched logo color de letras"
+				label="Unmatched logo color de fondo"
 				name="card-background-color"
 				bind:value={$cardBackState.background}
 			/>
+
+			<Select
+				label="Posición del fondo de la carta"
+				name="card-type"
+				bind:value={$cardBackState.backgroundPosition}
+			>
+				<option value="top">Hacia arriba</option>
+				<option value="center">Centrada</option>
+				<option value="bottom">Hacia abajo</option>
+				<option value="left">Izquierda</option>
+				<option value="right">Derecha</option>
+			</Select>
 
 			<div class="w1 flex end">
 				<ButtonFill label="Descargar" click={downloadImage} />

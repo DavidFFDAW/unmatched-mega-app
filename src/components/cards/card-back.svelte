@@ -2,11 +2,12 @@
 	export let src: string = '';
 	export let width: number = 63;
 	export let height: number = 88;
+	export let bgPosition: string = 'center';
 </script>
 
 <div
 	class="card relative"
-	style={`background-image: url('${src}'); width: ${width}mm; height: ${height}mm`}
+	style={`background-image: url('${src}'); background-position: ${bgPosition}; width: ${width}mm; height: ${height}mm`}
 >
 	<slot />
 </div>
