@@ -47,7 +47,7 @@
 				<p id="unmatchedCardCharacterText" class="character-name-text">{cardData.character}</p>
 			</div>
 		</div>
-		<div id="unmatchedCardInner" class="inner" style="width: {cardData.effectSpaceWidth}%;">
+		<div id="unmatchedCardInner" class="inner" style="width: {cardData.effectSpaceWidth}%; left: {cardData.effectSpaceLeft}px">
 			<svg
 				id="unmatchedCardInnerEffectImage"
 				class="effect-inner"

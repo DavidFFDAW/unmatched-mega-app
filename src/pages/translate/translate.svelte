@@ -5,6 +5,7 @@
 	import Switch from '@components/forms/switch.svelte';
 	import TranslateCard from './components/translate-card.svelte';
 	import { cardData, functions } from './hooks/useTranslateCard';
+	import InputNumberControls from '@components/forms/input-number-controls.svelte';
 </script>
 
 <div class="flex center acenter gap flex-responsive-reverse">
@@ -95,6 +96,12 @@
 					name="effect_space_width"
 					bind:value={$cardData.effectSpaceWidth}
 					onchange={functions.setEffectSpaceWidth}
+				/>
+
+				<InputNumberControls
+					label="Posicion izquierda de efectos de carta"
+					name="effect_space_width"
+					bind:value={$cardData.effectSpaceLeft}
 				/>
 			</div>
 		</form>

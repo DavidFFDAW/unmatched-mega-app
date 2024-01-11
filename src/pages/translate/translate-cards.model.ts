@@ -15,6 +15,7 @@ export interface TranslateCard {
     rayito: string;
     horizontalLeftCharacter: number;
     effectSpaceWidth: number;
+    effectSpaceLeft: number;
 }
 
 export const initialTranslateCard: TranslateCard = {
@@ -34,4 +35,5 @@ export const initialTranslateCard: TranslateCard = {
     rayito: '',
     horizontalLeftCharacter: 10,
     effectSpaceWidth: 90,
+    effectSpaceLeft: 11,
 };
