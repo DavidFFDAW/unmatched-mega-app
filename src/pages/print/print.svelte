@@ -2,6 +2,7 @@
 	import Card from '@components/cards/card.svelte';
 	import usePrint from './usePrint';
 	let cardBack: string | null;
+	let characterCard: string | null = '/images/character-card.png';
 
 	const dropCardBack = (e: DragEvent) => {
 		e.preventDefault();
@@ -17,6 +18,20 @@
 			cardBack = URL.createObjectURL(target.files[0]);
 		}
 	};
+	const dropCharacterCard = (e: DragEvent) => {
+		e.preventDefault();
+		if (e.dataTransfer) {
+			const firstFile = [...e.dataTransfer?.files][0];
+			characterCard = URL.createObjectURL(firstFile);
+		}
+	};
+
+	const onCharacterCardChange = (ev: any) => {
+		const { target } = ev;
+		if (target && target?.files[0]) {
+			characterCard = URL.createObjectURL(target.files[0]);
+		}
+	};
 
 	const { cards, functions } = usePrint();
 </script>
@@ -24,8 +39,26 @@
 <h1>Impresion de mazos</h1>
 
 <div>
-	<p>Total de cartas <span>{$cards.length}</span></p>
+	<p class="fixed-position">Total de cartas <span>{$cards.length}</span></p>
 	<div class="w1 down flex start astart gap-smaller flex-responsive wrap cards-container">
+		<div
+			class="background card character-card"
+			style="background-image: url('{characterCard}'); width: 63mm; height: 88mm;"
+			class:has-character-card={Boolean(characterCard) &&
+				characterCard !== '/images/character-card.png'}
+		>
+			<!-- <p class="card-back-text bebas tcenter">Sube la carta de personaje y pasiva aquí</p> -->
+			<input
+				accept="image/*"
+				class="input-card-back"
+				type="file"
+				name="card-back"
+				on:dragover={functions.dragover}
+				on:drop={dropCharacterCard}
+				on:change={onCharacterCardChange}
+			/>
+		</div>
+
 		<div
 			class="background card"
 			style="background-image: url('{cardBack}'); width: 63mm; height: 88mm;"
@@ -101,17 +134,25 @@
 		</div>
 	</div>
 
-	<div class="flex between acenter down">
+	<div class="w1 fixed-action-buttons flex column aend gap-small">
 		<button type="button" class="btn fill button" on:click={functions.emptyCards}
 			>Borrar cartas</button
 		>
-		<button type="button" class="btn fill button" on:click={() => functions.createPDF(cardBack)}
-			>Generar PDF</button
+		<button
+			type="button"
+			class="btn fill button"
+			on:click={() => functions.createPDF(cardBack, characterCard)}>Generar PDF</button
 		>
 	</div>
 </div>
 
 <style>
+	.fixed-action-buttons {
+		position: fixed;
+		top: 50px;
+		right: 10px;
+		z-index: 100;
+	}
 	/* .cards-container .card:nth-child(2) {
 		margin-left: 50px;
 	} */
@@ -201,5 +242,11 @@
 		width: 100%;
 		height: 100%;
 		opacity: 0;
+	}
+	.background.card.character-card {
+		opacity: 0.4;
+	}
+	.background.card.character-card.has-character-card {
+		opacity: 1;
 	}
 </style>

@@ -8,6 +8,8 @@ export class PdfService {
 	private ITEMS_PER_ROW = 4;
 	private CARD_WIDTH = 63.5;
 	private CARD_HEIGHT = 88;
+	private INSTRUCTION_CARD = '/images/instruct.png';
+	private DEFAULT_CHARACTER_CARD = '/images/character-card.png';
 	private x = 15;
 	private y = 15;
 
@@ -55,18 +57,38 @@ export class PdfService {
 		this.y = 15;
 	}
 
-	private getCardsBackArrays(cardBackUrl: string) {
+	private getCardsBackArrays(cardBackUrl: string, isFirstPage: boolean, hasCharacterCard: boolean) {
 		const cardsBackArray = Array.from({ length: 4 }, () => ({
 			name: 'card-back',
 			url: cardBackUrl
 		}));
-		return [cardsBackArray, cardsBackArray];
+		return [
+			cardsBackArray.map((card, index) => {
+				if (isFirstPage && hasCharacterCard && index === 3) {
+					return {
+						name: 'character-card-back',
+						url: this.INSTRUCTION_CARD
+					};
+				}
+
+				return card;
+			}),
+			cardsBackArray
+		];
 	}
 
-	private generateCardBackPage(cardBackUrl: string) {
+	private generateCardBackPage(
+		cardBackUrl: string,
+		isFirstPage: boolean,
+		hasCharacterCard: boolean
+	) {
 		this.doc.addPage();
 		this.initializeCoords();
-		const [firstRow, secondRow] = this.getCardsBackArrays(cardBackUrl);
+		const [firstRow, secondRow] = this.getCardsBackArrays(
+			cardBackUrl,
+			isFirstPage,
+			hasCharacterCard
+		);
 		// const content = [...pageCards.fill({ name: 'card-back', url: cardBackUrl })];
 		// const [firstRow, secondRow] = this.getContentRows(content as any);
 
@@ -75,12 +97,28 @@ export class PdfService {
 		this.insertRow(secondRow);
 	}
 
-	public generatePDF(cardBack: string | null) {
+	private initializeCards(characterCard: string | null) {
+		if (characterCard && characterCard !== this.DEFAULT_CHARACTER_CARD) {
+			this.cards = [
+				{
+					name: 'character-card',
+					url: characterCard
+				},
+				...this.cards
+			];
+		}
+	}
+
+	public generatePDF(cardBack: string | null, characterCard: string | null) {
+		const hasCharacterCard = Boolean(
+			characterCard && characterCard !== this.DEFAULT_CHARACTER_CARD
+		);
+		this.initializeCards(characterCard);
 		const numPages: number = this.getPages();
 
 		for (let page = 0; page < numPages; page++) {
+			const isFirstPage = page === 0;
 			if (page > 0) this.doc.addPage();
-			// start positioning cards centered on page
 			this.initializeCoords();
 
 			const pageCards = this.getPageContent(page);
@@ -91,7 +129,7 @@ export class PdfService {
 			this.insertRow(secondRow);
 
 			if (cardBack) {
-				this.generateCardBackPage(cardBack);
+				this.generateCardBackPage(cardBack, isFirstPage, hasCharacterCard);
 			}
 		}
 

@@ -47,12 +47,12 @@ export default function usePrint() {
 		}
 	};
 
-	const createPDF = (cardBack: string | null) => {
+	const createPDF = (cardBack: string | null, characterCard: string | null) => {
 		const pdf = new PdfService({
 			cards: get(cards)
 		});
 
-		const output = pdf.generatePDF(cardBack);
+		const output = pdf.generatePDF(cardBack, characterCard);
 
 		window.open(URL.createObjectURL(output));
 	};
@@ -77,7 +77,7 @@ export default function usePrint() {
 				cards.update((items) => {
 					return [...items.slice(0, index), card, ...items.slice(index)];
 				});
-			},
+			}
 		}
 	};
 }
