@@ -44,22 +44,31 @@ export class PdfService {
 	}
 
 	private insertRow(row: CardPrint[]) {
-		this.x = 15;
+		this.x = 20;
 		row.forEach((card: CardPrint) => {
 			this.insertCardToDoc(card);
 		});
 	}
 
 	private initializeCoords(): void {
-		this.x = 15;
+		this.x = 20;
 		this.y = 15;
 	}
 
-	private generateCardBackPage(pageCards: any[], cardBackUrl: string) {
+	private getCardsBackArrays(cardBackUrl: string) {
+		const cardsBackArray = Array.from({ length: 4 }, () => ({
+			name: 'card-back',
+			url: cardBackUrl
+		}));
+		return [cardsBackArray, cardsBackArray];
+	}
+
+	private generateCardBackPage(cardBackUrl: string) {
 		this.doc.addPage();
 		this.initializeCoords();
-		const content = [...pageCards.fill({ name: 'card-back', url: cardBackUrl })];
-		const [firstRow, secondRow] = this.getContentRows(content as any);
+		const [firstRow, secondRow] = this.getCardsBackArrays(cardBackUrl);
+		// const content = [...pageCards.fill({ name: 'card-back', url: cardBackUrl })];
+		// const [firstRow, secondRow] = this.getContentRows(content as any);
 
 		this.insertRow(firstRow);
 		this.y = this.CARD_HEIGHT + 1 + 15;
@@ -71,6 +80,7 @@ export class PdfService {
 
 		for (let page = 0; page < numPages; page++) {
 			if (page > 0) this.doc.addPage();
+			// start positioning cards centered on page
 			this.initializeCoords();
 
 			const pageCards = this.getPageContent(page);
@@ -81,7 +91,7 @@ export class PdfService {
 			this.insertRow(secondRow);
 
 			if (cardBack) {
-				this.generateCardBackPage(pageCards, cardBack);
+				this.generateCardBackPage(cardBack);
 			}
 		}
 
