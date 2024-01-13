@@ -151,7 +151,7 @@
 		position: fixed;
 		top: 50px;
 		right: 10px;
-		z-index: 100;
+		z-index: 1;
 	}
 	/* .cards-container .card:nth-child(2) {
 		margin-left: 50px;
