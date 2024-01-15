@@ -159,7 +159,7 @@
 	.card-add-card {
 		background-color: #c9c9c9;
 		border-radius: 10px;
-		width: 63mm;
+		width: 63.5mm;
 		height: 88mm;
 		position: relative;
 		cursor: pointer;
@@ -228,7 +228,7 @@
 	}
 
 	.card {
-		width: 63mm;
+		width: 63.5mm;
 		height: 88mm;
 		background-color: #c9c9c9;
 		position: relative;

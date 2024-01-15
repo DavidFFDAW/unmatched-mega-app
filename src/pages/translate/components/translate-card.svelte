@@ -193,7 +193,7 @@
 	/* UNMATCHED CARD CSS */
 	.unmatched.card {
 		position: relative;
-		width: 63mm;
+		width: 63.5mm;
 		height: 88mm;
 		background-color: antiquewhite;
 		border-radius: 10px;

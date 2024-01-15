@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let src: string = '';
-	export let width: number = 63;
+	export let width: number = 63.5;
 	export let height: number = 88;
 	export let bgPosition: string = 'center';
 </script>
