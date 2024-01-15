@@ -82,7 +82,7 @@ export class PdfService {
         // const [firstRow, secondRow] = this.getContentRows(content as any);
 
         this.insertRow(firstRow);
-        this.y = this.CARD_HEIGHT + 3 + 15;
+        this.y = this.CARD_HEIGHT + 1 + 2 + 15;
         this.insertRow(secondRow);
     }
 
