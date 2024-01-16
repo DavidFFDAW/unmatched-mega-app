@@ -13,7 +13,7 @@ export class PdfService {
 	private SPACE_BETWEEN_CARDS = 1;
 	private HORIZONTAL_MARGIN = 20;
 	private VERTICAL_MARGIN = 15;
-	private CARD_BACK_PAGE_EXTRA_MARGIN = 1;
+	private CARD_BACK_PAGE_EXTRA_MARGIN = 0.5;
 	private x = 20;
 	private y = 20;
 
