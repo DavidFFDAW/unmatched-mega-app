@@ -43,7 +43,7 @@
 	<div class="w1 down flex start astart gap-smaller flex-responsive wrap cards-container">
 		<div
 			class="background card character-card"
-			style="background-image: url('{characterCard}'); width: 63mm; height: 88mm;"
+			style="background-image: url('{characterCard}'); width: 63.5mm; height: 88mm;"
 			class:has-character-card={Boolean(characterCard) &&
 				characterCard !== '/images/character-card.png'}
 		>
@@ -61,7 +61,7 @@
 
 		<div
 			class="background card"
-			style="background-image: url('{cardBack}'); width: 63mm; height: 88mm;"
+			style="background-image: url('{cardBack}'); width: 63.5mm; height: 88mm;"
 			class:thereiscard={Boolean(cardBack)}
 		>
 			<p class="card-back-text bebas tcenter">Sube la parte de atrás de la carta aquí</p>
@@ -81,11 +81,11 @@
 				<div class="flex column acenter">
 					<div class="card custom-printable-card relative" data-index={index}>
 						<div class="overlay">
-							<div class="flex column aend">
+							<div class="overlay-inner-buttons-container flex start column">
 								<button
 									data-index={index}
 									type="button"
-									class="btn button"
+									class="btn button delete"
 									on:click={() => functions.removeCardByIndex(index)}
 								>
 									&times;
@@ -134,7 +134,7 @@
 		</div>
 	</div>
 
-	<div class="w1 fixed-action-buttons flex column aend gap-small">
+	<div class="fixed-action-buttons flex column aend gap-small">
 		<button type="button" class="btn fill button" on:click={functions.emptyCards}
 			>Borrar cartas</button
 		>
@@ -147,6 +147,14 @@
 </div>
 
 <style>
+	.overlay-inner-buttons-container {
+		position: absolute;
+		top: 0;
+		right: 0;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+
 	.fixed-action-buttons {
 		position: fixed;
 		top: 50px;
@@ -194,9 +202,14 @@
 		border-radius: 0;
 		border: none;
 		outline: none;
-		background-color: #030303;
+		background-color: #5a5a5a;
 		color: #fff;
 		z-index: 10;
+	}
+
+	.custom-printable-card .overlay .overlay-inner-buttons-container .button.delete {
+		background-color: #ff0000;
+		color: #fff;
 	}
 	.custom-printable-card:hover .overlay {
 		display: block;
