@@ -135,6 +135,10 @@
 	</div>
 
 	<div class="fixed-action-buttons flex column aend gap-small">
+		<p>
+			Total de cartas: {$cards.length}
+			<span>cartas</span>
+		</p>
 		<button type="button" class="btn fill button" on:click={functions.emptyCards}
 			>Borrar cartas</button
 		>
