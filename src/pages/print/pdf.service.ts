@@ -13,7 +13,7 @@ export class PdfService {
 	private SPACE_BETWEEN_CARDS = 1;
 	private HORIZONTAL_MARGIN = 20;
 	private VERTICAL_MARGIN = 15;
-	private CARD_BACK_PAGE_EXTRA_MARGIN = 0;
+	private CARD_BACK_PAGE_EXTRA_MARGIN = 0.5;
 	private x = 20;
 	private y = 20;
 
@@ -88,7 +88,8 @@ export class PdfService {
 	) {
 		this.doc.addPage();
 		this.initializeCoords();
-		this.y = this.y + this.CARD_BACK_PAGE_EXTRA_MARGIN; // 2mm margin
+		this.x = this.x - this.CARD_BACK_PAGE_EXTRA_MARGIN;
+		this.y = this.y - this.CARD_BACK_PAGE_EXTRA_MARGIN;
 
 		const [firstRow, secondRow] = this.getCardsBackArrays(
 			cardBackUrl,
@@ -102,7 +103,7 @@ export class PdfService {
 		this.y =
 			this.VERTICAL_MARGIN +
 			this.CARD_HEIGHT +
-			this.SPACE_BETWEEN_CARDS +
+			this.SPACE_BETWEEN_CARDS -
 			this.CARD_BACK_PAGE_EXTRA_MARGIN;
 
 		console.log({
