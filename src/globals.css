@@ -137,12 +137,12 @@ a {
 	flex: 1;
 }
 
-.flex-total>* {
+.flex-total > * {
 	flex: 1;
 	width: 100%;
 }
 
-.flex-total>* {
+.flex-total > * {
 	flex: 1;
 	width: 100%;
 }
@@ -559,7 +559,7 @@ dialog[open] {
 
 .swiper-button-prev:after,
 .swiper-button-next:after {
-	color: var(--scheme)
+	color: var(--scheme);
 }
 
 .swiper-pagination-bullet-active {
@@ -574,7 +574,6 @@ dialog[open] {
 	top: 70px;
 }
 
-
 keyframes show {
 	from {
 		opacity: 0;
@@ -586,6 +585,19 @@ keyframes show {
 }
 
 @media screen and (max-width: 768px) {
+	.responsive-margin-top {
+		margin-top: 50px;
+	}
+	.flex.flex-responsive-reverse {
+		flex-direction: column-reverse;
+	}
+	.flex.flex-responsive-align-center {
+		align-items: center;
+	}
+	.flex.responsive {
+		flex-direction: column;
+		align-items: center;
+	}
 	.desktop-only {
 		display: none;
 	}
