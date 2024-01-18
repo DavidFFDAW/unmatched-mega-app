@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Card from '@components/cards/card.svelte';
 	import usePrint from './usePrint';
+	import Box from '@components/box.svelte';
 	let cardBack: string | null;
 	let characterCard: string | null = '/images/character-card.png';
 
@@ -36,10 +37,32 @@
 	const { cards, functions } = usePrint();
 </script>
 
-<h1>Impresion de mazos</h1>
+<div class="box p overflow-auto">
+	<div class="flex custom-buttons-flex">
+		<div>
+			<h3 class="title">Impresión de cartas</h3>
+			<p>
+				Ten en cuenta y recuerda que esta plantilla está preparada para ser impresa sobre una
+				cartulina de <strong>350g</strong> de espesor para que las cartas sean lo más parecidas a las
+				originales en cuanto a espesor y dureza se refiere.
+			</p>
+		</div>
+		<div class="w1 afixed-action-buttons flex end acolumn acenter aaend gap-small">
+			<p>
+				Total de cartas: <strong>{$cards.length}</strong>
+				<span>cartas</span>
+			</p>
+			<button type="button" class="btn fill button" on:click={functions.emptyCards}
+				>Borrar cartas</button
+			>
+			<button
+				type="button"
+				class="btn fill button"
+				on:click={() => functions.createPDF(cardBack, characterCard)}>Generar PDF</button
+			>
+		</div>
+	</div>
 
-<div>
-	<p class="fixed-position">Total de cartas <span>{$cards.length}</span></p>
 	<div class="w1 down flex start astart gap-smaller flex-responsive wrap cards-container">
 		<div
 			class="background card character-card"
@@ -133,10 +156,9 @@
 			>
 		</div>
 	</div>
-
-	<div class="fixed-action-buttons flex column aend gap-small">
+	<div class="w1 down afixed-action-buttons flex end acolumn acenter aaend gap-small">
 		<p>
-			Total de cartas: {$cards.length}
+			Total de cartas: <strong>{$cards.length}</strong>
 			<span>cartas</span>
 		</p>
 		<button type="button" class="btn fill button" on:click={functions.emptyCards}
@@ -151,6 +173,18 @@
 </div>
 
 <style>
+	.overflow-auto,
+	.custom-buttons-flex {
+		overflow: auto;
+	}
+	.custom-buttons-flex .afixed-action-buttons {
+		position: sticky;
+		align-self: flex-start;
+		top: 0;
+		z-index: 10;
+		background-color: #fff;
+		padding: 10px;
+	}
 	.overlay-inner-buttons-container {
 		position: absolute;
 		top: 0;
@@ -161,9 +195,11 @@
 
 	.fixed-action-buttons {
 		position: fixed;
-		top: 50px;
+		top: 41px;
 		right: 10px;
-		z-index: 1;
+		z-index: 6;
+		background-color: #fff;
+		padding: 10px;
 	}
 	/* .cards-container .card:nth-child(2) {
 		margin-left: 50px;

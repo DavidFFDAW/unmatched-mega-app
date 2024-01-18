@@ -13,7 +13,7 @@ export class PdfService {
 	private SPACE_BETWEEN_CARDS = 1;
 	private HORIZONTAL_MARGIN = 20;
 	private VERTICAL_MARGIN = 15;
-	private CARD_BACK_PAGE_EXTRA_MARGIN = 0.5;
+	private CARD_BACK_PAGE_EXTRA_MARGIN = 0.15;
 	private x = 20;
 	private y = 20;
 
@@ -56,6 +56,12 @@ export class PdfService {
 		});
 	}
 
+	private insertRowWithNoHorizontalAxis(row: CardPrint[]) {
+		row.forEach((card: CardPrint) => {
+			this.insertCardToDoc(card);
+		});
+	}
+
 	private initializeCoords(): void {
 		this.x = this.HORIZONTAL_MARGIN;
 		this.y = this.VERTICAL_MARGIN;
@@ -88,30 +94,25 @@ export class PdfService {
 	) {
 		this.doc.addPage();
 		this.initializeCoords();
-		this.x = this.x - this.CARD_BACK_PAGE_EXTRA_MARGIN;
-		this.y = this.y - this.CARD_BACK_PAGE_EXTRA_MARGIN;
 
 		const [firstRow, secondRow] = this.getCardsBackArrays(
 			cardBackUrl,
 			isFirstPage,
 			hasCharacterCard
 		);
-		// const content = [...pageCards.fill({ name: 'card-back', url: cardBackUrl })];
-		// const [firstRow, secondRow] = this.getContentRows(content as any);
+		this.x = this.HORIZONTAL_MARGIN - this.CARD_BACK_PAGE_EXTRA_MARGIN;
+		this.y = this.y + this.CARD_BACK_PAGE_EXTRA_MARGIN;
 
-		this.insertRow(firstRow);
+		this.insertRowWithNoHorizontalAxis(firstRow);
+		this.x = this.HORIZONTAL_MARGIN - this.CARD_BACK_PAGE_EXTRA_MARGIN;
+
 		this.y =
 			this.VERTICAL_MARGIN +
 			this.CARD_HEIGHT +
-			this.SPACE_BETWEEN_CARDS -
+			this.SPACE_BETWEEN_CARDS +
 			this.CARD_BACK_PAGE_EXTRA_MARGIN;
 
-		console.log({
-			name: 'generateCardBackPage - 3',
-			y: this.y
-		});
-
-		this.insertRow(secondRow);
+		this.insertRowWithNoHorizontalAxis(secondRow);
 	}
 
 	private calculateMargins() {
