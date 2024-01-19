@@ -13,7 +13,7 @@ export class PdfService {
     private SPACE_BETWEEN_CARDS = 1;
     private HORIZONTAL_MARGIN = 20;
     private VERTICAL_MARGIN = 15;
-    private CARD_BACK_PAGE_EXTRA_MARGIN = 0.1;
+    private CARD_BACK_PAGE_EXTRA_MARGIN = 0.15;
     private x = 20;
     private y = 20;
 
@@ -89,11 +89,13 @@ export class PdfService {
         this.initializeCoords();
 
         const [firstRow, secondRow] = this.getCardsBackArrays(cardBackUrl, isFirstPage, hasCharacterCard);
-        this.x = this.HORIZONTAL_MARGIN;
+        // this.x = this.HORIZONTAL_MARGIN;
+        this.x = this.HORIZONTAL_MARGIN + this.CARD_BACK_PAGE_EXTRA_MARGIN;
         this.y = this.y + this.CARD_BACK_PAGE_EXTRA_MARGIN;
 
         this.insertRowWithNoHorizontalAxis(firstRow);
-        this.x = this.HORIZONTAL_MARGIN;
+        // this.x = this.HORIZONTAL_MARGIN;
+        this.x = this.HORIZONTAL_MARGIN + this.CARD_BACK_PAGE_EXTRA_MARGIN;
         this.y = this.VERTICAL_MARGIN + this.CARD_HEIGHT + this.SPACE_BETWEEN_CARDS + this.CARD_BACK_PAGE_EXTRA_MARGIN;
         this.insertRowWithNoHorizontalAxis(secondRow);
     }

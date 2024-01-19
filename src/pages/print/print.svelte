@@ -44,7 +44,8 @@
 			<p>
 				Ten en cuenta y recuerda que esta plantilla está preparada para ser impresa sobre una
 				cartulina de <strong>350g</strong> de espesor para que las cartas sean lo más parecidas a las
-				originales en cuanto a espesor y dureza se refiere.
+				originales en cuanto a espesor y dureza se refiere.<br />
+				Esta forma de impresión se ha probado en el <a href="https://www.copyrap.com/franquiciados/eugenio-gross/">Copyrap de Eugenio Gross</a>.
 			</p>
 		</div>
 		<div class="w1 afixed-action-buttons flex end acolumn acenter aaend gap-small">
