@@ -6,71 +6,79 @@
 	import { downloadID, downloadImage, cardBackState } from './hooks/useCardBack';
 	import Input from '@components/forms/input.svelte';
 	import Select from '@components/forms/select.svelte';
+	import RelatedCardsPage from './related-cards-page.svelte';
 </script>
 
-<div class="flex start gap astart flex-responsive">
-	<div>
-		<div class="flex center acenter" id={downloadID}>
-			<CardBack src={$cardBackState.image} bgPosition={$cardBackState.backgroundPosition}>
-				<UnmatchedLogoSvg
-					bind:lettersColor={$cardBackState.letters}
-					bind:backgroundColor={$cardBackState.background}
-				/>
-				<div class="internal-border-line" style={`border-color: ${$cardBackState.border}`} />
-				<div class="flex end internal-text league upper" style={`color: ${$cardBackState.border}`}>
-					{$cardBackState.deck}
-				</div>
-			</CardBack>
-		</div>
-
-		<div class="w1 form-item down">
-			<ButtonFile name="card-background-image-file" bind:image={$cardBackState.image} />
-		</div>
-	</div>
-
-	<div class="w1 box p">
-		<h3 class="title">Parte trasera</h3>
-		<form class="flex center astart column gap">
-			<Input label="Nombre del mazo" name="deck_name" bind:value={$cardBackState.deck} />
-			<Input
-				type="color"
-				label="Color del borde de la carta"
-				name="card-border-color"
-				bind:value={$cardBackState.border}
-			/>
-			<Input
-				type="color"
-				label="Unmatched logo color de letras"
-				name="card-letters-color"
-				bind:value={$cardBackState.letters}
-			/>
-
-			<!-- <ColorPicker /> -->
-
-			<Input
-				type="color"
-				label="Unmatched logo color de fondo"
-				name="card-background-color"
-				bind:value={$cardBackState.background}
-			/>
-
-			<Select
-				label="Posición del fondo de la carta"
-				name="card-type"
-				bind:value={$cardBackState.backgroundPosition}
-			>
-				<option value="top">Hacia arriba</option>
-				<option value="center">Centrada</option>
-				<option value="bottom">Hacia abajo</option>
-				<option value="left">Izquierda</option>
-				<option value="right">Derecha</option>
-			</Select>
-
-			<div class="w1 flex end">
-				<ButtonFill label="Descargar" click={downloadImage} />
+<div class="flex column gap">
+	<div class="flex start gap astart flex-responsive">
+		<div>
+			<div class="flex center acenter" id={downloadID}>
+				<CardBack src={$cardBackState.image} bgPosition={$cardBackState.backgroundPosition}>
+					<UnmatchedLogoSvg
+						bind:lettersColor={$cardBackState.letters}
+						bind:backgroundColor={$cardBackState.background}
+					/>
+					<div class="internal-border-line" style={`border-color: ${$cardBackState.border}`} />
+					<div
+						class="flex end internal-text league upper"
+						style={`color: ${$cardBackState.border}`}
+					>
+						{$cardBackState.deck}
+					</div>
+				</CardBack>
 			</div>
-		</form>
+
+			<div class="w1 form-item down">
+				<ButtonFile name="card-background-image-file" bind:image={$cardBackState.image} />
+			</div>
+		</div>
+
+		<div class="w1 box p">
+			<h3 class="title">Parte trasera</h3>
+			<form class="flex center astart column gap">
+				<Input label="Nombre del mazo" name="deck_name" bind:value={$cardBackState.deck} />
+				<Input
+					type="color"
+					label="Color del borde de la carta"
+					name="card-border-color"
+					bind:value={$cardBackState.border}
+				/>
+				<Input
+					type="color"
+					label="Unmatched logo color de letras"
+					name="card-letters-color"
+					bind:value={$cardBackState.letters}
+				/>
+
+				<!-- <ColorPicker /> -->
+
+				<Input
+					type="color"
+					label="Unmatched logo color de fondo"
+					name="card-background-color"
+					bind:value={$cardBackState.background}
+				/>
+
+				<Select
+					label="Posición del fondo de la carta"
+					name="card-type"
+					bind:value={$cardBackState.backgroundPosition}
+				>
+					<option value="top">Hacia arriba</option>
+					<option value="center">Centrada</option>
+					<option value="bottom">Hacia abajo</option>
+					<option value="left">Izquierda</option>
+					<option value="right">Derecha</option>
+				</Select>
+
+				<div class="w1 flex end">
+					<ButtonFill label="Descargar" click={downloadImage} />
+				</div>
+			</form>
+		</div>
 	</div>
+
+	<RelatedCardsPage />
 </div>
 
 <style>
