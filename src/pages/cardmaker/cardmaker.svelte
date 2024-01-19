@@ -7,20 +7,24 @@
 	import ButtonFile from '@components/buttons/button-file.svelte';
 	import Boxed from '@components/boxed/boxed.svelte';
 	import CardMakerCard from './components/card-maker-card.svelte';
+	import Textarea from '@components/forms/textarea.svelte';
+	import Select from '@components/forms/select.svelte';
+	import ImageHttpService from '@services/image.service';
 	let activeTab = 'data';
 
 	let card: any = {
-		title: '',
+		title: 'Finta',
 		basicText: '',
-		immediateText: '',
+		immediateText: 'Cancela todos los efectos de la carta de tu oponente.',
 		duringText: '',
 		afterText: '',
-		value: 0,
-		boost: 0,
+		value: 3,
+		boost: 1,
 		characterName: 'CUALQUIERA',
-		quantity: 2,
+		quantity: 3,
 		imageUrl: '',
-		deckName: ''
+		deckName: 'Bigfoot',
+		type: 'attack'
 	};
 
 	const downloadImage = (e: Event) => {
@@ -30,7 +34,6 @@
 
 		if (domtoimage && downloadableImg) {
 			domtoimage.toPng(downloadableImg).then((dataUrl: string) => {
-				console.log(dataUrl);
 				const link = document.createElement('a');
 				link.download = `${card.deckName}.png`;
 				link.href = dataUrl;
@@ -43,104 +46,118 @@
 
 	async function changeImage(e: Event) {
 		const imageURL = (e.target as HTMLInputElement).value;
-		const blob = await fetch(imageURL).then((r) => r.blob());
+		const blob = await ImageHttpService.get(imageURL);
 		card.imageUrl = URL.createObjectURL(blob);
 	}
 </script>
 
-<div
-	class="flex center astart gap flex-responsive-reverse flex-responsive-align-center"
-	data-active-tab={activeTab}
->
-	<Boxed title="Datos">
-		<form class="flex center astart column gap-smaller responsive">
-			<div class="w1 flex between aend gap">
-				<Input label="Nombre del mazo" name="deck_name" bind:value={card.deckName} />
-				<Input label="Título de carta" name="card_title" bind:value={card.title} />
-			</div>
-			<div class="w1 flex between aend gap">
-				<Input label="Personaje" name="character" bind:value={card.characterName} />
-				<Input type="number" label="Cantidad" name="qty" bind:value={card.quantity} />
-			</div>
+<div class="flex column gap">
+	<div
+		class="flex center astart gap flex-responsive-reverse flex-responsive-align-center"
+		data-active-tab={activeTab}
+	>
+		<Boxed title="Datos de carta">
+			<form class="flex center astart column gap-smaller responsive">
+				<div class="w1 flex between aend gap">
+					<Select label="Tipo de carta" name="card_type" bind:value={card.type}>
+						<option value="attack">Ataque</option>
+						<option value="defence">Defensa</option>
+						<option value="versatile">Versátil</option>
+						<option value="scheme">rayito</option>
+					</Select>
+				</div>
+				<div class="w1 flex between aend gap">
+					<Input label="Nombre del mazo" name="deck_name" bind:value={card.deckName} />
+					<Input label="Título de carta" name="card_title" bind:value={card.title} />
+				</div>
+				<div class="w1 flex between aend gap">
+					<Input label="Personaje" name="character" bind:value={card.characterName} />
+					<Input type="number" label="Cantidad" name="qty" bind:value={card.quantity} />
+				</div>
+				<div class="w1 flex between aend gap">
+					<Input type="number" label="Valor Potenciador" name="boost" bind:value={card.boost} />
+					<Input type="number" label="Valor de carta" name="value" bind:value={card.value} />
+				</div>
 
-			<div class="w1 form-item">
-				<div class="w1 flex between aend gap" style="margin-top: 5px;">
-					<Input
-						type="url"
-						name="image"
-						onchange={changeImage}
-						label="Imagen de carta"
-						bind:value={card.imageUrl}
-					/>
+				<div class="w1 form-item">
+					<div class="w1 flex between aend gap" style="margin-top: 5px;">
+						<Input
+							type="url"
+							name="image"
+							onchange={changeImage}
+							label="Imagen de carta"
+							bind:value={card.imageUrl}
+						/>
 
-					<div class="w1">
-						<ButtonFile bind:image={card.imageUrl} label="Subir carta" />
+						<div class="w1">
+							<ButtonFile bind:image={card.imageUrl} label="Subir carta" />
+						</div>
 					</div>
 				</div>
+			</form>
+		</Boxed>
+		<div id="unmatched-translate-card">
+			<div id="downloabable-image">
+				<CardMakerCard {card} />
 			</div>
-		</form>
-	</Boxed>
-	<div id="unmatched-translate-card">
-		<div id="downloabable-image">
-			<CardMakerCard {card} />
-		</div>
-		<div class="flex center acenter">
-			<ButtonFill label="Descargar carta" click={downloadImage} />
+			<div class="flex center acenter" style="margin-top: 10px">
+				<ButtonFill label="Descargar carta" click={downloadImage} />
+			</div>
 		</div>
 	</div>
-</div>
 
-<div class="flex center astart gap flex-responsive responsive-margin-top">
-	<Boxed title="Efectos">
-		<form class="flex center astart column gap-smaller">
-			<div class="w1 flex between aend gap">
-				<Input label="De inmediato" name="inmediate" bind:value={card.immediateText} />
-				<Input label="Durante el combate" name="during" bind:value={card.duringText} />
-			</div>
-			<div class="w1 flex between aend gap">
-				<Input label="Después del combate" name="after" bind:value={card.afterText} />
-				<Input label="Rayito" name="rayito" bind:value={card.basicText} />
-			</div>
-		</form>
-	</Boxed>
+	<div class="flex center astart gap flex-responsive responsive-margin-top">
+		<Boxed title="Efectos">
+			<form class="flex center astart column gap-smaller">
+				<div class="w1 flex between aend gap">
+					<Textarea label="De inmediato" name="inmediate" bind:value={card.immediateText} />
+					<Textarea label="Durante el combate" name="during" bind:value={card.duringText} />
+				</div>
+				<div class="w1 flex between aend gap">
+					<Textarea label="Después del combate" name="after" bind:value={card.afterText} />
+					<Textarea label="Rayito" name="rayito" bind:value={card.basicText} />
+				</div>
+			</form>
+		</Boxed>
 
-	<Boxed title="Posicionamiento">
-		<form class="flex center astart column gap-small">
-			<div class="w1 flex between aend gap">
-				<Input type="number" label="Altura de nombre de personaje" value={0} name="position" />
+		<Boxed title="Posicionamiento">
+			<form class="flex center astart column gap-small">
+				<div class="w1 flex between aend gap">
+					<Input type="number" label="Altura de nombre de personaje" value={0} name="position" />
 
-				<Input
-					type="number"
-					label="Posición vertical de nombre de personaje"
-					name="character_inner_height"
-					value={0}
-				/>
-			</div>
+					<Input
+						type="number"
+						label="Posición vertical de nombre de personaje"
+						name="character_inner_height"
+						value={0}
+					/>
+				</div>
 
-			<div class="w1 flex between aend gap">
-				<Input
-					type="number"
-					label="Posicion horizontal de barra de personaje"
-					name="horizontal_left_character"
-					value={0}
-					min={0}
-				/>
+				<div class="w1 flex between aend gap">
+					<Input
+						type="number"
+						label="Posicion horizontal de barra de personaje"
+						name="horizontal_left_character"
+						value={0}
+						min={0}
+					/>
 
-				<Input
-					type="number"
-					label="Anchura horizontal de espacio para efectos de carta"
-					name="effect_space_width"
-					value={0}
-				/>
+					<Input
+						type="number"
+						label="Anchura horizontal de espacio para efectos de carta"
+						name="effect_space_width"
+						value={0}
+					/>
 
-				<InputNumberControls
-					label="Posicion izquierda de efectos de carta"
-					name="effect_space_width"
-					value={0}
-				/>
-			</div>
-		</form>
-	</Boxed>
+					<InputNumberControls
+						label="Posicion izquierda de efectos de carta"
+						name="effect_space_width"
+						value={0}
+					/>
+				</div>
+			</form>
+		</Boxed>
+	</div>
 </div>
 
 <!-- <div class="flex start acenter gap down">
