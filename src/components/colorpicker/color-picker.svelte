@@ -3,6 +3,7 @@
 	export let name: string;
 	export let value: string;
 	import { usedColors, addColor } from './color.store';
+	import { clickOutside } from '@services/click.outside';
 
 	let colorSelected: string = value;
 	let showColorModal: boolean = false;
@@ -21,9 +22,18 @@
 		value = color;
 		colorSelected = color;
 	};
+
+	const handleClickOutside = () => {
+		showColorModal = false;
+	};
 </script>
 
-<div class="w1 form-item custom-color-picker-wrapper">
+<div
+	class="w1 form-item custom-color-picker-wrapper"
+	use:clickOutside={() => {
+		handleClickOutside();
+	}}
+>
 	<label for={name}>{label}</label>
 	<input
 		id={name}

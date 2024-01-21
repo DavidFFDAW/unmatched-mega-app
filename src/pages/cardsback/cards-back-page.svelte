@@ -7,6 +7,7 @@
 	import Input from '@components/forms/input.svelte';
 	import Select from '@components/forms/select.svelte';
 	import RelatedCardsPage from './related-cards-page.svelte';
+	import ColorPicker from '@components/colorpicker/color-picker.svelte';
 </script>
 
 <div class="flex column gap">
@@ -33,43 +34,43 @@
 			</div>
 		</div>
 
-		<div class="w1 box p">
+		<div class="w1 box p" style="z-index: 10;">
 			<h3 class="title">Parte trasera</h3>
 			<form class="flex center astart column gap">
-				<Input label="Nombre del mazo" name="deck_name" bind:value={$cardBackState.deck} />
-				<Input
-					type="color"
-					label="Color del borde de la carta"
-					name="card-border-color"
-					bind:value={$cardBackState.border}
-				/>
-				<Input
-					type="color"
-					label="Unmatched logo color de letras"
-					name="card-letters-color"
-					bind:value={$cardBackState.letters}
-				/>
+				<div class="w1 flex between aend gap flex-responsive">
+					<Input label="Nombre del mazo" name="deck_name" bind:value={$cardBackState.deck} />
 
-				<!-- <ColorPicker /> -->
+					<Select
+						label="Posición del fondo de la carta"
+						name="card-type"
+						bind:value={$cardBackState.backgroundPosition}
+					>
+						<option value="top">Hacia arriba</option>
+						<option value="center">Centrada</option>
+						<option value="bottom">Hacia abajo</option>
+						<option value="left">Izquierda</option>
+						<option value="right">Derecha</option>
+					</Select>
+				</div>
 
-				<Input
-					type="color"
+				<div class="w1 flex between aend gap flex-responsive">
+					<ColorPicker
+						label="Color del borde de la carta"
+						name="card-border-color"
+						bind:value={$cardBackState.border}
+					/>
+					<ColorPicker
+						label="Unmatched logo color de letras"
+						name="card-letters-color"
+						bind:value={$cardBackState.letters}
+					/>
+				</div>
+
+				<ColorPicker
 					label="Unmatched logo color de fondo"
 					name="card-background-color"
 					bind:value={$cardBackState.background}
 				/>
-
-				<Select
-					label="Posición del fondo de la carta"
-					name="card-type"
-					bind:value={$cardBackState.backgroundPosition}
-				>
-					<option value="top">Hacia arriba</option>
-					<option value="center">Centrada</option>
-					<option value="bottom">Hacia abajo</option>
-					<option value="left">Izquierda</option>
-					<option value="right">Derecha</option>
-				</Select>
 
 				<div class="w1 flex end">
 					<ButtonFill label="Descargar" click={downloadImage} />
