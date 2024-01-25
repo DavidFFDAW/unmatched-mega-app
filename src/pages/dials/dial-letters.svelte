@@ -79,7 +79,7 @@
 	.bg.circle .letters-container {
 		width: 100%;
 		height: 100%;
-		padding: 5px;
+		/* padding: 5px; */
 		background: inherit;
 		border-radius: 50%;
 		position: absolute;

@@ -48,13 +48,9 @@
 	};
 
 	onMount(() => {
-		const interval = setInterval(() => {
-			if (isResized) {
-				clearInterval(interval);
-				return;
-			}
+		const interval = setTimeout(() => {
 			resizeCanton();
-		}, 500);
+		}, 650);
 	});
 
 	const emitClick = () => {

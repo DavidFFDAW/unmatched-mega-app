@@ -16,14 +16,14 @@
 		quantity: 1,
 		imageUrl: ''
 	};
-
-	const editable: boolean = false;
 	export let card: DeckCards = initialCardValues;
+	const editable: boolean = false;
 	let component: HTMLElement;
 	export let width: number = 63;
 	export let height: number = 88;
 	let cantonAdjust = 0;
-</script>
+
+	</script>
 
 <div bind:this={component} role="presentation" class="zoom-box">
 	<div style="transform: scale(1); transform-origin: left top;">

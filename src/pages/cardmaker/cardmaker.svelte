@@ -120,7 +120,7 @@
 			</form>
 		</Boxed>
 
-		<Boxed title="Posicionamiento">
+		<!-- <Boxed title="Posicionamiento">
 			<form class="flex center astart column gap-small">
 				<div class="w1 flex between aend gap">
 					<Input type="number" label="Altura de nombre de personaje" value={0} name="position" />
@@ -156,7 +156,7 @@
 					/>
 				</div>
 			</form>
-		</Boxed>
+		</Boxed> -->
 	</div>
 </div>
 
