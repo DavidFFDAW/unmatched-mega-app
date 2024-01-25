@@ -59,7 +59,10 @@
 
 <div class="flex center astart gap down flex-responsive">
 	<div class="w1 box p">
-		<h3 class="title">Efectos</h3>
+		<div class="w1 flex between acenter">
+			<h3 class="title">Efectos</h3>
+			<ButtonFill label="Borrar efectos" click={functions.emptyEffects} />
+		</div>
 		<form class="flex center astart column gap-smaller">
 			<Textarea label="Efecto inmediato" name="inmediate" bind:value={$cardData.inmediate} />
 			<Textarea label="Efecto durante el combate" name="during" bind:value={$cardData.during} />

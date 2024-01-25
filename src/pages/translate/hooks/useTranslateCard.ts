@@ -78,6 +78,16 @@ const setCardTemplate = (templateCard: CardEffectTemplate) => {
 	});
 };
 
+function emptyEffects() {
+	cardData.update((data) => ({
+		...data,
+		inmediate: '',
+		during: '',
+		after: '',
+		rayito: ''
+	}));
+}
+
 export const functions = {
 	setCardBackground,
 	setEffectHeight,
@@ -85,6 +95,7 @@ export const functions = {
 	setCharacterNameHeight,
 	downloadCard,
 	setCardTemplate,
+	emptyEffects,
 	setHorizontalLeftCharacter: (event: Event) => { 
 		const target = event.target as HTMLInputElement;
 		const value = target.value;
