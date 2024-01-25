@@ -414,7 +414,9 @@ a {
 	transform-origin: left top;
 	transform: scale(1, 1);
 }
-
+.prewrap {
+	white-space: pre-wrap;
+}
 .box {
 	position: relative;
 	background: #fff;

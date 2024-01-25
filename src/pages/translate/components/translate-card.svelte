@@ -89,7 +89,7 @@
 					>
 						<p>
 							<strong class="card-effect-bold"> De inmediato: </strong>
-							<span id="unmatchedCardInmediatelyText">{cardData.inmediate}.</span>
+							<span id="unmatchedCardInmediatelyText" class="prewrap">{cardData.inmediate}.</span>
 						</p>
 					</div>
 				{/if}
@@ -98,7 +98,7 @@
 					<div class:active={cardData.during} class="real-effect during" id="unmatchedCardDuring">
 						<p>
 							<strong class="card-effect-bold"> Durante el combate: </strong>
-							<span id="unmatchedCardDuringText">{cardData.during}.</span>
+							<span id="unmatchedCardDuringText" class="prewrap">{cardData.during}.</span>
 						</p>
 					</div>
 				{/if}
@@ -107,7 +107,7 @@
 					<div class:active={cardData.after} class="real-effect after" id="unmatchedCardAfter">
 						<p>
 							<strong class="card-effect-bold"> Después del combate: </strong>
-							<span id="unmatchedCardAfterText">{cardData.after}.</span>
+							<span id="unmatchedCardAfterText" class="prewrap">{cardData.after}.</span>
 						</p>
 					</div>
 				{/if}
@@ -115,7 +115,7 @@
 				{#if cardData.rayito}
 					<div class:active={cardData.rayito} class="real-effect rayito" id="unmatchedCardRayito">
 						<p>
-							<span id="unmatchedCardRayitoText">{cardData.rayito}.</span>
+							<span id="unmatchedCardRayitoText" class="prewrap">{cardData.rayito}.</span>
 						</p>
 					</div>
 				{/if}
