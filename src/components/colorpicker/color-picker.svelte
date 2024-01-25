@@ -99,7 +99,7 @@
 		/* border: 2px solid lightgray; */
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 		border-top: none;
-		z-index: 10;
+		z-index: 1000000000;
 	}
 	.color-module-title {
 		font-size: 18px;

@@ -16,6 +16,7 @@ export interface TranslateCard {
     horizontalLeftCharacter: number;
     effectSpaceWidth: number;
     effectSpaceLeft: number;
+    effectsSpaceColor: string;
 }
 
 export const initialTranslateCard: TranslateCard = {
@@ -36,4 +37,15 @@ export const initialTranslateCard: TranslateCard = {
     horizontalLeftCharacter: 10,
     effectSpaceWidth: 90,
     effectSpaceLeft: 11,
+    effectsSpaceColor: '#001622'
 };
+
+export interface CardEffectTemplate {
+    label: string;
+    character?: string;
+    qty?: string;
+    inmediate: string;
+    during: string;
+    after: string;
+    rayito: string;
+}

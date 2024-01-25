@@ -1,6 +1,6 @@
 import { get, writable } from 'svelte/store';
 import { downloadPngFromElement } from '../../../services/dom.screenshot.service';
-import { initialTranslateCard } from '../translate-cards.model';
+import { initialTranslateCard, type CardEffectTemplate } from '../translate-cards.model';
 
 export const cardData = writable(initialTranslateCard);
 
@@ -60,99 +60,21 @@ const downloadCard = () => {
 	);
 };
 
-const setFeintTemplate = () => {
-	cardData.set({
-		...get(cardData),
-		title: 'Finta',
-		character: 'Cualquiera',
-		line: true,
-		qty: '3',
-		inmediate: 'Cancela todos los efectos de la carta de tu oponente.',
-		during: '',
-		after: '',
-		rayito: ''
-	});
-};
-const setSkirmishTemplate = () => {
-	cardData.set({
-		...get(cardData),
-		title: 'Escaramuza',
-		character: 'Cualquiera',
-		line: true,
-		qty: '3',
-		inmediate: '',
-		during: '',
-		after:
-			'Si has ganado el combate, elige uno de los luchadores que haya combatido y muevelo un máximo de 2 casillas.',
-		rayito: ''
-	});
-};
-const setRegroupTemplate = () => {
-	cardData.set({
-		...get(cardData),
-		title: 'Reagrupar',
-		character: 'Cualquiera',
-		line: true,
-		qty: '3',
-		inmediate: '',
-		during: '',
-		after: 'Roba 1 carta. Si has ganado el combate, roba 2 cartas en vez de 1.',
-		rayito: ''
-	});
-};
-const setMomentousShiftTemplate = () => {
-	cardData.set({
-		...get(cardData),
-		title: 'Giro trascendental',
-		character: 'Cualquiera',
-		line: true,
-		qty: '3',
-		inmediate: '',
-		during:
-			'Si tu luchador ha empezado el turno en una casilla distinta, el valor de esta carta pasa a ser 5.',
-		after: '',
-		rayito: ''
-	});
-};
-const setABocajarroTemplate = () => {
-	const stored = get(cardData);
-	cardData.set({
-		...stored,
-		title: 'A bocajarro',
-		character: stored.name,
-		line: true,
-		qty: '3',
-		inmediate: '',
-		during: '',
-		after:
-			'Si el luchador enemigo está adyacente a tu luchador, haz 2 puntos de daño a ese luchador.',
-		rayito: ''
-	});
-};
-const setWillyFightingTemplate = () => {
-	cardData.set({
-		...get(cardData),
-		title: 'Contrincante Hábil',
-		character: 'Cualquiera',
-		line: true,
-		qty: '2',
-		inmediate: '',
-		during: '',
-		after: 'Haz 1 punto de daño a cada luchador enemigo adyacente a tu luchador.',
-		rayito: ''
-	});
-};
-const setBattleHardenedTemplate = () => {
-	cardData.set({
-		...get(cardData),
-		title: 'Curtido en la batalla',
-		character: 'Cualquiera',
-		line: true,
-		qty: '2',
-		inmediate: '',
-		during: '',
-		after: 'Elige una carta de tu pila de descarte y devuélvela a tu mano.',
-		rayito: ''
+const setCardTemplate = (templateCard: CardEffectTemplate) => {
+	return cardData.update((card) => {
+		const realCharacter = templateCard.character || card.character;
+		const hasLine = Boolean(templateCard.inmediate) || Boolean(templateCard.during) || Boolean(templateCard.after) || Boolean(templateCard.rayito);
+		return {
+			...card,
+			title: templateCard.label,
+			character: realCharacter,
+			line: hasLine,
+			qty: templateCard.qty || card.qty,
+			inmediate: templateCard.inmediate,
+			during: templateCard.during,
+			after: templateCard.after,
+			rayito: templateCard.rayito,
+			};
 	});
 };
 
@@ -162,13 +84,7 @@ export const functions = {
 	setCharacterHeight,
 	setCharacterNameHeight,
 	downloadCard,
-	setFeintTemplate,
-	setSkirmishTemplate,
-	setRegroupTemplate,
-	setMomentousShiftTemplate,
-	setABocajarroTemplate,
-	setWillyFightingTemplate,
-	setBattleHardenedTemplate,
+	setCardTemplate,
 	setHorizontalLeftCharacter: (event: Event) => { 
 		const target = event.target as HTMLInputElement;
 		const value = target.value;

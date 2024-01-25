@@ -6,22 +6,43 @@
 	import TranslateCard from './components/translate-card.svelte';
 	import { cardData, functions } from './hooks/useTranslateCard';
 	import InputNumberControls from '@components/forms/input-number-controls.svelte';
+	import ColorPicker from '@components/colorpicker/color-picker.svelte';
+	import Textarea from '@components/forms/textarea.svelte';
+	import TemplateCards from './components/template-cards.svelte';
 </script>
 
 <div class="flex center acenter gap flex-responsive-reverse">
 	<div class="w1 box p">
 		<h3 class="title">Datos</h3>
 		<form class="flex center astart column gap-smaller">
-			<Input label="Nombre del mazo" name="deck_name" bind:value={$cardData.name} />
-			<Input label="Título de carta" name="card_title" bind:value={$cardData.title} />
-			<Input label="Personaje" name="character" bind:value={$cardData.character} />
-			<Input type="number" label="Cantidad" name="qty" bind:value={$cardData.qty} />
+			<div class="w1 flex start aend gap-small flex-responsive">
+				<Input label="Nombre del mazo" name="deck_name" bind:value={$cardData.name} />
+				<Input label="Título de carta" name="card_title" bind:value={$cardData.title} />
+			</div>
+
+			<div class="w1 flex start aend gap-small flex-responsive">
+				<Input label="Personaje" name="character" bind:value={$cardData.character} />
+				<Input type="number" label="Cantidad" name="qty" bind:value={$cardData.qty} />
+			</div>
+
+			<ColorPicker
+				label="Color de fondo de efectos"
+				name="background_color"
+				bind:value={$cardData.effectsSpaceColor}
+			/>
 
 			<div class="w1 form-item">
 				<span class="label">Imagen</span>
-				<div class="flex between acenter" style="margin-top: 5px;">
-					<ButtonFile bind:image={$cardData.image} label="Subir carta" />
-					<ButtonFile bind:image={$cardData.backgroundIcon} label="Icono de fondo de texto" />
+				<div
+					class="w1 flex between astart gap-small flex-responsive-column"
+					style="margin-top: 5px;"
+				>
+					<ButtonFile className="responsive-w1" bind:image={$cardData.image} label="Subir carta" />
+					<ButtonFile
+						className="responsive-w1"
+						bind:image={$cardData.backgroundIcon}
+						label="Icono de fondo de texto"
+					/>
 				</div>
 			</div>
 		</form>
@@ -30,7 +51,7 @@
 		<div id="unmatchedTranslateCard">
 			<TranslateCard bind:cardData={$cardData} />
 		</div>
-		<div class="flex center acenter">
+		<div class="flex center acenter" style="margin-top: 5px;">
 			<ButtonFill label="Descargar carta" click={functions.downloadCard} />
 		</div>
 	</div>
@@ -40,95 +61,81 @@
 	<div class="w1 box p">
 		<h3 class="title">Efectos</h3>
 		<form class="flex center astart column gap-smaller">
-			<Input label="Efecto inmediato" name="inmediate" bind:value={$cardData.inmediate} />
-			<Input label="Efecto durante el combate" name="during" bind:value={$cardData.during} />
-			<Input label="Efecto después del combate" name="after" bind:value={$cardData.after} />
-			<Input label="Rayito" name="rayito" bind:value={$cardData.rayito} />
+			<Textarea label="Efecto inmediato" name="inmediate" bind:value={$cardData.inmediate} />
+			<Textarea label="Efecto durante el combate" name="during" bind:value={$cardData.during} />
+			<Textarea label="Efecto después del combate" name="after" bind:value={$cardData.after} />
+			<Textarea label="Rayito" name="rayito" bind:value={$cardData.rayito} />
 		</form>
 	</div>
-	<div class="w1 box p">
-		<h3 class="title">Posicionamiento</h3>
-		<form class="flex center astart column gap-small">
-			<div class="w1 flex between aend gap">
-				<Input
-					type="number"
-					label="Altura de nombre de personaje"
-					name="position"
-					bind:value={$cardData.characterHeight}
-					onchange={functions.setCharacterHeight}
-				/>
 
-				<Input
-					type="number"
-					label="Posición vertical de nombre de personaje"
-					name="character_inner_height"
-					bind:value={$cardData.characterNameHeight}
-					onchange={functions.setCharacterNameHeight}
-				/>
-			</div>
+	<div class="w1 flex column astart gap">
+		<div class="w1 box p">
+			<h3 class="title">Posicionamiento</h3>
+			<form class="flex center astart column gap-small">
+				<div class="w1 flex between aend gap flex-responsive-column responsive-gap-small">
+					<Input
+						type="number"
+						label="Altura de nombre de personaje"
+						name="position"
+						bind:value={$cardData.characterHeight}
+						onchange={functions.setCharacterHeight}
+					/>
 
-			<div class="w1 flex start aend gap">
-				<Switch total={false} label="Línea" name="line" bind:value={$cardData.line} />
+					<Input
+						type="number"
+						label="Posición vertical de nombre de personaje"
+						name="character_inner_height"
+						bind:value={$cardData.characterNameHeight}
+						onchange={functions.setCharacterNameHeight}
+					/>
+				</div>
 
-				<Input
-					type="number"
-					label="Altura de efectos"
-					name="effects_height"
-					min={113}
-					bind:value={$cardData.effectsHeight}
-					onchange={functions.setEffectHeight}
-				/>
-			</div>
-			
-			<div class="w1 flex between aend gap">
-				<Input
-					type="number"
-					label="Posicion horizontal de barra de personaje"
-					name="horizontal_left_character"
-					min={0}
-					bind:value={$cardData.horizontalLeftCharacter}
-					onchange={functions.setHorizontalLeftCharacter}
-				/>
+				<div class="w1 flex start aend gap">
+					<Switch total={false} label="Línea" name="line" bind:value={$cardData.line} />
 
-				<Input
-					type="number"
-					label="Anchura horizontal de espacio para efectos de carta"
-					name="effect_space_width"
-					bind:value={$cardData.effectSpaceWidth}
-					onchange={functions.setEffectSpaceWidth}
-				/>
+					<Input
+						type="number"
+						label="Altura de efectos"
+						name="effects_height"
+						min={113}
+						bind:value={$cardData.effectsHeight}
+						onchange={functions.setEffectHeight}
+					/>
+				</div>
 
-				<InputNumberControls
-					label="Posicion izquierda de efectos de carta"
-					name="effect_space_width"
-					bind:value={$cardData.effectSpaceLeft}
-				/>
-			</div>
-		</form>
+				<div class="w1 flex between aend gap flex-responsive-column responsive-gap-small">
+					<Input
+						type="number"
+						label="Posicion horizontal de barra de personaje"
+						name="horizontal_left_character"
+						min={0}
+						bind:value={$cardData.horizontalLeftCharacter}
+						onchange={functions.setHorizontalLeftCharacter}
+					/>
+
+					<Input
+						type="number"
+						label="Anchura horizontal de espacio para efectos de carta"
+						name="effect_space_width"
+						bind:value={$cardData.effectSpaceWidth}
+						onchange={functions.setEffectSpaceWidth}
+					/>
+
+					<InputNumberControls
+						label="Posicion izquierda de efectos de carta"
+						name="effect_space_width"
+						bind:value={$cardData.effectSpaceLeft}
+					/>
+				</div>
+			</form>
+		</div>
+
+		<TemplateCards functions={functions} />
 	</div>
 </div>
 
-<div class="down box p">
-	<h3 class="title">Templates de cartas</h3>
-	<form class="template-cards-list flex start acenter gap-smaller flex-responsive">
-		<ButtonFill label="Finta" click={functions.setFeintTemplate} />
-		<ButtonFill label="Escaramuza" click={functions.setSkirmishTemplate} />
-		<ButtonFill label="Regroup" click={functions.setRegroupTemplate} />
-		<ButtonFill label="Giro trascendental" click={functions.setMomentousShiftTemplate} />
-		<ButtonFill label="A bocajarro" click={functions.setABocajarroTemplate} />
-		<ButtonFill label="Contrincante hábil" click={functions.setWillyFightingTemplate} />
-		<ButtonFill label="Curtido en la batalla" click={functions.setBattleHardenedTemplate} />
-	</form>
-</div>
-
-<style>
+<style scoped>
 	@media only screen and (max-width: 768px) {
-		.template-cards-list {
-			display: grid;
-			grid-template-columns: repeat(2, 1fr);
-			place-items: stretch;
-			gap: 10px;
-		}
 		.flex-responsive-reverse {
 			flex-direction: column-reverse;
 		}
