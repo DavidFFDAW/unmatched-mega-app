@@ -26,18 +26,18 @@
 				{/each}
 				<a href={'/downloads'} class="link">
 					<Box>
-						<div class="flex center image-container acenter column">
+						<div class="flex center image-container acenter column download">
 							<Image src={'/images/downloads.icon.webp'} className="landing-link-image downloads" />
-							<h2 class="down narrow">Descargas</h2>
+							<h2 class="narrow">Descargas</h2>
 						</div>
 					</Box>
 				</a>
 
 				<a href={'/tuckbox'} class="link">
 					<Box>
-						<div class="flex center image-container acenter column">
-							<!-- <Image src={'/images/downloads.icon.webp'} className="landing-link-image downloads" /> -->
-							<h2 class="down narrow">Caja de cartas</h2>
+						<div class="flex center image-container acenter column tuckboxes">
+							<Image src={'/images/tuckbox.icon.webp'} className="landing-link-image tuckboxes" />
+							<h2 class="narrow">Tuckboxes</h2>
 						</div>
 					</Box>
 				</a>
