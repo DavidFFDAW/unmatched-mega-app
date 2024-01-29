@@ -11,6 +11,7 @@
 	let secondDeckName: string = 'Wiglaf';
 	let spaces: number = 25;
 	let cardNumber: number = 31;
+	let fontSize: number = 80;
 	let backgroundColor: string = '#001622';
 	let borderColor: string = '#ffffff';
 	let cardBackgroundImage: string = '/cardsback/beowulf.webp';
@@ -24,6 +25,7 @@
 		const tuckboxContainer = document.getElementById('tuckbox-container');
 		tuckboxContainer && tuckboxContainer.style.setProperty('--border-color', ev.target.value);
 	};
+
 	const changeBgColorCss = (ev: any) => {
 		const tuckboxContainer = document.getElementById('tuckbox-container');
 		tuckboxContainer && tuckboxContainer.style.setProperty('--bg-color', ev.target.value);
@@ -62,13 +64,18 @@
 				<Input label="Segundo texto" type="text" bind:value={secondDeckName} name="secondDeckName" />
 			</div>
 
-			<Input
-				label="Nº de Cartas"
-				type="number"
-				bind:value={cardNumber}
-				name="numberOfCards"
-				onchange={eventChange}
-			/>
+			<div class="w1 flex start aend gap">
+				<Input
+					label="Nº de Cartas"
+					type="number"
+					bind:value={cardNumber}
+					name="numberOfCards"
+					onchange={eventChange}
+				/>
+
+				<Input label="Tamaño de letra" type="number" bind:value={fontSize} name="fontSize" />
+			</div>
+
 
 			<input
 				type="color"
@@ -112,7 +119,7 @@
 					style="width: {spaces}mm; height: {spaces}mm;"
 				/>
 				<div class="wmm relative main-card-space border-sides border-top bg" style="height: {spaces}mm;" >
-					<p class="box-upper-place deck-title league">{deckName}</p>
+					<p class="box-upper-place deck-title league" style="font-size: {fontSize}px">{deckName}</p>
 				</div>
 				<div
 					class="main-card-space-rounded-last bg"
@@ -125,7 +132,7 @@
 					class="hmm relative main-card-sides border-top bg"
 					style="width: {spaces}mm;"
 				>
-					<p class="vertical-text non-rotated deck-title league">{secondDeckName}</p>
+					<p class="vertical-text non-rotated deck-title league" style="font-size: {fontSize}px">{secondDeckName}</p>
 				</div>
 				<div
 					class="main-card-space background-image"
@@ -135,7 +142,7 @@
 					class="hmm relative main-card-sides border-top bg"
 					style="width: {spaces}mm;"
 				>
-					<p class="vertical-text deck-title rotated league">{deckName}</p>
+					<p class="vertical-text deck-title rotated league" style="font-size: {fontSize}px">{deckName}</p>
 					<!-- <svg
 						data-v-d8d5fac2=""
 						width="100%"
@@ -240,7 +247,6 @@
 	} */
 
 	.vertical-text.deck-title {
-		width: 100%;
 		height: 100%;
 		text-align: center;
 		writing-mode: vertical-rl;
@@ -261,7 +267,6 @@
 		left: 50%;
 		transform: translate(-50%, -50%);
 		width: 100%;
-		height: 100%;
 		text-align: center;
 		color: var(--border-color);
 		text-transform: uppercase;
