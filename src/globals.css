@@ -477,6 +477,14 @@ a {
 	border-radius: 50%;
 	background-color: #fff;
 }
+.landing-link-image.tuckboxes {
+	width: 150px;
+}
+.link .download h2,
+.link .tuckboxes h2
+ {
+	margin-top: 20px;
+}
 
 .landing-link-image.cards {
 	width: 225px;
