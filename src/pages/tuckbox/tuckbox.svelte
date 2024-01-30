@@ -18,7 +18,7 @@
 	let cardFrontImage: string = '/cardsback/beowulf.webp';
 
 	const calculateSpaces = (numberOfCards: number) => {
-		spaces = (numberOfCards * 25) / 31;
+		spaces = (numberOfCards * 22) / 31;
 	};
 
 	const changeBorderColorCss = (ev: any) => {
@@ -48,7 +48,33 @@
 		calculateSpaces(Number(event.target.value));
 	};
 
+	const shareUrl = () => {
+		const url = new URL(window.location.href);
+		url.searchParams.set('deckName', deckName);
+		url.searchParams.set('secondDeckName', secondDeckName);
+		url.searchParams.set('cardNumber', cardNumber.toString());
+		url.searchParams.set('fontSize', fontSize.toString());
+		url.searchParams.set('backgroundColor', backgroundColor);
+		url.searchParams.set('borderColor', borderColor);
+		url.searchParams.set('cardBackgroundImage', cardBackgroundImage);
+		url.searchParams.set('cardFrontImage', cardFrontImage);
+		navigator.clipboard.writeText(url.toString());
+	};
+
+	const initializeParams = () => {
+		const url = new URL(window.location.href);
+		deckName = url.searchParams.get('deckName') || deckName;
+		secondDeckName = url.searchParams.get('secondDeckName') || secondDeckName;
+		cardNumber = Number(url.searchParams.get('cardNumber')) || cardNumber;
+		fontSize = Number(url.searchParams.get('fontSize')) || fontSize;
+		backgroundColor = url.searchParams.get('backgroundColor') || backgroundColor;
+		borderColor = url.searchParams.get('borderColor') || borderColor;
+		cardBackgroundImage = url.searchParams.get('cardBackgroundImage') || cardBackgroundImage;
+		cardFrontImage = url.searchParams.get('cardFrontImage') || cardFrontImage;
+	}
+
 	onMount(() => {
+		initializeParams();
 		calculateSpaces(cardNumber);
 		changeBgColorCss({ target: { value: backgroundColor } });
 		changeBorderColorCss({ target: { value: borderColor } });
@@ -98,7 +124,8 @@
 				<ButtonFile label="Imagen de frente" bind:image={cardFrontImage} />
 			</div>
 
-			<div class="w1 flex end acenter down">
+			<div class="w1 flex end acenter down gap-small">
+				<ButtonFill label="Compartir URL" click={shareUrl} />
 				<ButtonFill label="Descargar" click={downloadTuckbox} />
 			</div>
 		</div>
@@ -135,7 +162,7 @@
 					<p class="vertical-text non-rotated deck-title league" style="font-size: {fontSize}px">{secondDeckName}</p>
 				</div>
 				<div
-					class="main-card-space background-image"
+					class="main-card-space background-image bg"
 					style="background-image: url({cardBackgroundImage});"
 				/>
 				<div
@@ -177,7 +204,7 @@
 					<!-- <polygon data-v-d8d5fac2="" points="0,0 10,0 10,14.2 5,17.1 0,14.2" class="canton s-Thnhrs2SdwLA"></polygon> -->
 				</div>
 				<div
-					class="relative main-card-space background-image card-cutout"
+					class="relative main-card-space background-image bg card-cutout"
 					style="background-image: url({cardFrontImage});"
 				/>
 				<div class="hmm main-card-sides bg" style="width: {spaces}mm;" />
@@ -205,13 +232,13 @@
 
 <style>
 	.wmm {
-		width: 70mm;
+		width: 68mm;
 	}
 	.hmm {
-		height: 93mm;
+		height: 92mm;
 	}
 	.bg {
-		background: var(--bg-color);
+		background-color: var(--bg-color);
 	}
 	.border-top {
 		border-top: 1px solid var(--border-color);
@@ -281,12 +308,12 @@
 		transform: translate(-50%, -50%);
 	}
 	.main-card-space {
-		width: 70mm;
-		height: 93mm;
+		width: 68mm;
+		height: 92mm;
 	}
 
 	.main-card-top-rounded {
-		width: 70mm;
+		width: 68mm;
 		border-radius: 50% 50% 0 0;
 	}
 	.main-card-space-rounded-first {
