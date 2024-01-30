@@ -91,7 +91,7 @@ export class PdfService {
         const [firstRow, secondRow] = this.getCardsBackArrays(cardBackUrl, isFirstPage, hasCharacterCard);
         // this.x = this.HORIZONTAL_MARGIN;
         this.x = this.HORIZONTAL_MARGIN + this.CARD_BACK_PAGE_EXTRA_MARGIN;
-        this.y = this.y + this.CARD_BACK_PAGE_EXTRA_MARGIN;
+        this.y = this.y + 0.2;
 
         this.insertRowWithNoHorizontalAxis(firstRow);
         // this.x = this.HORIZONTAL_MARGIN;
