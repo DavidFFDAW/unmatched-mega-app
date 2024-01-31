@@ -1,3 +1,5 @@
+@import './animations.css';
+
 :root {
 	--unlimited-bg: #44475a;
 	--unlimited-alt: #282a36;
@@ -30,6 +32,11 @@ body {
 
 body.dark-background {
 	background: #44475a;
+}
+
+main.app-main {
+	overflow-x: hidden;
+
 }
 
 .fff {
@@ -582,16 +589,6 @@ dialog[open] {
 
 .card-backs-selection .card img.selected {
 	top: 70px;
-}
-
-keyframes show {
-	from {
-		opacity: 0;
-	}
-
-	to {
-		opacity: 1;
-	}
 }
 
 @media screen and (max-width: 768px) {
