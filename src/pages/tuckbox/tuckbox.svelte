@@ -6,6 +6,8 @@
 	import { onMount } from 'svelte';
 	import { TuckboxPdfService } from './tuckbox.pdf.service';
 	import ToggleBox from '@components/boxed/toggle-box.svelte';
+	import ColorPicker from '@components/colorpicker/color-picker.svelte';
+	import TuckboxBackground from './components/tuckbox-background.svelte';
 
 	// the unit used is mm
 	let deckName: string = 'Beowulf';
@@ -82,58 +84,65 @@
 	});
 </script>
 
-<!-- <ToggleBox>a</ToggleBox> -->
-<div class="flex center astart column gap no-bg">
-	<div class="w1 box p">
-		<h3 class="title">Datos</h3>
-		<div class="flex center astart gap-small column">
-			<div class="w1 flex start aend gap">
-				<Input label="Primer texto" type="text" bind:value={deckName} name="deckName" />
-				<Input label="Segundo texto" type="text" bind:value={secondDeckName} name="secondDeckName" />
-			</div>
+<ToggleBox title="Datos" customContainerCss="absolute left" width={550} showBox={false}>	
+	<div class="flex center astart gap-small column">
+		<div class="w1 flex start aend gap">
+			<Input label="Primer texto" type="text" bind:value={deckName} name="deckName" />
+			<Input label="Segundo texto" type="text" bind:value={secondDeckName} name="secondDeckName" />
+		</div>
 
-			<div class="w1 flex start aend gap">
-				<Input
-					label="Nº de Cartas"
-					type="number"
-					bind:value={cardNumber}
-					name="numberOfCards"
-					onchange={eventChange}
+		<div class="w1 flex start aend gap">
+			<Input
+				label="Nº de Cartas"
+				type="number"
+				bind:value={cardNumber}
+				name="numberOfCards"
+				onchange={eventChange}
+			/>
+
+			<Input label="Tamaño de letra" min={55} max={100} type="number" bind:value={fontSize} name="fontSize" />
+		</div>
+
+		<div class="w1 flex start aend gap">
+			<div class="w1 form-item">
+				<label for="backgroundColor" class="s-A2gJlL5q-8_9">Color de fondo</label>
+				<input
+					type="color"
+					name="backgroundColor"
+					class="w1"
+					bind:value={backgroundColor}
+					on:input={changeBgColorCss}
 				/>
-
-				<Input label="Tamaño de letra" type="number" bind:value={fontSize} name="fontSize" />
 			</div>
-
-
-			<input
-				type="color"
-				name="backgroundColor"
-				class="w1"
-				bind:value={backgroundColor}
-				on:input={changeBgColorCss}
-			/>
-
-			<input
-				type="color"
-				name="borderColor"
-				class="w1"
-				bind:value={borderColor}
-				on:input={changeBorderColorCss}
-			/>
-
-			<div class="w1 flex between column gap-small">
-				<ButtonFile label="Imagen de fondo" bind:image={cardBackgroundImage} />
-				<ButtonFile label="Imagen de frente" bind:image={cardFrontImage} />
-			</div>
-
-			<div class="w1 flex end acenter down gap-small">
-				<ButtonFill label="Compartir URL" click={shareUrl} />
-				<ButtonFill label="Descargar" click={downloadTuckbox} />
+			
+			<div class="w1 form-item">
+				<label for="backgroundColor" class="s-A2gJlL5q-8_9">Color de borde y letras</label>
+				<input
+					type="color"
+					name="borderColor"
+					class="w1"
+					bind:value={borderColor}
+					on:input={changeBorderColorCss}
+				/>
 			</div>
 		</div>
-	</div>
 
-	<div class="w1 flex center down">
+		<div class="w1 flex between gap">
+			<TuckboxBackground label="Parte Trasera" name="cardBackgroundImage" bind:image={cardBackgroundImage} />
+			<TuckboxBackground label="Parte Frontal" name="cardBackgroundImage" bind:image={cardFrontImage} />
+			<!-- <ButtonFile label="Imagen de fondo" bind:image={cardBackgroundImage} />
+			<ButtonFile label="Imagen de frente" bind:image={cardFrontImage} /> -->
+		</div>
+
+		<div class="w1 flex between acenter down gap-small">
+			<ButtonFill label="Compartir URL" click={shareUrl} />
+			<ButtonFill label="Descargar" click={downloadTuckbox} />
+		</div>
+	</div>
+</ToggleBox>
+
+<div class="flex center astart column gap no-bg">
+	<div class="w1 flex center">
 		<div class="total-tuckbox-container tuckbox-container" id="tuckbox-container">
 			<div class="main-card-top-block flex column astart" style="margin-left: {spaces}mm">
 				<div

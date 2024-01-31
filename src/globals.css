@@ -75,11 +75,37 @@ a {
 .absolute {
 	position: absolute;
 }
-
+.top {
+	top: 0;
+}
+.right {
+	right: 0;
+}
+.bottom {
+	bottom: 0;
+}
+.left {
+	left: 0;
+}
+.absolute.centered {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.background-image {
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
 .relative {
 	position: relative;
 }
-
+.visible {
+	opacity: 1;
+}
+.invisible {
+	opacity: 0;
+}
 .pointer {
 	cursor: pointer;
 }
