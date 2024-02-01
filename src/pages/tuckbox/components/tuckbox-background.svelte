@@ -69,7 +69,7 @@
       }
 
       .tuckbox-image svg.fa-plus-circle {
-            z-index: 999;
+            z-index: 12;
       }
       .tuckbox-image.has-image::after {
             content: "";

@@ -10,7 +10,7 @@
     <div class="w1 tab-box p pointer {className}">
         <header class="w1 tab-box-title-header flex start acenter gap-small pointer {showBox ? 'menu-tab-opened' : 'menu-tab-closed' }" role="presentation" on:click={toggleShowBox}>
             <span class="pointer caret-icon block" class:caret-rotate={Boolean(showBox)}></span>
-            <h3 class="w1 tab-box-title pointer">{title}</h3>
+            <h3 class="w1 tab-box-title pointer bebas">{title}</h3>
         </header>
 
         <section class="w1 tab-box-content {showBox ? 'block' : 'none' }">
@@ -32,7 +32,7 @@
     }
     .tab-box header.tab-box-title-header h3.tab-box-title {
         position: relative;
-        font-size: 16px;
+        font-size: 18px;
         text-transform: uppercase;
         padding: 5px;
         z-index: 1;

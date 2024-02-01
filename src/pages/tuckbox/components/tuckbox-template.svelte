@@ -5,6 +5,11 @@
 	export let cardBackgroundImage: string;
 	export let spaces: number;
 	export let fontSize: number;
+	export let hasNameFrame: boolean;
+	export let nameFrameBackgroundColor: string;
+	export let nameFrameBorderColor: string;
+	export let nameFrameFontSize: number;
+	const width = 69;
 </script>
 
 <div class="total-tuckbox-container tuckbox-container">
@@ -21,8 +26,11 @@
 			class="wmm relative main-card-space border-sides border-top bg"
 			style="height: {spaces}mm;"
 		>
-			<p class="box-upper-place deck-title league" style="font-size: {fontSize}px">
+			<p class="box-upper-place deck-title league" class:has-extra-character={Boolean(secondDeckName) && deckName !== secondDeckName} style="font-size: {fontSize}px">
 				{deckName}
+				{#if secondDeckName}
+					<p class="secondary-character league" style="right: {(width - deckName.length) / 4}%;">& {secondDeckName}</p>
+				{/if}
 			</p>
 		</div>
 		<div
@@ -39,7 +47,7 @@
 	<div class="main-cards-block flex start astart main-card-block-can-have-background-in-spaces">
 		<div class="hmm relative main-card-sides border-top bg" style="width: {spaces}mm;">
 			<p class="vertical-text non-rotated deck-title league" style="font-size: {fontSize}px">
-				{secondDeckName}
+				{!secondDeckName ? deckName : secondDeckName}
 			</p>
 		</div>
 		<div
@@ -54,7 +62,16 @@
 		<div
 			class="relative main-card-space border-sides border-top background-image bg card-cutout"
 			style="background-image: url({cardFrontImage});"
-		/>
+		>
+			{#if hasNameFrame}
+				<div
+					class="absolute bottom left deck-name-frame-cards"
+					style="background-color: {nameFrameBackgroundColor}; border: 1px solid {nameFrameBorderColor};"
+				>
+					<p class="league" style="color: {nameFrameBorderColor}; font-size: {nameFrameFontSize}px;">{deckName}</p>
+				</div>
+			{/if}
+		</div>
 		<div class="hmm main-card-sides bg border-top" style="width: {spaces}mm;" />
 	</div>
 
@@ -116,6 +133,23 @@
 		text-transform: uppercase;
 	}
 
+	.box-upper-place.deck-title.has-extra-character {
+		top: 45%;
+	}
+
+	.deck-name-frame-cards {
+		width: 50%;
+		transform: translate(50%, -65%);
+		z-index: 15;
+	}
+	.deck-name-frame-cards p {
+		margin: 0;
+		padding: 5px 0;
+		text-transform: uppercase;
+		text-align: center;
+		width: 100%;
+	}
+
 	.box-upper-place.deck-title {
 		position: absolute;
 		top: 50%;
@@ -128,6 +162,16 @@
 		font-size: 70px;
 		margin: 0;
 		padding: 0;
+	}
+	.secondary-character {
+		position: absolute;
+		bottom: -3px;
+		padding-top: 1px;
+		font-size: 16px;
+		text-align: end;
+		font-family: 'league';
+		width: auto;
+		right: 12%;
 	}
 	.vertical-text.deck-title.rotated {
 		transform: translate(-50%, -50%) rotate(180deg);

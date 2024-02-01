@@ -9,6 +9,9 @@
 	import ColorPicker from '@components/colorpicker/color-picker.svelte';
 	import TuckboxBackground from './components/tuckbox-background.svelte';
 	import TuckboxTemplate from './components/tuckbox-template.svelte';
+	import TabBox from '@components/boxed/tab-box.svelte';
+	import Switch from '@components/forms/switch.svelte';
+	import InputNumberControls from '@components/forms/input-number-controls.svelte';
 
 	// the unit used is mm
 	let deckName: string = 'Beowulf';
@@ -20,6 +23,10 @@
 	let borderColor: string = '#ffffff';
 	let cardBackgroundImage: string = '/cardsback/beowulf.webp';
 	let cardFrontImage: string = '/cardsback/beowulf.webp';
+	let hasNameFrame: boolean = true;
+	let nameFrameBackgroundColor: string = '#001622';
+	let nameFrameBorderColor: string = '#ffffff';
+	let nameFrameFontSize: number = 20;
 
 	const calculateSpaces = (numberOfCards: number) => {
 		spaces = (numberOfCards * 24) / 31;
@@ -81,66 +88,110 @@
 
 <ToggleBox title="Datos" customContainerCss="relative" width={550} showBox={false}>
 	<div class="flex center astart gap-small column">
-		<div class="w1 flex start aend gap">
-			<Input label="Primer texto" type="text" bind:value={deckName} name="deckName" />
-			<Input label="Segundo texto" type="text" bind:value={secondDeckName} name="secondDeckName" />
-		</div>
+		<TabBox title="Textos">
+			<div class="w1 grid two-column-grid pend">
+				<Input label="Héroe" type="text" bind:value={deckName} name="deckName" />
+				<Input label="Ayudante" type="text" bind:value={secondDeckName} name="secondDeckName" />
+			</div>
+		</TabBox>
 
-		<div class="w1 flex start aend gap">
-			<Input
-				label="Nº de Cartas"
-				type="number"
-				bind:value={cardNumber}
-				name="numberOfCards"
-				onchange={eventChange}
-			/>
+		<TabBox title="Cartas y fuente">
+			<div class="w1 grid two-column-grid pend">
+				<Input
+					label="Nº de Cartas"
+					type="number"
+					bind:value={cardNumber}
+					name="numberOfCards"
+					onchange={eventChange}
+				/>
 
-			<Input
-				label="Tamaño de letra"
-				min={55}
-				max={100}
-				type="number"
-				bind:value={fontSize}
-				name="fontSize"
-			/>
-		</div>
-
-		<div class="w1 flex start aend gap">
-			<div class="w1 form-item">
-				<label for="backgroundColor" class="s-A2gJlL5q-8_9">Color de fondo</label>
-				<input
-					type="color"
-					name="backgroundColor"
-					class="w1"
-					bind:value={backgroundColor}
-					on:input={changeBgColorCss}
+				<Input
+					label="Tamaño de letra"
+					min={20}
+					max={100}
+					type="number"
+					bind:value={fontSize}
+					name="fontSize"
 				/>
 			</div>
+		</TabBox>
+	
+		<TabBox title="Colores">
+			<div class="w1 grid two-column-grid pend">
+				<div class="w1 form-item">
+					<label for="backgroundColor">Color de fondo</label>
+					<input
+						type="color"
+						name="backgroundColor"
+						class="w1"
+						bind:value={backgroundColor}
+						on:input={changeBgColorCss}
+					/>
+				</div>
 
-			<div class="w1 form-item">
-				<label for="backgroundColor" class="s-A2gJlL5q-8_9">Color de borde y letras</label>
-				<input
-					type="color"
-					name="borderColor"
-					class="w1"
-					bind:value={borderColor}
-					on:input={changeBorderColorCss}
+				<div class="w1 form-item">
+					<label for="backgroundColor" class="s-A2gJlL5q-8_9">Color de borde y letras</label>
+					<input
+						type="color"
+						name="borderColor"
+						class="w1"
+						bind:value={borderColor}
+						on:input={changeBorderColorCss}
+					/>
+				</div>
+			</div>
+		</TabBox>
+
+
+		<TabBox title="Imágenes">
+			<div class="w1 grid two-column-grid pend responsive-grid">
+				<TuckboxBackground
+					label="Parte Trasera"
+					name="cardBackgroundImage"
+					bind:image={cardBackgroundImage}
+				/>
+				<TuckboxBackground
+					label="Parte Frontal"
+					name="cardBackgroundImage"
+					bind:image={cardFrontImage}
 				/>
 			</div>
-		</div>
+		</TabBox>
 
-		<div class="w1 flex between gap">
-			<TuckboxBackground
-				label="Parte Trasera"
-				name="cardBackgroundImage"
-				bind:image={cardBackgroundImage}
-			/>
-			<TuckboxBackground
-				label="Parte Frontal"
-				name="cardBackgroundImage"
-				bind:image={cardFrontImage}
-			/>
-		</div>
+		<TabBox title="Letrero con nombre de mazo">
+			<div class="w1 grid two-column-grid pend responsive-grid">
+				<Switch label="Mostrar marco" name="showframe" bind:value={hasNameFrame} />
+				
+				<div class="w1 form-item">
+					<label for="nameFrameBackgroundColor">Color de fondo</label>
+					<input
+						type="color"
+						name="nameFrameBackgroundColor"
+						class="w1"
+						bind:value={nameFrameBackgroundColor}
+					/>
+				</div>
+
+				<div class="w1 form-item">
+					<label for="nameFrameBorderColor">Color de borde</label>
+					<input
+						type="color"
+						name="nameFrameBorderColor"
+						class="w1"
+						bind:value={nameFrameBorderColor}
+					/>
+				</div>
+
+				<InputNumberControls
+					label="Tamaño de letra"
+					min={10}
+					max={100}
+					bind:value={nameFrameFontSize}
+					name="nameFrameFontSize"
+				/>
+			</div>
+		</TabBox>
+
 
 		<div class="w1 flex between acenter down gap-small">
 			<ButtonFill label="Compartir URL" click={shareUrl} />
@@ -150,7 +201,7 @@
 </ToggleBox>
 
 <div class="flex center astart column gap no-bg">
-	<div class="w1 flex center absolute" style="top: 120px; z-index: 10;">
+	<div class="w1 flex center absolute left" style="top: 120px; z-index: 10;">
 		<div id="tuckbox-container">
 			<TuckboxTemplate
 				bind:deckName
@@ -159,6 +210,10 @@
 				bind:cardBackgroundImage
 				bind:spaces
 				bind:fontSize
+				bind:hasNameFrame
+				bind:nameFrameBackgroundColor
+				bind:nameFrameBorderColor
+				bind:nameFrameFontSize
 			/>
 		</div>
 	</div>
