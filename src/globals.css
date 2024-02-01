@@ -316,7 +316,9 @@ a {
 .gap-5 {
 	gap: 5px;
 }
-
+.flex.flex-row-reverse {
+	flex-direction: row-reverse;
+}
 .grid {
 	display: grid;
 }

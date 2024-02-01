@@ -26,6 +26,12 @@
 	const handleClickOutside = () => {
 		showColorModal = false;
 	};
+
+	export let onInputHandler = (event: Event) => {
+		event.preventDefault();
+		const target = event.target as HTMLInputElement;
+		setColor(target.value);
+	};
 </script>
 
 <div
@@ -56,7 +62,7 @@
 			<div class="w1 flex start acenter column gap">
 				<div class="w1">
 					<h5 class="bebas upper color-module-title">Seleccionar color:</h5>
-					<input type="color" class="real-color-input input w1 pointer" bind:value />
+					<input type="color" class="real-color-input input w1 pointer" bind:value on:input={onInputHandler} />
 					<button type="button" class="league select-color" on:click={selectColor}>
 						Seleccionar color
 					</button>

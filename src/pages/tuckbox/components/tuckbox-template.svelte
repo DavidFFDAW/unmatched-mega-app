@@ -9,6 +9,7 @@
 	export let nameFrameBackgroundColor: string;
 	export let nameFrameBorderColor: string;
 	export let nameFrameFontSize: number;
+	export let nameFrameColor: string;
 	const width = 69;
 </script>
 
@@ -68,7 +69,7 @@
 					class="absolute bottom left deck-name-frame-cards"
 					style="background-color: {nameFrameBackgroundColor}; border: 1px solid {nameFrameBorderColor};"
 				>
-					<p class="league" style="color: {nameFrameBorderColor}; font-size: {nameFrameFontSize}px;">{deckName}</p>
+					<p class="league" style="color: {nameFrameColor}; font-size: {nameFrameFontSize}px;">{deckName}</p>
 				</div>
 			{/if}
 		</div>

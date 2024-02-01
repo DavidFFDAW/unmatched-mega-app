@@ -37,9 +37,9 @@
 		border-radius: 0 5px 5px 5px;
 		/* z-index: 9999; */
 	}
-	.box.toggle-box .toggle-box-content {
+	/* .box.toggle-box .toggle-box-content {
 		overflow-y: auto;
-	}
+	} */
 	.box.toggle-box .toggle-box-content::-webkit-scrollbar {
 		display: none;
 	}

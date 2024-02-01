@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { navigation } from '../constants';
+	import { menuNavigation } from '../constants';
 	import { page } from '$app/stores';
 	import Anchor from './navigation/anchor.svelte';
 </script>
@@ -8,7 +8,7 @@
 	{#if $page.route.id !== '/'}
 		<header class="app-header flex start gap-smaller w1">
 			<a href="/" class="bebas upper link"> Home </a>
-			{#each navigation as link}
+			{#each menuNavigation as link}
 				<Anchor {link} hasSubmenu={link.submenu?.length > 0} submenu={link.submenu} />
 			{/each}
 		</header>

@@ -26,6 +26,7 @@
 	let hasNameFrame: boolean = true;
 	let nameFrameBackgroundColor: string = '#001622';
 	let nameFrameBorderColor: string = '#ffffff';
+	let nameFrameColor: string = '#ffffff';
 	let nameFrameFontSize: number = 20;
 
 	const calculateSpaces = (numberOfCards: number) => {
@@ -86,122 +87,107 @@
 	});
 </script>
 
-<ToggleBox title="Datos" customContainerCss="relative" width={550} showBox={false}>
-	<div class="flex center astart gap-small column">
-		<TabBox title="Textos">
-			<div class="w1 grid two-column-grid pend">
-				<Input label="Héroe" type="text" bind:value={deckName} name="deckName" />
-				<Input label="Ayudante" type="text" bind:value={secondDeckName} name="secondDeckName" />
-			</div>
-		</TabBox>
+<div class="w1 flex start astart gap-small flex-row-reverse flex-responsive responsive">
+	<div class="w1 box p">
+		<h3 class="title">Datos de caja</h3>
+		<div class="flex center astart gap-small column">
+			<TabBox title="Textos">
+				<div class="w1 grid two-column-grid pend">
+					<Input label="Héroe" type="text" bind:value={deckName} name="deckName" />
+					<Input label="Ayudante" type="text" bind:value={secondDeckName} name="secondDeckName" />
+				</div>
+			</TabBox>
 
-		<TabBox title="Cartas y fuente">
-			<div class="w1 grid two-column-grid pend">
-				<Input
-					label="Nº de Cartas"
-					type="number"
-					bind:value={cardNumber}
-					name="numberOfCards"
-					onchange={eventChange}
-				/>
+			<TabBox title="Cartas y fuente">
+				<div class="w1 grid two-column-grid pend">
+					<Input
+						label="Nº de Cartas"
+						type="number"
+						bind:value={cardNumber}
+						name="numberOfCards"
+						onchange={eventChange}
+					/>
 
-				<Input
-					label="Tamaño de letra"
-					min={20}
-					max={100}
-					type="number"
-					bind:value={fontSize}
-					name="fontSize"
-				/>
-			</div>
-		</TabBox>
-	
-		<TabBox title="Colores">
-			<div class="w1 grid two-column-grid pend">
-				<div class="w1 form-item">
-					<label for="backgroundColor">Color de fondo</label>
-					<input
-						type="color"
-						name="backgroundColor"
-						class="w1"
-						bind:value={backgroundColor}
-						on:input={changeBgColorCss}
+					<Input
+						label="Tamaño de letra"
+						min={20}
+						max={100}
+						type="number"
+						bind:value={fontSize}
+						name="fontSize"
 					/>
 				</div>
+			</TabBox>
 
-				<div class="w1 form-item">
-					<label for="backgroundColor" class="s-A2gJlL5q-8_9">Color de borde y letras</label>
-					<input
-						type="color"
-						name="borderColor"
-						class="w1"
-						bind:value={borderColor}
-						on:input={changeBorderColorCss}
-					/>
-				</div>
-			</div>
-		</TabBox>
+			<TabBox title="Letrero con nombre de mazo">
+				<div class="w1 grid two-column-grid pend responsive-grid">
+					<Switch label="Mostrar marco" name="showframe" bind:value={hasNameFrame} />
 
-
-		<TabBox title="Imágenes">
-			<div class="w1 grid two-column-grid pend responsive-grid">
-				<TuckboxBackground
-					label="Parte Trasera"
-					name="cardBackgroundImage"
-					bind:image={cardBackgroundImage}
-				/>
-				<TuckboxBackground
-					label="Parte Frontal"
-					name="cardBackgroundImage"
-					bind:image={cardFrontImage}
-				/>
-			</div>
-		</TabBox>
-
-		<TabBox title="Letrero con nombre de mazo">
-			<div class="w1 grid two-column-grid pend responsive-grid">
-				<Switch label="Mostrar marco" name="showframe" bind:value={hasNameFrame} />
-				
-				<div class="w1 form-item">
-					<label for="nameFrameBackgroundColor">Color de fondo</label>
-					<input
-						type="color"
+					<ColorPicker
+						label="Color de fondo"
 						name="nameFrameBackgroundColor"
-						class="w1"
 						bind:value={nameFrameBackgroundColor}
 					/>
-				</div>
 
-				<div class="w1 form-item">
-					<label for="nameFrameBorderColor">Color de borde</label>
-					<input
-						type="color"
+					<ColorPicker
+						label="Color de borde"
 						name="nameFrameBorderColor"
-						class="w1"
 						bind:value={nameFrameBorderColor}
 					/>
+
+					<ColorPicker label="Color de letra" name="nameFrameColor" bind:value={nameFrameColor} />
+
+					<InputNumberControls
+						label="Tamaño de letra"
+						min={10}
+						max={100}
+						bind:value={nameFrameFontSize}
+						name="nameFrameFontSize"
+					/>
 				</div>
+			</TabBox>
 
-				<InputNumberControls
-					label="Tamaño de letra"
-					min={10}
-					max={100}
-					bind:value={nameFrameFontSize}
-					name="nameFrameFontSize"
-				/>
+			<TabBox title="Colores">
+				<div class="w1 grid two-column-grid pend">
+					<ColorPicker
+						label="Color de fondo"
+						name="backgroundColor"
+						bind:value={backgroundColor}
+						onInputHandler={changeBgColorCss}
+					/>
+
+					<ColorPicker
+						label="Color de borde y letras"
+						name="borderColor"
+						bind:value={borderColor}
+						onInputHandler={changeBorderColorCss}
+					/>
+				</div>
+			</TabBox>
+
+			<TabBox title="Imágenes">
+				<div class="w1 grid two-column-grid pend responsive-grid">
+					<TuckboxBackground
+						label="Parte Trasera"
+						name="cardBackgroundImage"
+						bind:image={cardBackgroundImage}
+					/>
+					<TuckboxBackground
+						label="Parte Frontal"
+						name="cardBackgroundImage"
+						bind:image={cardFrontImage}
+					/>
+				</div>
+			</TabBox>
+
+			<div class="w1 flex between acenter down gap-small">
+				<ButtonFill label="Compartir URL" click={shareUrl} />
+				<ButtonFill label="Descargar" click={downloadTuckbox} />
 			</div>
-		</TabBox>
-
-
-		<div class="w1 flex between acenter down gap-small">
-			<ButtonFill label="Compartir URL" click={shareUrl} />
-			<ButtonFill label="Descargar" click={downloadTuckbox} />
 		</div>
 	</div>
-</ToggleBox>
 
-<div class="flex center astart column gap no-bg">
-	<div class="w1 flex center absolute left" style="top: 120px; z-index: 10;">
+	<div class="tuckbox-container-flex">
 		<div id="tuckbox-container">
 			<TuckboxTemplate
 				bind:deckName
@@ -214,7 +200,15 @@
 				bind:nameFrameBackgroundColor
 				bind:nameFrameBorderColor
 				bind:nameFrameFontSize
+				bind:nameFrameColor
 			/>
 		</div>
 	</div>
 </div>
+
+<style>
+	.tuckbox-container-flex {
+		padding: 5px;
+		z-index: 10;
+	}
+</style>
