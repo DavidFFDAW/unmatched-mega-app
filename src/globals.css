@@ -97,6 +97,7 @@ a {
 	background-position: center;
 	background-repeat: no-repeat;
 }
+
 .relative {
 	position: relative;
 }
@@ -318,6 +319,18 @@ a {
 
 .grid {
 	display: grid;
+}
+.grid.two-column,
+.grid.two-column-grid {
+	grid-template-columns: repeat(2, 1fr);
+	gap: 15px 10px;
+}
+
+.grid.pcenter {
+	place-items: center;
+}
+.grid.pend {
+	place-items: end;
 }
 
 .grid.grid-admin-links {
@@ -618,6 +631,9 @@ dialog[open] {
 }
 
 @media screen and (max-width: 768px) {
+	.grid.responsive-grid {
+		grid-template-columns: repeat(1, 1fr);
+	}
 	.responsive-margin-top {
 		margin-top: 50px;
 	}
