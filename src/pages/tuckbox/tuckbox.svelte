@@ -5,7 +5,6 @@
 	import { getPngFromElement } from '@services/dom.screenshot.service';
 	import { onMount } from 'svelte';
 	import { TuckboxPdfService } from './tuckbox.pdf.service';
-	import ToggleBox from '@components/boxed/toggle-box.svelte';
 	import ColorPicker from '@components/colorpicker/color-picker.svelte';
 	import TuckboxBackground from './components/tuckbox-background.svelte';
 	import TuckboxTemplate from './components/tuckbox-template.svelte';
@@ -30,7 +29,7 @@
 	let nameFrameFontSize: number = 20;
 
 	const calculateSpaces = (numberOfCards: number) => {
-		spaces = (numberOfCards * 24) / 31;
+		spaces = (numberOfCards * 23) / 31;
 	};
 
 	const changeBorderColorCss = (ev: any) => {
