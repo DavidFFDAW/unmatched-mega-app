@@ -2,7 +2,11 @@
 	import ButtonFile from '@components/buttons/button-file.svelte';
 	import ButtonFill from '@components/buttons/button-fill.svelte';
 	import Input from '@components/forms/input.svelte';
-	import { getPngFromElement } from '@services/dom.screenshot.service';
+	import {
+		getBlobFromElement,
+		getPngFromElement,
+		getSimplePngFromElement
+	} from '@services/dom.screenshot.service';
 	import { onMount } from 'svelte';
 	import { TuckboxPdfService } from './tuckbox.pdf.service';
 	import ColorPicker from '@components/colorpicker/color-picker.svelte';
@@ -17,7 +21,7 @@
 	let secondDeckName: string = 'Wiglaf';
 	let spaces: number = 25;
 	let cardNumber: number = 31;
-	let fontSize: number = 80;
+	let fontSize: number = 70;
 	let backgroundColor: string = '#001622';
 	let borderColor: string = '#ffffff';
 	let cardBackgroundImage: string = '/cardsback/beowulf.webp';
@@ -29,7 +33,7 @@
 	let nameFrameFontSize: number = 20;
 
 	const calculateSpaces = (numberOfCards: number) => {
-		spaces = (numberOfCards * 23) / 31;
+		spaces = (numberOfCards * 24) / 31;
 	};
 
 	const changeBorderColorCss = (ev: any) => {
@@ -43,12 +47,16 @@
 	};
 
 	const downloadTuckbox = async () => {
-		const tuckboxImage = await getPngFromElement(document.getElementById('tuckbox-container'));
+		// const tuckboxImage = await getPngFromElement(document.getElementById('tuckbox-container'));
+		const tuckboxImage = await getSimplePngFromElement(
+			document.getElementById('tuckbox-container')
+		);
 
 		const pdf = new TuckboxPdfService({
 			tuckbox: tuckboxImage,
 			deckName
 		});
+
 		const output = pdf.generatePDF();
 		window.open(URL.createObjectURL(output));
 	};

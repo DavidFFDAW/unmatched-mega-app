@@ -21,13 +21,18 @@
 	const setColor = (color: string) => {
 		value = color;
 		colorSelected = color;
+		onInputHandler({
+			target: {
+				value: color
+			}
+		});
 	};
 
 	const handleClickOutside = () => {
 		showColorModal = false;
 	};
 
-	export let onInputHandler = (event: Event) => {
+	export let onInputHandler = (event: any) => {
 		event.preventDefault();
 		const target = event.target as HTMLInputElement;
 		setColor(target.value);
@@ -51,10 +56,7 @@
 		on:click={setShowColorModal}
 	/>
 
-	<div
-		class:hidden={!showColorModal}
-		class="w1 relative color-picker-canvas animate__animated animate__fadeIn animate__faster"
-	>
+	<div class:hidden={!showColorModal} class="w1 relative color-picker-canvas">
 		<div class="input-container">
 			<div class="w1 flex end acenter">
 				<button type="button" class="close-button" on:click={setShowColorModal}>&times;</button>
@@ -62,7 +64,12 @@
 			<div class="w1 flex start acenter column gap">
 				<div class="w1">
 					<h5 class="bebas upper color-module-title">Seleccionar color:</h5>
-					<input type="color" class="real-color-input input w1 pointer" bind:value on:input={onInputHandler} />
+					<input
+						type="color"
+						class="real-color-input input w1 pointer"
+						bind:value
+						on:input={onInputHandler}
+					/>
 					<button type="button" class="league select-color" on:click={selectColor}>
 						Seleccionar color
 					</button>

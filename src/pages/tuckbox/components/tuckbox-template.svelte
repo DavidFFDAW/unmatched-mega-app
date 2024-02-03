@@ -10,14 +10,13 @@
 	export let nameFrameBorderColor: string;
 	export let nameFrameFontSize: number;
 	export let nameFrameColor: string;
-	const width = 69;
 </script>
 
 <div class="total-tuckbox-container tuckbox-container">
 	<div class="main-card-top-block flex column astart" style="margin-left: {spaces}mm">
 		<div
 			class="wmm main-card-top-rounded border-sides border-top bg"
-			style="height: {spaces - spaces / 4}mm;"
+			style="height: {spaces - spaces / 4 + 4}mm;"
 		/>
 	</div>
 
@@ -27,10 +26,19 @@
 			class="wmm relative main-card-space border-sides border-top bg"
 			style="height: {spaces}mm;"
 		>
-			<p class="box-upper-place deck-title league" class:has-extra-character={Boolean(secondDeckName) && deckName !== secondDeckName} style="font-size: {fontSize}px">
+			<p
+				class="color box-upper-place deck-title league"
+				class:has-extra-character={Boolean(secondDeckName) && deckName !== secondDeckName}
+				style="font-size: {fontSize}px"
+			>
 				{deckName}
 				{#if secondDeckName}
-					<p class="secondary-character league" style="right: {(width - deckName.length) / 4}%;">& {secondDeckName}</p>
+					<p
+						class="color secondary-character league"
+						style="padding-right: {deckName.length + secondDeckName.length}%;"
+					>
+						& {secondDeckName}
+					</p>
 				{/if}
 			</p>
 		</div>
@@ -69,7 +77,9 @@
 					class="absolute bottom left deck-name-frame-cards"
 					style="background-color: {nameFrameBackgroundColor}; border: 1px solid {nameFrameBorderColor};"
 				>
-					<p class="league" style="color: {nameFrameColor}; font-size: {nameFrameFontSize}px;">{deckName}</p>
+					<p class="league" style="color: {nameFrameColor}; font-size: {nameFrameFontSize}px;">
+						{deckName}
+					</p>
 				</div>
 			{/if}
 		</div>
@@ -101,6 +111,9 @@
 	.hmm {
 		height: 92mm;
 	}
+	.color {
+		color: var(--border-color);
+	}
 	.bg {
 		background-color: var(--bg-color);
 	}
@@ -120,11 +133,13 @@
 	}
 
 	.vertical-text.deck-title {
+		width: 100%;
 		height: 100%;
 		text-align: center;
 		writing-mode: vertical-rl;
 		text-orientation: mixed;
 		position: absolute;
+		padding: 0 5px;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%) rotate(180deg);
@@ -135,7 +150,7 @@
 	}
 
 	.box-upper-place.deck-title.has-extra-character {
-		top: 45%;
+		top: 40%;
 	}
 
 	.deck-name-frame-cards {
@@ -166,13 +181,14 @@
 	}
 	.secondary-character {
 		position: absolute;
-		bottom: -3px;
-		padding-top: 1px;
+		bottom: -5px;
+		left: 0;
 		font-size: 16px;
 		text-align: end;
 		font-family: 'league';
-		width: auto;
-		right: 12%;
+		width: 100%;
+		text-transform: uppercase;
+		padding: 0 15px;
 	}
 	.vertical-text.deck-title.rotated {
 		transform: translate(-50%, -50%) rotate(180deg);
@@ -205,6 +221,7 @@
 		height: 25px;
 		transform: translateX(-50%);
 		border-radius: 0 0 150px 150px;
+		border-top: 1px solid #000;
 		background-color: #fff;
 		z-index: 1550;
 	}
