@@ -105,11 +105,15 @@
 </div>
 
 <style>
+	:root {
+		--width: 67mm;
+		--height: 92mm;
+	}
 	.wmm {
-		width: 69mm;
+		width: var(--width);
 	}
 	.hmm {
-		height: 92mm;
+		height: var(--height);
 	}
 	.color {
 		color: var(--border-color);
@@ -197,12 +201,12 @@
 		transform: translate(-50%, -50%);
 	}
 	.main-card-space {
-		width: 69mm;
-		height: 92mm;
+		width: var(--width);
+		height: var(--height);
 	}
 
 	.main-card-top-rounded {
-		width: 69mm;
+		width: var(--width);
 		border-radius: 150px 150px 0 0;
 	}
 	.main-card-space-rounded-first {
@@ -215,7 +219,7 @@
 	.card-cutout::after {
 		content: '';
 		position: absolute;
-		top: -1px;
+		top: 0px;
 		left: 50%;
 		width: 40%;
 		height: 25px;
