@@ -33,7 +33,7 @@
 	let nameFrameFontSize: number = 20;
 
 	const calculateSpaces = (numberOfCards: number) => {
-		spaces = (numberOfCards * 23) / 31;
+		spaces = (numberOfCards * 24) / 31;
 	};
 
 	const changeBorderColorCss = (ev: any) => {

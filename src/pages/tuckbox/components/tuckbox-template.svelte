@@ -106,7 +106,7 @@
 
 <style>
 	:root {
-		--width: 67mm;
+		--width: 69mm;
 		--height: 92mm;
 	}
 	.wmm {
