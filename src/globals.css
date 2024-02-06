@@ -17,6 +17,7 @@
 }
 
 * {
+	scroll-behavior: smooth;
 	outline: none;
 	margin: 0;
 	text-decoration: none;

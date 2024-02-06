@@ -1,12 +1,7 @@
 <script lang="ts">
-	import ButtonFile from '@components/buttons/button-file.svelte';
 	import ButtonFill from '@components/buttons/button-fill.svelte';
 	import Input from '@components/forms/input.svelte';
-	import {
-		getBlobFromElement,
-		getPngFromElement,
-		getSimplePngFromElement
-	} from '@services/dom.screenshot.service';
+	import { getSimplePngFromElement } from '@services/dom.screenshot.service';
 	import { onMount } from 'svelte';
 	import { TuckboxPdfService } from './tuckbox.pdf.service';
 	import ColorPicker from '@components/colorpicker/color-picker.svelte';
@@ -94,122 +89,149 @@
 	});
 </script>
 
-<div class="w1 flex start astart gap-small flex-row-reverse flex-responsive responsive">
-	<div class="w1 box p">
-		<h3 class="title">Datos de caja</h3>
-		<div class="flex center astart gap-small column">
-			<TabBox title="Textos">
-				<div class="w1 grid two-column-grid pend">
-					<Input label="Héroe" type="text" bind:value={deckName} name="deckName" />
-					<Input label="Ayudante" type="text" bind:value={secondDeckName} name="secondDeckName" />
+<div class="w1 flex column gap flex-responsive responsive">
+	<div>
+		<h1 class="bebas uppercase">Panel de caja para cartas</h1>
+		<a href="#printing-datas">Antes de ir a imprimir esta caja te recomendamos que te leas los datos recogidos en la sección de impresión de esta página.</a>
+	</div>
+		
+	<div class="w1 flex start astart gap-small flex-row-reverse flex-responsive responsive">
+		<div class="w1 box p">
+			<h3 class="title">Datos de caja</h3>
+			<div class="flex center astart gap-small column">
+				<TabBox title="Textos">
+					<div class="w1 grid two-column-grid pend">
+						<Input label="Héroe" type="text" bind:value={deckName} name="deckName" />
+						<Input label="Ayudante" type="text" bind:value={secondDeckName} name="secondDeckName" />
+					</div>
+				</TabBox>
+
+				<TabBox title="Cartas y fuente">
+					<div class="w1 grid two-column-grid pend">
+						<Input
+							label="Nº de Cartas"
+							type="number"
+							bind:value={cardNumber}
+							name="numberOfCards"
+							onchange={eventChange}
+						/>
+
+						<Input
+							label="Tamaño de letra"
+							min={20}
+							max={100}
+							type="number"
+							bind:value={fontSize}
+							name="fontSize"
+						/>
+					</div>
+				</TabBox>
+
+				<TabBox title="Letrero con nombre de mazo">
+					<div class="w1 grid two-column-grid pend responsive-grid">
+						<Switch label="Mostrar marco" name="showframe" bind:value={hasNameFrame} />
+
+						<ColorPicker
+							label="Color de fondo"
+							name="nameFrameBackgroundColor"
+							bind:value={nameFrameBackgroundColor}
+						/>
+
+						<ColorPicker
+							label="Color de borde"
+							name="nameFrameBorderColor"
+							bind:value={nameFrameBorderColor}
+						/>
+
+						<ColorPicker label="Color de letra" name="nameFrameColor" bind:value={nameFrameColor} />
+
+						<InputNumberControls
+							label="Tamaño de letra"
+							min={10}
+							max={100}
+							bind:value={nameFrameFontSize}
+							name="nameFrameFontSize"
+						/>
+					</div>
+				</TabBox>
+
+				<TabBox title="Colores">
+					<div class="w1 grid two-column-grid pend">
+						<ColorPicker
+							label="Color de fondo"
+							name="backgroundColor"
+							bind:value={backgroundColor}
+							onInputHandler={changeBgColorCss}
+						/>
+
+						<ColorPicker
+							label="Color de borde y letras"
+							name="borderColor"
+							bind:value={borderColor}
+							onInputHandler={changeBorderColorCss}
+						/>
+					</div>
+				</TabBox>
+
+				<TabBox title="Imágenes">
+					<div class="w1 grid two-column-grid pend responsive-grid">
+						<TuckboxBackground
+							label="Parte Trasera"
+							name="cardBackgroundImage"
+							bind:image={cardBackgroundImage}
+						/>
+						<TuckboxBackground
+							label="Parte Frontal"
+							name="cardBackgroundImage"
+							bind:image={cardFrontImage}
+						/>
+					</div>
+				</TabBox>
+
+				<div class="w1 flex between acenter down gap-small">
+					<ButtonFill label="Compartir URL" click={shareUrl} />
+					<ButtonFill label="Descargar" click={downloadTuckbox} />
 				</div>
-			</TabBox>
+			</div>
+		</div>
 
-			<TabBox title="Cartas y fuente">
-				<div class="w1 grid two-column-grid pend">
-					<Input
-						label="Nº de Cartas"
-						type="number"
-						bind:value={cardNumber}
-						name="numberOfCards"
-						onchange={eventChange}
-					/>
-
-					<Input
-						label="Tamaño de letra"
-						min={20}
-						max={100}
-						type="number"
-						bind:value={fontSize}
-						name="fontSize"
-					/>
-				</div>
-			</TabBox>
-
-			<TabBox title="Letrero con nombre de mazo">
-				<div class="w1 grid two-column-grid pend responsive-grid">
-					<Switch label="Mostrar marco" name="showframe" bind:value={hasNameFrame} />
-
-					<ColorPicker
-						label="Color de fondo"
-						name="nameFrameBackgroundColor"
-						bind:value={nameFrameBackgroundColor}
-					/>
-
-					<ColorPicker
-						label="Color de borde"
-						name="nameFrameBorderColor"
-						bind:value={nameFrameBorderColor}
-					/>
-
-					<ColorPicker label="Color de letra" name="nameFrameColor" bind:value={nameFrameColor} />
-
-					<InputNumberControls
-						label="Tamaño de letra"
-						min={10}
-						max={100}
-						bind:value={nameFrameFontSize}
-						name="nameFrameFontSize"
-					/>
-				</div>
-			</TabBox>
-
-			<TabBox title="Colores">
-				<div class="w1 grid two-column-grid pend">
-					<ColorPicker
-						label="Color de fondo"
-						name="backgroundColor"
-						bind:value={backgroundColor}
-						onInputHandler={changeBgColorCss}
-					/>
-
-					<ColorPicker
-						label="Color de borde y letras"
-						name="borderColor"
-						bind:value={borderColor}
-						onInputHandler={changeBorderColorCss}
-					/>
-				</div>
-			</TabBox>
-
-			<TabBox title="Imágenes">
-				<div class="w1 grid two-column-grid pend responsive-grid">
-					<TuckboxBackground
-						label="Parte Trasera"
-						name="cardBackgroundImage"
-						bind:image={cardBackgroundImage}
-					/>
-					<TuckboxBackground
-						label="Parte Frontal"
-						name="cardBackgroundImage"
-						bind:image={cardFrontImage}
-					/>
-				</div>
-			</TabBox>
-
-			<div class="w1 flex between acenter down gap-small">
-				<ButtonFill label="Compartir URL" click={shareUrl} />
-				<ButtonFill label="Descargar" click={downloadTuckbox} />
+		<div class="tuckbox-container-flex">
+			<div id="tuckbox-container">
+				<TuckboxTemplate
+					bind:deckName
+					bind:secondDeckName
+					bind:cardFrontImage
+					bind:cardBackgroundImage
+					bind:spaces
+					bind:fontSize
+					bind:hasNameFrame
+					bind:nameFrameBackgroundColor
+					bind:nameFrameBorderColor
+					bind:nameFrameFontSize
+					bind:nameFrameColor
+				/>
 			</div>
 		</div>
 	</div>
 
-	<div class="tuckbox-container-flex">
-		<div id="tuckbox-container">
-			<TuckboxTemplate
-				bind:deckName
-				bind:secondDeckName
-				bind:cardFrontImage
-				bind:cardBackgroundImage
-				bind:spaces
-				bind:fontSize
-				bind:hasNameFrame
-				bind:nameFrameBackgroundColor
-				bind:nameFrameBorderColor
-				bind:nameFrameFontSize
-				bind:nameFrameColor
-			/>
-		</div>
+	<div class="w1 box p">
+		<h3 class="title" id="printing-datas">Datos importantes antes de imprimir</h3>
+		<ul class="flex column gap-5">
+			<li>Las cartulinas de <span class="copicentro">copicentro</span> no son viables puesto que se agrietan muy fácilmente.</li>
+			<li>Las pruebas que se han hecho han sido en un <a href="https://www.copyrap.com/franquiciados/" class="copyrap" target="_blank">copyrap</a>, concretamente el de <a href="https://www.copyrap.com/franquiciados/nueva-malaga/" target="_blank" class="copyrap">Nueva Málaga</a>.</li>
+			<li>Se tiene en cuenta que las cartas llevan <strong>funda</strong> y por eso la caja es bastante más grande (69mm) que el tamaño de una carta normal del juego (63mm).</li>
+			<li>La impresión se realiza sobre una cartulina de <strong>150</strong> o 250 gramos <span class="carefull">(estamos aún determinando cuál es mejor para la caja)</span>.</li>
+			<li>El tamaño de la caja es de <strong>69x92mm</strong> con una altura variable según el número de cartas que indiquemos.</li>
+			<li>La proporción para el espacio hacia arriba se basa en que para 31 cartas hay 24mm de altura (suficiente para las cartas). Se calcula mediante una regla de tres.</li>
+			<li>El PDF generado tiene el tamaño ya calculado, <strong>NO</strong> es necesario ajustar nada más</li>
+			<li>Es bastante posible que las imágenes pierdan <strong>calidad</strong> al convertirse en <strong>PDF</strong> pero es inevitable por la forma en la que trabaja internamente la web.</li>
+			<li>Una vez impresa la caja cabe en las <strong>posiciones</strong> de las cartas dentro de las cajas de cada set de unmatched. Probado en: 
+				<ul class="flex column gap-5" style="margin-top: 5px;">
+					<li>UNmatched: Caperucita Roja vs. Beowulf.</li>
+					<li>UNmatched: Battle of Legends, Volume Two.</li>
+				</ul>
+			</li>
+		</ul>
 	</div>
 </div>
 
@@ -217,5 +239,17 @@
 	.tuckbox-container-flex {
 		padding: 5px;
 		z-index: 10;
+	}
+
+	.copyrap {
+		color: #237f3c;
+	}
+
+	.copicentro {
+		color: #3193e4;
+	}
+
+	.carefull {
+		color: #b48631;
 	}
 </style>
