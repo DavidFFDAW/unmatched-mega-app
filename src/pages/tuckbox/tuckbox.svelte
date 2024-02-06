@@ -37,6 +37,7 @@
 	};
 
 	const changeBgColorCss = (ev: any) => {
+		nameFrameBackgroundColor = ev.target.value;
 		const tuckboxContainer = document.getElementById('tuckbox-container');
 		tuckboxContainer && tuckboxContainer.style.setProperty('--bg-color', ev.target.value);
 	};
