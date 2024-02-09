@@ -4,14 +4,17 @@
 	import '@src/globals.css';
 	import Navigation from '@components/navigation.svelte';
 	import { page } from '$app/stores';
+	import Analytics from '@components/analytics/analytics.svelte';
 </script>
 
 <main class="app-main">
+	<Analytics />
 	<Navigation />
 	<div class="main-app-layout">
 		<slot />
 	</div>
 </main>
+
 {#if $page.route.id !== '/'}
 	<footer class="app-main-footer flex center acenter gap-medium">
 		<div class="desktop-only">
