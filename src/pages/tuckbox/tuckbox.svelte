@@ -94,9 +94,12 @@
 <div class="w1 flex column gap flex-responsive responsive">
 	<div>
 		<h1 class="bebas uppercase">Panel de caja para cartas</h1>
-		<a href="#printing-datas">Antes de ir a imprimir esta caja te recomendamos que te leas los datos recogidos en la sección de impresión de esta página.</a>
+		<a href="#printing-datas"
+			>Antes de ir a imprimir esta caja te recomendamos que te leas los datos recogidos en la
+			sección de impresión de esta página.</a
+		>
 	</div>
-		
+
 	<div class="w1 flex start astart gap-small flex-row-reverse flex-responsive responsive">
 		<div class="w1 box p">
 			<h3 class="title">Datos de caja</h3>

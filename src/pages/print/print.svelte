@@ -2,6 +2,7 @@
 	import Card from '@components/cards/card.svelte';
 	import usePrint from './usePrint';
 	import Box from '@components/box.svelte';
+	import PrintCardsInfo from './print-cards-info.svelte';
 	let cardBack: string | null;
 	let characterCard: string | null = '/images/character-card.png';
 
@@ -37,18 +38,138 @@
 	const { cards, functions } = usePrint();
 </script>
 
-<div class="box p overflow-auto">
-	<div class="flex custom-buttons-flex">
-		<div>
-			<h3 class="title">Impresión de cartas</h3>
-			<p>
-				Ten en cuenta y recuerda que esta plantilla está preparada para ser impresa sobre una
-				cartulina de <strong>350g</strong> de espesor para que las cartas sean lo más parecidas a las
-				originales en cuanto a espesor y dureza se refiere.<br />
-				Esta forma de impresión se ha probado en el <a href="https://www.copyrap.com/franquiciados/eugenio-gross/">Copyrap de Eugenio Gross</a>.
-			</p>
+<div class="w1 flex column gap flex-responsive responsive">
+	<div>
+		<h1 class="bebas uppercase">Panel impresion de cartas</h1>
+		<a href="#printing-datas"
+			>Antes de ir a imprimir las cartas te recomendamos que te leas los datos recogidos en la
+			sección de impresión de esta página.</a
+		>
+	</div>
+
+	<div class="box p overflow-auto">
+		<div class="flex custom-buttons-flex">
+			<div>
+				<h3 class="title">Impresión de cartas</h3>
+				<p>
+					Ten en cuenta y recuerda que esta plantilla está preparada para ser impresa sobre una
+					cartulina de <strong>350g</strong> de espesor para que las cartas sean lo más parecidas a
+					las originales en cuanto a espesor y dureza se refiere.<br />
+					Esta forma de impresión se ha probado en el
+					<a href="https://www.copyrap.com/franquiciados/eugenio-gross/">Copyrap de Eugenio Gross</a
+					>.
+				</p>
+			</div>
+			<div class="w1 afixed-action-buttons flex end acolumn acenter aaend gap-small">
+				<p>
+					Total de cartas: <strong>{$cards.length}</strong>
+					<span>cartas</span>
+				</p>
+				<button type="button" class="btn fill button" on:click={functions.emptyCards}
+					>Borrar cartas</button
+				>
+				<button
+					type="button"
+					class="btn fill button"
+					on:click={() => functions.createPDF(cardBack, characterCard)}>Generar PDF</button
+				>
+			</div>
 		</div>
-		<div class="w1 afixed-action-buttons flex end acolumn acenter aaend gap-small">
+
+		<div class="w1 down flex start astart gap-smaller flex-responsive wrap cards-container">
+			<div
+				class="background card character-card"
+				style="background-image: url('{characterCard}'); width: 63.5mm; height: 88mm;"
+				class:has-character-card={Boolean(characterCard) &&
+					characterCard !== '/images/character-card.png'}
+			>
+				<!-- <p class="card-back-text bebas tcenter">Sube la carta de personaje y pasiva aquí</p> -->
+				<input
+					accept="image/*"
+					class="input-card-back"
+					type="file"
+					name="card-back"
+					on:dragover={functions.dragover}
+					on:drop={dropCharacterCard}
+					on:change={onCharacterCardChange}
+				/>
+			</div>
+
+			<div
+				class="background card"
+				style="background-image: url('{cardBack}'); width: 63.5mm; height: 88mm;"
+				class:thereiscard={Boolean(cardBack)}
+			>
+				<p class="card-back-text bebas tcenter">Sube la parte de atrás de la carta aquí</p>
+				<input
+					accept="image/*"
+					class="input-card-back"
+					type="file"
+					name="card-back"
+					on:dragover={functions.dragover}
+					on:drop={dropCardBack}
+					on:change={onCardBackChange}
+				/>
+			</div>
+
+			{#if $cards.length > 0}
+				{#each $cards as card, index}
+					<div class="flex column acenter">
+						<div class="card custom-printable-card relative" data-index={index}>
+							<div class="overlay">
+								<div class="overlay-inner-buttons-container flex start column">
+									<button
+										data-index={index}
+										type="button"
+										class="btn button delete"
+										on:click={() => functions.removeCardByIndex(index)}
+									>
+										&times;
+									</button>
+									<button
+										class="btn button"
+										type="button"
+										on:click={() => functions.addCardEqualToCard(card, index)}
+									>
+										+
+									</button>
+								</div>
+							</div>
+
+							<Card src={card.url} />
+						</div>
+					</div>
+				{/each}
+			{/if}
+
+			<div class="unmatched-card card card-add-card">
+				<input
+					type="file"
+					class="file"
+					multiple
+					accept="image/*"
+					on:change={functions.change}
+					on:dragover={functions.dragover}
+					on:drop={functions.drop}
+				/>
+				<svg
+					aria-hidden="true"
+					focusable="false"
+					data-prefix="fas"
+					data-icon="plus-circle"
+					role="img"
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 512 512"
+					class="svg-inline--fa fa-plus-circle fa-w-16"
+					><path
+						fill="#adadad"
+						d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"
+						class=""
+					/></svg
+				>
+			</div>
+		</div>
+		<div class="w1 down afixed-action-buttons flex end acolumn acenter aaend gap-small">
 			<p>
 				Total de cartas: <strong>{$cards.length}</strong>
 				<span>cartas</span>
@@ -63,114 +184,7 @@
 			>
 		</div>
 	</div>
-
-	<div class="w1 down flex start astart gap-smaller flex-responsive wrap cards-container">
-		<div
-			class="background card character-card"
-			style="background-image: url('{characterCard}'); width: 63.5mm; height: 88mm;"
-			class:has-character-card={Boolean(characterCard) &&
-				characterCard !== '/images/character-card.png'}
-		>
-			<!-- <p class="card-back-text bebas tcenter">Sube la carta de personaje y pasiva aquí</p> -->
-			<input
-				accept="image/*"
-				class="input-card-back"
-				type="file"
-				name="card-back"
-				on:dragover={functions.dragover}
-				on:drop={dropCharacterCard}
-				on:change={onCharacterCardChange}
-			/>
-		</div>
-
-		<div
-			class="background card"
-			style="background-image: url('{cardBack}'); width: 63.5mm; height: 88mm;"
-			class:thereiscard={Boolean(cardBack)}
-		>
-			<p class="card-back-text bebas tcenter">Sube la parte de atrás de la carta aquí</p>
-			<input
-				accept="image/*"
-				class="input-card-back"
-				type="file"
-				name="card-back"
-				on:dragover={functions.dragover}
-				on:drop={dropCardBack}
-				on:change={onCardBackChange}
-			/>
-		</div>
-
-		{#if $cards.length > 0}
-			{#each $cards as card, index}
-				<div class="flex column acenter">
-					<div class="card custom-printable-card relative" data-index={index}>
-						<div class="overlay">
-							<div class="overlay-inner-buttons-container flex start column">
-								<button
-									data-index={index}
-									type="button"
-									class="btn button delete"
-									on:click={() => functions.removeCardByIndex(index)}
-								>
-									&times;
-								</button>
-								<button
-									class="btn button"
-									type="button"
-									on:click={() => functions.addCardEqualToCard(card, index)}
-								>
-									+
-								</button>
-							</div>
-						</div>
-
-						<Card src={card.url} />
-					</div>
-				</div>
-			{/each}
-		{/if}
-
-		<div class="unmatched-card card card-add-card">
-			<input
-				type="file"
-				class="file"
-				multiple
-				accept="image/*"
-				on:change={functions.change}
-				on:dragover={functions.dragover}
-				on:drop={functions.drop}
-			/>
-			<svg
-				aria-hidden="true"
-				focusable="false"
-				data-prefix="fas"
-				data-icon="plus-circle"
-				role="img"
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 512 512"
-				class="svg-inline--fa fa-plus-circle fa-w-16"
-				><path
-					fill="#adadad"
-					d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"
-					class=""
-				/></svg
-			>
-		</div>
-	</div>
-	<div class="w1 down afixed-action-buttons flex end acolumn acenter aaend gap-small">
-		<p>
-			Total de cartas: <strong>{$cards.length}</strong>
-			<span>cartas</span>
-		</p>
-		<button type="button" class="btn fill button" on:click={functions.emptyCards}
-			>Borrar cartas</button
-		>
-		<button
-			type="button"
-			class="btn fill button"
-			on:click={() => functions.createPDF(cardBack, characterCard)}>Generar PDF</button
-		>
-	</div>
+	<PrintCardsInfo />
 </div>
 
 <style>
