@@ -3,12 +3,14 @@
 	import { page } from '$app/stores';
 
 	$: {
-        if (browser) {
-            const analytics = (window as any).analytics;
-            if (typeof analytics !== 'undefined') {
-                analytics('visit', 'Unmatched App', $page.url.pathname);
-            }
-        }
+		if (browser) {
+			if (!$page.url.origin.includes('localhost')) {
+				const analytics = (window as any).analytics;
+				if (typeof analytics !== 'undefined') {
+					analytics('visit', 'Unmatched App', $page.url.pathname);
+				}
+			}
+		}
 	}
 </script>
 
