@@ -60,12 +60,6 @@
 		<Boxed title="Datos de carta">
 			<form class="flex center astart column gap-smaller responsive">
 				<CardTypeSelector bind:type={card.type} />
-				<!-- <Select label="Tipo de carta" name="card_type" bind:value={card.type}>
-						<option value="attack">Ataque</option>
-						<option value="defence">Defensa</option>
-						<option value="versatile">Versátil</option>
-						<option value="scheme">rayito</option>
-					</Select> -->
 				<div class="w1 flex between aend gap">
 					<Input label="Nombre del mazo" name="deck_name" bind:value={card.deckName} />
 					<Input label="Título de carta" name="card_title" bind:value={card.title} />
