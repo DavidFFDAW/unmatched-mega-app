@@ -8,9 +8,9 @@
 	import Boxed from '@components/boxed/boxed.svelte';
 	import CardMakerCard from './components/card-maker-card.svelte';
 	import Textarea from '@components/forms/textarea.svelte';
-	import Select from '@components/forms/select.svelte';
 	import ImageHttpService from '@services/image.service';
 	import CardTypeSelector from './components/card-type-selector.svelte';
+	import { onMount } from 'svelte';
 	let activeTab = 'data';
 
 	let card: any = {
@@ -34,14 +34,30 @@
 		const downloadableImg = document.getElementById('downloabable-image');
 
 		if (domtoimage && downloadableImg) {
-			domtoimage.toPng(downloadableImg).then((dataUrl: string) => {
+			var scale = 2;
+			domtoimage.toBlob(downloadableImg, {
+				width: downloadableImg.clientWidth * scale,
+				height: downloadableImg.clientHeight * scale,
+				style: {
+				transform: 'scale('+scale+')',
+				transformOrigin: 'top left'
+				}
+			}).then((blob: Blob) => {
 				const link = document.createElement('a');
 				link.download = `${card.deckName}.png`;
-				link.href = dataUrl;
+				link.href = URL.createObjectURL(blob);
 				document.body.appendChild(link);
 				link.click();
 				link.remove();
 			});
+			// domtoimage.toPng(downloadableImg).then((dataUrl: string) => {
+			// 	const link = document.createElement('a');
+			// 	link.download = `${card.deckName}.png`;
+			// 	link.href = dataUrl;
+			// 	document.body.appendChild(link);
+			// 	link.click();
+			// 	link.remove();
+			// });
 		}
 	};
 
@@ -50,6 +66,22 @@
 		const blob = await ImageHttpService.get(imageURL);
 		card.imageUrl = URL.createObjectURL(blob);
 	}
+
+	onMount(() => {
+		const imageContainer = document.querySelector('.unmatched-card-container .card-image-wrapper-container');
+		console.log({ imageContainer });
+		if (imageContainer) {
+			imageContainer.addEventListener('dragstart', (ev => {
+				console.log('dragging has started');
+			}));
+			imageContainer.addEventListener('dragend', (ev => {
+				console.log('dragging has ended');
+			}));
+			
+		}
+
+		
+	});
 </script>
 
 <div class="flex column gap">

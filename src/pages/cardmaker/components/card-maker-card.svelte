@@ -25,7 +25,7 @@
 
 	</script>
 
-<div bind:this={component} role="presentation" class="zoom-box">
+<div bind:this={component} role="presentation" class="zoom-box unmatched-card-container">
 	<div style="transform: scale(1); transform-origin: left top;">
 		<div
 			data-v-d8d5fac2=""
@@ -35,7 +35,7 @@
 			<div data-v-d8d5fac2="" class="main-wrapper">
 				<div
 					data-v-d8d5fac2=""
-					class="inner-top"
+					class="inner-top card-image-wrapper-container"
 					style="background-image: url('{card.imageUrl ||
 						initialCardValues.imageUrl}'); background-repeat: no-repeat; background-size: cover; background-position: center center;"
 				/>
