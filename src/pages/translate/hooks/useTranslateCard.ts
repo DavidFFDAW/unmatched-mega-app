@@ -1,5 +1,8 @@
 import { get, writable } from 'svelte/store';
-import { downloadPngFromElement } from '../../../services/dom.screenshot.service';
+import {
+	downloadPngFromElement,
+	downloadScaledVersionOfElement
+} from '../../../services/dom.screenshot.service';
 import { initialTranslateCard, type CardEffectTemplate } from '../translate-cards.model';
 
 export const cardData = writable(initialTranslateCard);
@@ -54,16 +57,26 @@ const setCharacterNameHeight = (event: Event) => {
 const downloadCard = () => {
 	const storedCard = get(cardData);
 
-	return downloadPngFromElement(
+	return downloadScaledVersionOfElement(
 		document.getElementById('unmatchedCard'),
-		`${storedCard.name}-unmatched-${storedCard.title.toLowerCase().replace(/ /g, '-')}`
+		`${storedCard.name}-unmatched-${storedCard.title.toLowerCase().replace(/ /g, '-')}`,
+		3
 	);
+
+	// return downloadPngFromElement(
+	// 	document.getElementById('unmatchedCard'),
+	// 	`${storedCard.name}-unmatched-${storedCard.title.toLowerCase().replace(/ /g, '-')}`
+	// );
 };
 
 const setCardTemplate = (templateCard: CardEffectTemplate) => {
 	return cardData.update((card) => {
 		const realCharacter = templateCard.character || card.character;
-		const hasLine = Boolean(templateCard.inmediate) || Boolean(templateCard.during) || Boolean(templateCard.after) || Boolean(templateCard.rayito);
+		const hasLine =
+			Boolean(templateCard.inmediate) ||
+			Boolean(templateCard.during) ||
+			Boolean(templateCard.after) ||
+			Boolean(templateCard.rayito);
 		return {
 			...card,
 			title: templateCard.label,
@@ -73,8 +86,8 @@ const setCardTemplate = (templateCard: CardEffectTemplate) => {
 			inmediate: templateCard.inmediate,
 			during: templateCard.during,
 			after: templateCard.after,
-			rayito: templateCard.rayito,
-			};
+			rayito: templateCard.rayito
+		};
 	});
 };
 
@@ -96,19 +109,19 @@ export const functions = {
 	downloadCard,
 	setCardTemplate,
 	emptyEffects,
-	setHorizontalLeftCharacter: (event: Event) => { 
+	setHorizontalLeftCharacter: (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		const value = target.value;
-		
+
 		cardData.update((data) => {
 			data.horizontalLeftCharacter = Number(value);
 			return data;
 		});
 	},
-	setEffectSpaceWidth: (event: Event) => { 
+	setEffectSpaceWidth: (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		const value = target.value;
-		
+
 		cardData.update((data) => {
 			data.effectSpaceWidth = Number(value);
 			return data;
