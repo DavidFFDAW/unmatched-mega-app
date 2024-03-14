@@ -13,20 +13,22 @@
 <div class="flex column gap">
 	<div class="flex start gap astart flex-responsive">
 		<div>
-			<div class="flex center acenter" id={downloadID}>
-				<CardBack src={$cardBackState.image} bgPosition={$cardBackState.backgroundPosition}>
-					<UnmatchedLogoSvg
-						bind:lettersColor={$cardBackState.letters}
-						bind:backgroundColor={$cardBackState.background}
-					/>
-					<div class="internal-border-line" style={`border-color: ${$cardBackState.border}`} />
-					<div
-						class="flex end internal-text league upper"
-						style={`color: ${$cardBackState.border}`}
-					>
-						{$cardBackState.deck}
-					</div>
-				</CardBack>
+			<div id={downloadID}>
+				<div class="flex center acenter">
+					<CardBack src={$cardBackState.image} bgPosition={$cardBackState.backgroundPosition}>
+						<UnmatchedLogoSvg
+							bind:lettersColor={$cardBackState.letters}
+							bind:backgroundColor={$cardBackState.background}
+						/>
+						<div class="internal-border-line" style={`border-color: ${$cardBackState.border}`} />
+						<div
+							class="flex end internal-text league upper"
+							style={`color: ${$cardBackState.border}`}
+						>
+							{$cardBackState.deck}
+						</div>
+					</CardBack>
+				</div>
 			</div>
 
 			<div class="w1 form-item down">

@@ -21,7 +21,7 @@ export const downloadImage = () => {
 
 	return downloadScaledVersionOfElement(
 		document.getElementById(downloadID),
-		`${stored.deck}-card-back`,
-		3
+		`${stored.deck}-card-back.png`,
+		2
 	);
 };
