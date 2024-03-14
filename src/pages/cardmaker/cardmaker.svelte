@@ -43,16 +43,15 @@
 	}
 
 	onMount(() => {
-		const imageContainer = document.querySelector(
+		const imageContainer: HTMLDivElement | null = document.querySelector(
 			'.unmatched-card-container .card-image-wrapper-container'
 		);
-		console.log({ imageContainer });
+		console.log({ imageContainer, style: imageContainer?.style });
+
 		if (imageContainer) {
-			imageContainer.addEventListener('dragstart', (ev) => {
-				console.log('dragging has started');
-			});
-			imageContainer.addEventListener('dragend', (ev) => {
-				console.log('dragging has ended');
+			// drag background image within container but each time it can be different
+			console.log({
+				size: imageContainer.getBoundingClientRect()
 			});
 		}
 	});
