@@ -11,6 +11,7 @@
 	import ImageHttpService from '@services/image.service';
 	import CardTypeSelector from './components/card-type-selector.svelte';
 	import { onMount } from 'svelte';
+	import { downloadScaledVersionOfElement } from '@services/dom.screenshot.service';
 	let activeTab = 'data';
 
 	let card: any = {
@@ -32,33 +33,7 @@
 		e.preventDefault();
 
 		const downloadableImg = document.getElementById('downloabable-image');
-
-		if (domtoimage && downloadableImg) {
-			var scale = 2;
-			domtoimage.toBlob(downloadableImg, {
-				width: downloadableImg.clientWidth * scale,
-				height: downloadableImg.clientHeight * scale,
-				style: {
-				transform: 'scale('+scale+')',
-				transformOrigin: 'top left'
-				}
-			}).then((blob: Blob) => {
-				const link = document.createElement('a');
-				link.download = `${card.deckName}.png`;
-				link.href = URL.createObjectURL(blob);
-				document.body.appendChild(link);
-				link.click();
-				link.remove();
-			});
-			// domtoimage.toPng(downloadableImg).then((dataUrl: string) => {
-			// 	const link = document.createElement('a');
-			// 	link.download = `${card.deckName}.png`;
-			// 	link.href = dataUrl;
-			// 	document.body.appendChild(link);
-			// 	link.click();
-			// 	link.remove();
-			// });
-		}
+		return downloadScaledVersionOfElement(downloadableImg, `${card.deckName}.png`, 3);
 	};
 
 	async function changeImage(e: Event) {
@@ -68,19 +43,18 @@
 	}
 
 	onMount(() => {
-		const imageContainer = document.querySelector('.unmatched-card-container .card-image-wrapper-container');
+		const imageContainer = document.querySelector(
+			'.unmatched-card-container .card-image-wrapper-container'
+		);
 		console.log({ imageContainer });
 		if (imageContainer) {
-			imageContainer.addEventListener('dragstart', (ev => {
+			imageContainer.addEventListener('dragstart', (ev) => {
 				console.log('dragging has started');
-			}));
-			imageContainer.addEventListener('dragend', (ev => {
+			});
+			imageContainer.addEventListener('dragend', (ev) => {
 				console.log('dragging has ended');
-			}));
-			
+			});
 		}
-
-		
 	});
 </script>
 

@@ -16,6 +16,29 @@ export function getPngFromElement(element: HTMLElement | null): Promise<string> 
 	});
 }
 
+export async function downloadScaledVersionOfElement(
+	element: HTMLElement | null,
+	name: string,
+	scale: number
+) {
+	if (!element) return false;
+	const image = await domtoimage.toBlob(element, {
+		width: element.clientWidth * scale,
+		height: element.clientHeight * scale,
+		style: {
+			transform: 'scale(' + scale + ')',
+			transformOrigin: 'top left'
+		}
+	});
+
+	const link = document.createElement('a');
+	link.download = name;
+	link.href = URL.createObjectURL(image);
+	document.body.appendChild(link);
+	link.click();
+	link.remove();
+}
+
 export function getSimplePngFromElement(element: HTMLElement | null): Promise<string> {
 	if (!element) return Promise.reject('No element found');
 	return domtoimage.toPng(element);

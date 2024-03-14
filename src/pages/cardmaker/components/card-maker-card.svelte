@@ -22,8 +22,7 @@
 	export let width: number = 63;
 	export let height: number = 88;
 	let cantonAdjust = 0;
-
-	</script>
+</script>
 
 <div bind:this={component} role="presentation" class="zoom-box unmatched-card-container">
 	<div style="transform: scale(1); transform-origin: left top;">
@@ -402,7 +401,7 @@
 		font-family: League Gothic, sans-serif;
 		border-left: 0.2mm solid #fff;
 		padding-left: 0.5mm;
-		padding-top: 0.7mm;
+		/* padding-top: 0.7mm; */
 		margin-left: 0.5mm;
 	}
 	.um-invisible[data-v-d8d5fac2] {
