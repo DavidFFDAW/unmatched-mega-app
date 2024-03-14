@@ -306,15 +306,15 @@
 		border-bottom: 1px solid #fff;
 		height: 1px;
 	}
-	.unmatched.card .inner .card-deck-footer {
+	/* .unmatched.card .inner .card-deck-footer {
 		color: #fff;
 		position: absolute;
 		bottom: 5px;
 		right: 11px;
 		/* font-size: 1.8mm; */
-		font-size: 2.2mm;
-		/* padding: 2mm 3mm 1mm; */
-	}
+	/* font-size: 2.2mm; */
+	/* padding: 2mm 3mm 1mm; */
+	/* } */
 	.unmatched.card .inner .card-deck-footer p,
 	.unmatched.card .inner .card-deck-footer span {
 		font-weight: 400;
