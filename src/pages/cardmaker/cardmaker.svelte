@@ -9,7 +9,7 @@
 	import CardTypeSelector from './components/card-type-selector.svelte';
 	import { onMount } from 'svelte';
 	import { downloadScaledVersionOfElement } from '@services/dom.screenshot.service';
-	import { getBackgroundS } from './hooks/cardmaker';
+	import { getBackgroundS, getMovement } from './hooks/cardmaker';
 	let activeTab = 'data';
 	let isDragging = false;
 
@@ -34,7 +34,7 @@
 			isDragging = value;
 		};
 	}
-	
+
 	const downloadImage = (e: Event) => {
 		e.preventDefault();
 
@@ -58,35 +58,18 @@
 			imageContainer.addEventListener('mouseup', setDragging(false));
 			imageContainer.addEventListener('mouseleave', setDragging(false));
 			imageContainer.addEventListener('mousemove', (e: MouseEvent) => {
-        			e.preventDefault();
+				e.preventDefault();
 
 				if (isDragging) {
-					// move background image within container with mouse but not to mouse coords
-
-					console.log(' +---------COSA---------+');
-
-					const { clientX, clientY } = e as MouseEvent;
-					const { top, left, width, height } = imageContainer.getBoundingClientRect();
 					const currentPosition = {
 						x: getBackgroundS(imageContainer.style.backgroundPositionX),
-						y: getBackgroundS(imageContainer.style.backgroundPositionY),
+						y: getBackgroundS(imageContainer.style.backgroundPositionY)
 					};
-
-					console.table({
-						x: width / clientX,
-						y: height / clientY,
-					});
-					
-
-					const summedX = currentPosition.x + e.movementX * clientX;
-					const summedY = currentPosition.y + e.movementY * clientY;
+					const summedX = currentPosition.x + e.movementX;
+					// const summedY = currentPosition.y + e.movementY;
 
 					imageContainer.style.backgroundPositionX = `${summedX}px`;
-					imageContainer.style.backgroundPositionY = `${summedY}px`;
-
-					console.log(' +----------------------+');
-					console.log('');
-					
+					// imageContainer.style.backgroundPositionY = `${summedY}px`;
 				}
 			});
 		}
@@ -95,7 +78,7 @@
 			imageContainer?.removeEventListener('mousedown', setDragging(true));
 			imageContainer?.removeEventListener('mouseup', setDragging(false));
 			imageContainer?.removeEventListener('mouseleave', setDragging(false));
-			imageContainer?.removeEventListener('mousemove', mouseOver(isDragging, imageContainer));
+			// imageContainer?.removeEventListener('mousemove', mouseOver(isDragging, imageContainer));
 		};
 	});
 </script>
@@ -139,7 +122,7 @@
 			</form>
 		</Boxed>
 		<div id="unmatched-translate-card">
-			<div id="downloabable-image">
+			<div id="downloabable-image" class="card-position-zero">
 				<CardMakerCard {card} />
 			</div>
 			<div class="flex center acenter" style="margin-top: 10px">

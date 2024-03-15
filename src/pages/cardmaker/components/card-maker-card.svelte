@@ -34,9 +34,9 @@
 			<div data-v-d8d5fac2="" class="main-wrapper">
 				<div
 					data-v-d8d5fac2=""
-					class="inner-top card-image-wrapper-container"
+					class="inner-top card-image-wrapper-container background-zero"
 					style="background-image: url('{card.imageUrl ||
-						initialCardValues.imageUrl}'); background-repeat: no-repeat; background-size: cover; background-position: center center;"
+						initialCardValues.imageUrl}'); background-repeat: no-repeat; background-size: cover;"
 				/>
 				<div data-v-d8d5fac2="" class="upper-left">
 					<svg data-v-d8d5fac2="" width="100%" height="100%" viewBox="0 0 10.8 47"

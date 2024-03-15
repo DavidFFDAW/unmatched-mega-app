@@ -37,7 +37,6 @@ body.dark-background {
 
 main.app-main {
 	overflow-x: hidden;
-
 }
 
 .fff {
@@ -530,13 +529,15 @@ a {
 	width: 150px;
 }
 .link .download h2,
-.link .tuckboxes h2
- {
+.link .tuckboxes h2 {
 	margin-top: 20px;
 }
 
 .landing-link-image.cards {
 	width: 225px;
+}
+.main-wrapper .card-image-wrapper-container.background-zero.inner-top {
+	background-position: 0 0;
 }
 
 .landing-link-image.printer {
@@ -657,7 +658,7 @@ dialog[open] {
 	.mobile-only {
 		display: block;
 	}
-	
+
 	.flex-responsive {
 		align-items: center;
 		flex-direction: column;

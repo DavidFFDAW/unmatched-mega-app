@@ -1,6 +1,11 @@
 export const getBackgroundS = (s: string) => {
-    if (s === 'center') return 0;
-    return Number(s.replace('px', '').replace('%', ''));
+	if (s === 'center') return 0;
+	return Number(s.replace('px', '').replace('%', ''));
+};
+
+export const getMovement = (movement: number) => {
+	if (movement === 0) return 1;
+	return movement;
 };
 
 // export const mouseOver = (imageContainer: HTMLDivElement) => {
