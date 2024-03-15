@@ -1,7 +1,4 @@
 <script lang="ts">
-	import domtoimage from 'dom-to-image';
-	// import UnmatchedRealCard from '@components/unmatched-real-card.svelte';
-	// import InputNumberControls from '@components/forms/input-number-controls.svelte';
 	import Input from '@components/forms/input.svelte';
 	import ButtonFill from '@components/buttons/button-fill.svelte';
 	import ButtonFile from '@components/buttons/button-file.svelte';
@@ -12,7 +9,9 @@
 	import CardTypeSelector from './components/card-type-selector.svelte';
 	import { onMount } from 'svelte';
 	import { downloadScaledVersionOfElement } from '@services/dom.screenshot.service';
+	import { getBackgroundS } from './hooks/cardmaker';
 	let activeTab = 'data';
+	let isDragging = false;
 
 	let card: any = {
 		title: 'Finta',
@@ -29,6 +28,13 @@
 		type: 'attack'
 	};
 
+	export function setDragging(value: boolean) {
+		return (event: Event) => {
+			event.preventDefault();
+			isDragging = value;
+		};
+	}
+	
 	const downloadImage = (e: Event) => {
 		e.preventDefault();
 
@@ -46,14 +52,51 @@
 		const imageContainer: HTMLDivElement | null = document.querySelector(
 			'.unmatched-card-container .card-image-wrapper-container'
 		);
-		console.log({ imageContainer, style: imageContainer?.style });
 
 		if (imageContainer) {
-			// drag background image within container but each time it can be different
-			console.log({
-				size: imageContainer.getBoundingClientRect()
+			imageContainer.addEventListener('mousedown', setDragging(true));
+			imageContainer.addEventListener('mouseup', setDragging(false));
+			imageContainer.addEventListener('mouseleave', setDragging(false));
+			imageContainer.addEventListener('mousemove', (e: MouseEvent) => {
+        			e.preventDefault();
+
+				if (isDragging) {
+					// move background image within container with mouse but not to mouse coords
+
+					console.log(' +---------COSA---------+');
+
+					const { clientX, clientY } = e as MouseEvent;
+					const { top, left, width, height } = imageContainer.getBoundingClientRect();
+					const currentPosition = {
+						x: getBackgroundS(imageContainer.style.backgroundPositionX),
+						y: getBackgroundS(imageContainer.style.backgroundPositionY),
+					};
+
+					console.table({
+						x: width / clientX,
+						y: height / clientY,
+					});
+					
+
+					const summedX = currentPosition.x + e.movementX * clientX;
+					const summedY = currentPosition.y + e.movementY * clientY;
+
+					imageContainer.style.backgroundPositionX = `${summedX}px`;
+					imageContainer.style.backgroundPositionY = `${summedY}px`;
+
+					console.log(' +----------------------+');
+					console.log('');
+					
+				}
 			});
 		}
+
+		return () => {
+			imageContainer?.removeEventListener('mousedown', setDragging(true));
+			imageContainer?.removeEventListener('mouseup', setDragging(false));
+			imageContainer?.removeEventListener('mouseleave', setDragging(false));
+			imageContainer?.removeEventListener('mousemove', mouseOver(isDragging, imageContainer));
+		};
 	});
 </script>
 
