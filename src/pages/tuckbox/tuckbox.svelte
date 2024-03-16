@@ -47,7 +47,11 @@
 	};
 
 	const pixelsToMM = function (element: HTMLElement | null) {
-		if (!element) return;
+		if (!element)
+			return {
+				width: 0,
+				height: 0
+			};
 		const width = parseInt(window.getComputedStyle(element, null).width);
 		const height = parseInt(window.getComputedStyle(element, null).height);
 		const converted = {

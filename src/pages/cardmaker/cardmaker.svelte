@@ -122,7 +122,8 @@
 				<TabBox title="Imagen de carta">
 					<div class="w1 flex column gap-small">
 						<div class="w1 form-item">
-							<div class="w1 flex between aend gap" style="margin-top: 5px;">
+							<div class="w1 flex between aend gap responsive" style="margin-top: 5px;">
+								<ButtonFile bind:image={card.imageUrl} label="Subir carta" />
 								<Input
 									type="url"
 									name="image"
@@ -131,18 +132,12 @@
 									bind:value={card.imageUrl}
 								/>
 
-								<div class="w1">
-									<ButtonFile bind:image={card.imageUrl} label="Subir carta" />
-								</div>
+								<InputNumberControls
+									label="Tamaño de imagen"
+									name="image_bg_sizr"
+									bind:value={card.backgroundSize}
+								/>
 							</div>
-						</div>
-
-						<div class="w1 form-item flex between aend gap">
-							<InputNumberControls
-								label="Tamaño de imagen"
-								name="image_bg_sizr"
-								bind:value={card.backgroundSize}
-							/>
 						</div>
 					</div>
 				</TabBox>
