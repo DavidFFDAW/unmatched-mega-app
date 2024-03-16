@@ -2,6 +2,10 @@
 	import TypeCard from './../../../components/type-card.svelte';
 	import type { DeckCards } from '@models/deck.model';
 
+	interface CardMakerCardProps extends DeckCards {
+		backgroundSize?: number | string;
+	}
+
 	const initialCardValues = {
 		title: '',
 		characterName: '',
@@ -14,9 +18,10 @@
 		duringText: '',
 		afterText: '',
 		quantity: 1,
-		imageUrl: ''
+		imageUrl: '',
+		backgroundSize: 'cover'
 	};
-	export let card: DeckCards = initialCardValues;
+	export let card: CardMakerCardProps = initialCardValues;
 	const editable: boolean = false;
 	let component: HTMLElement;
 	export let width: number = 63;
@@ -36,7 +41,7 @@
 					data-v-d8d5fac2=""
 					class="inner-top card-image-wrapper-container background-zero"
 					style="background-image: url('{card.imageUrl ||
-						initialCardValues.imageUrl}'); background-repeat: no-repeat; background-size: cover;"
+						initialCardValues.imageUrl}'); background-repeat: no-repeat; background-size: {card.backgroundSize}%;"
 				/>
 				<div data-v-d8d5fac2="" class="upper-left">
 					<svg data-v-d8d5fac2="" width="100%" height="100%" viewBox="0 0 10.8 47"

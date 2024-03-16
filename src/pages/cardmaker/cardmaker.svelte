@@ -9,8 +9,10 @@
 	import CardTypeSelector from './components/card-type-selector.svelte';
 	import { onMount } from 'svelte';
 	import { downloadScaledVersionOfElement } from '@services/dom.screenshot.service';
-	import { getBackgroundS, getMovement } from './hooks/cardmaker';
-	let activeTab = 'data';
+	import { getBackgroundS } from './hooks/cardmaker';
+	import TabBox from '@components/boxed/tab-box.svelte';
+	import InputNumberControls from '@components/forms/input-number-controls.svelte';
+	// import CardBackgroundSelector from './components/card-background-selector.svelte';
 	let isDragging = false;
 
 	let card: any = {
@@ -25,6 +27,7 @@
 		quantity: 3,
 		imageUrl: '',
 		deckName: 'Bigfoot',
+		backgroundSize: 100,
 		type: 'attack'
 	};
 
@@ -48,6 +51,24 @@
 		card.imageUrl = URL.createObjectURL(blob);
 	}
 
+	const onMouseOver = (imageContainer: HTMLDivElement) => {
+		return (e: MouseEvent) => {
+			e.preventDefault();
+
+			if (isDragging) {
+				const currentPosition = {
+					x: getBackgroundS(imageContainer.style.backgroundPositionX),
+					y: getBackgroundS(imageContainer.style.backgroundPositionY)
+				};
+				const summedX = currentPosition.x + e.movementX;
+				const summedY = currentPosition.y + e.movementY;
+
+				imageContainer.style.backgroundPositionX = `${summedX}px`;
+				imageContainer.style.backgroundPositionY = `${summedY}px`;
+			}
+		};
+	};
+
 	onMount(() => {
 		const imageContainer: HTMLDivElement | null = document.querySelector(
 			'.unmatched-card-container .card-image-wrapper-container'
@@ -57,68 +78,74 @@
 			imageContainer.addEventListener('mousedown', setDragging(true));
 			imageContainer.addEventListener('mouseup', setDragging(false));
 			imageContainer.addEventListener('mouseleave', setDragging(false));
-			imageContainer.addEventListener('mousemove', (e: MouseEvent) => {
-				e.preventDefault();
-
-				if (isDragging) {
-					const currentPosition = {
-						x: getBackgroundS(imageContainer.style.backgroundPositionX),
-						y: getBackgroundS(imageContainer.style.backgroundPositionY)
-					};
-					const summedX = currentPosition.x + e.movementX;
-					// const summedY = currentPosition.y + e.movementY;
-
-					imageContainer.style.backgroundPositionX = `${summedX}px`;
-					// imageContainer.style.backgroundPositionY = `${summedY}px`;
-				}
-			});
+			imageContainer.addEventListener('mousemove', onMouseOver(imageContainer));
 		}
 
 		return () => {
 			imageContainer?.removeEventListener('mousedown', setDragging(true));
 			imageContainer?.removeEventListener('mouseup', setDragging(false));
 			imageContainer?.removeEventListener('mouseleave', setDragging(false));
-			// imageContainer?.removeEventListener('mousemove', mouseOver(isDragging, imageContainer));
+			imageContainer?.removeEventListener('mousemove', onMouseOver(imageContainer));
 		};
 	});
 </script>
 
 <div class="flex column gap">
-	<div
-		class="flex center astart gap flex-responsive-reverse flex-responsive-align-center"
-		data-active-tab={activeTab}
-	>
+	<div class="flex center astart gap flex-responsive-reverse flex-responsive-align-center">
 		<Boxed title="Datos de carta">
-			<form class="flex center astart column gap-smaller responsive">
+			<form class="flex center astart column gap-small responsive">
 				<CardTypeSelector bind:type={card.type} />
-				<div class="w1 flex between aend gap">
-					<Input label="Nombre del mazo" name="deck_name" bind:value={card.deckName} />
-					<Input label="Título de carta" name="card_title" bind:value={card.title} />
-				</div>
-				<div class="w1 flex between aend gap">
-					<Input label="Personaje" name="character" bind:value={card.characterName} />
-					<Input type="number" label="Cantidad" name="qty" bind:value={card.quantity} />
-				</div>
-				<div class="w1 flex between aend gap">
-					<Input type="number" label="Valor Potenciador" name="boost" bind:value={card.boost} />
-					<Input type="number" label="Valor de carta" name="value" bind:value={card.value} />
-				</div>
 
-				<div class="w1 form-item">
-					<div class="w1 flex between aend gap" style="margin-top: 5px;">
-						<Input
-							type="url"
-							name="image"
-							onchange={changeImage}
-							label="Imagen de carta"
-							bind:value={card.imageUrl}
-						/>
+				<TabBox title="Personaje y carta">
+					<div class="w1 flex column gap-small">
+						<div class="w1 flex between aend gap">
+							<Input label="Nombre del mazo" name="deck_name" bind:value={card.deckName} />
+							<Input label="Título de carta" name="card_title" bind:value={card.title} />
+						</div>
 
-						<div class="w1">
-							<ButtonFile bind:image={card.imageUrl} label="Subir carta" />
+						<div class="w1 flex between aend gap">
+							<Input label="Personaje" name="character" bind:value={card.characterName} />
+							<Input type="number" label="Cantidad" name="qty" bind:value={card.quantity} />
 						</div>
 					</div>
-				</div>
+				</TabBox>
+
+				<TabBox title="Valores de carta">
+					<div class="w1 flex column gap-small">
+						<div class="w1 flex between aend gap">
+							<Input type="number" label="Valor Potenciador" name="boost" bind:value={card.boost} />
+							<Input type="number" label="Valor de carta" name="value" bind:value={card.value} />
+						</div>
+					</div>
+				</TabBox>
+
+				<TabBox title="Imagen de carta">
+					<div class="w1 flex column gap-small">
+						<div class="w1 form-item">
+							<div class="w1 flex between aend gap" style="margin-top: 5px;">
+								<Input
+									type="url"
+									name="image"
+									onchange={changeImage}
+									label="Imagen de carta"
+									bind:value={card.imageUrl}
+								/>
+
+								<div class="w1">
+									<ButtonFile bind:image={card.imageUrl} label="Subir carta" />
+								</div>
+							</div>
+						</div>
+
+						<div class="w1 form-item flex between aend gap">
+							<InputNumberControls
+								label="Tamaño de imagen"
+								name="image_bg_sizr"
+								bind:value={card.backgroundSize}
+							/>
+						</div>
+					</div>
+				</TabBox>
 			</form>
 		</Boxed>
 		<div id="unmatched-translate-card">

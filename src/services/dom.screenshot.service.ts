@@ -16,6 +16,19 @@ export function getPngFromElement(element: HTMLElement | null): Promise<string> 
 	});
 }
 
+export async function getScaledVersionElement(element: HTMLElement | null, scale: number) {
+	if (!element) return false;
+
+	return await domtoimage.toPng(element, {
+		width: element.clientWidth * scale,
+		height: element.clientHeight * scale,
+		style: {
+			transform: 'scale(' + scale + ')',
+			transformOrigin: 'top left'
+		}
+	});
+}
+
 export async function downloadScaledVersionOfElement(
 	element: HTMLElement | null,
 	name: string,

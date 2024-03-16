@@ -1,7 +1,10 @@
 <script lang="ts">
 	import ButtonFill from '@components/buttons/button-fill.svelte';
 	import Input from '@components/forms/input.svelte';
-	import { getSimplePngFromElement } from '@services/dom.screenshot.service';
+	import {
+		getScaledVersionElement,
+		getSimplePngFromElement
+	} from '@services/dom.screenshot.service';
 	import { onMount } from 'svelte';
 	import { TuckboxPdfService } from './tuckbox.pdf.service';
 	import ColorPicker from '@components/colorpicker/color-picker.svelte';
@@ -43,15 +46,30 @@
 		tuckboxContainer && tuckboxContainer.style.setProperty('--bg-color', ev.target.value);
 	};
 
+	const pixelsToMM = function (element: HTMLElement | null) {
+		if (!element) return;
+		const width = parseInt(window.getComputedStyle(element, null).width);
+		const height = parseInt(window.getComputedStyle(element, null).height);
+		const converted = {
+			width: Math.floor(width * 0.264583),
+			height: Math.floor(height * 0.264583)
+		};
+
+		return converted;
+	};
+
 	const downloadTuckbox = async () => {
 		// const tuckboxImage = await getPngFromElement(document.getElementById('tuckbox-container'));
-		const tuckboxImage = await getSimplePngFromElement(
-			document.getElementById('tuckbox-container')
-		);
+		// const tuckboxImage = await getSimplePngFromElement(
+		// 	document.getElementById('tuckbox-container')
+		// );
+		const element = document.getElementById('tuckbox-container');
+		const tuckboxImage = await getScaledVersionElement(element, 3);
+		if (!tuckboxImage) return;
 
 		const pdf = new TuckboxPdfService({
-			tuckbox: tuckboxImage,
-			deckName
+			sizes: pixelsToMM(element),
+			tuckbox: tuckboxImage
 		});
 
 		const output = pdf.generatePDF();
