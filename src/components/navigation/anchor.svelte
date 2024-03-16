@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import type { Navigation, Submenu } from '@src/constants';
+	import type { MenuNavigation, Submenu } from '@src/constants';
 	export let hasSubmenu: boolean = false;
-	export let link: Navigation;
+	export let link: MenuNavigation;
 	export let submenu: Submenu[] = [];
 </script>
 
