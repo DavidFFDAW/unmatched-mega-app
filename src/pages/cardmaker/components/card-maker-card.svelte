@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import TypeCard from './../../../components/type-card.svelte';
 	import type { DeckCards } from '@models/deck.model';
 
@@ -27,6 +28,29 @@
 	export let width: number = 63;
 	export let height: number = 88;
 	let cantonAdjust = 0;
+
+	const resizeCanton = function () {
+		if (!component) return;
+		const characterName: HTMLElement | null = component.querySelector('.character-name');
+		if (!characterName) return;
+		const width = characterName?.scrollWidth;
+
+		if (width) {
+			const cantonHeight = component.querySelector('.upper-left')?.scrollHeight || 0;
+
+			const mmToPixels = 47 / cantonHeight;
+			const newAdjust = -22.1 + width * mmToPixels;
+			if (newAdjust <= 0) {
+				characterName.style['transform'] = `rotate(-90deg) scaleX(1)`;
+				cantonAdjust = -22.1 + width * mmToPixels + 1;
+			} else {
+				cantonAdjust = 0;
+				characterName.style['transform'] = `rotate(-90deg) scaleX(${90 / width})`;
+			}
+		}
+	};
+
+	$: card.characterName, resizeCanton();
 </script>
 
 <div bind:this={component} role="presentation" class="zoom-box unmatched-card-container">
