@@ -42,7 +42,7 @@
 			const newAdjust = -22.1 + width * mmToPixels;
 			if (newAdjust <= 0) {
 				characterName.style['transform'] = `rotate(-90deg) scaleX(1)`;
-				cantonAdjust = -22.1 + width * mmToPixels + 1;
+				cantonAdjust = -22.1 + width * mmToPixels + 2;
 			} else {
 				cantonAdjust = 0;
 				characterName.style['transform'] = `rotate(-90deg) scaleX(${90 / width})`;
