@@ -13,7 +13,7 @@
 	const classCss = `btn button fill input file pointer ${className}`;
 </script>
 
-<button class="{classCss}">
+<button class="{classCss}" type="button" aria-label={label}>
 	<label for={name}> {label}</label>
 	<input type="file" {name} id={name} on:change={uploadImage} />
 </button>

@@ -25,6 +25,9 @@
 		<div class="desktop-only">
 			Powered by <a target="_blank" href="https://svelte.dev">Svelte</a>
 		</div>
+		<div class="desktop-only">
+			Version: <a href="#versioning" class="version">2.1.0</a>
+		</div>
 		<div><a href="/privacy">Política de privacidad</a></div>
 		<div><a href="/terms">Términos y condiciones</a></div>
 	</footer>

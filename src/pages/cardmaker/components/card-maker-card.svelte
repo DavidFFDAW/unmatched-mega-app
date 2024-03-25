@@ -216,7 +216,7 @@
 	.upper-left {
 		position: absolute;
 		width: 10.8mm;
-		height: 47mm;
+		height: 47.5mm;
 		border-top-left-radius: 1.5mm;
 		overflow: hidden;
 	}

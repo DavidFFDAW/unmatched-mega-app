@@ -124,13 +124,13 @@
 						<div class="w1 form-item">
 							<div class="w1 flex between aend gap responsive" style="margin-top: 5px;">
 								<ButtonFile bind:image={card.imageUrl} label="Subir carta" />
-								<Input
+								<!-- <Input
 									type="url"
 									name="image"
 									onchange={changeImage}
 									label="Imagen de carta"
 									bind:value={card.imageUrl}
-								/>
+								/> -->
 
 								<InputNumberControls
 									label="Tamaño de imagen"
